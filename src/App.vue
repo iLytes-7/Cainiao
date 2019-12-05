@@ -1,31 +1,52 @@
 <template>
   <div id="app">
-    <h1 class="metaTitle">{{activeMenu}}</h1>
+    <van-nav-bar
+      class="metaTitle"
+      :title='activeMenu'
+      :left-arrow="show"
+      @click-left="onClickLeft"
+    />
     <router-view/>
   </div>
 </template>
 
 <script>
-export default {
+  export default {
     name: 'App',
+    data() {
+      return {
+        show: true
+      }
+    },
     computed: {
-        activeMenu() {
-            const route = this.$route
-            const {meta, path} = route
-          // if set path, the sidebar will highlight the path you set
-            return meta.title
+      activeMenu() {
+        const route = this.$route
+        const {meta, path} = route
+        if(path === '/'){
+          this.show = false
+        }else {
+          this.show = true
         }
+        // if set path, the sidebar will highlight the path you set
+        return meta.title
+      }
     },
     mounted() {
 
+    },
+    methods: {
+      onClickLeft() {
+        this.$router.go(-1)
+      }
     }
-}
+  }
 </script>
 
 <style>
-  *{
+  * {
     box-sizing: border-box !important;
   }
+
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -35,19 +56,38 @@ export default {
     margin: auto;
   }
 
-  html{
+  html {
     font-size: 10px;
     height: 100%;
     width: 100%;
     background-color: #230F40;
     color: white;
   }
-  iframe .app-header{
+
+  iframe .app-header {
     display: none;
   }
 
   .metaTitle {
-    text-align: center;
+    background-color: #230F40;
+  }
+
+  .van-hairline--bottom::after {
+    border: none;
+  }
+
+  .van-nav-bar__title {
+    color: white;
+    font-size: 2rem;
+  }
+
+  .van-nav-bar .van-icon {
+    color: white;
+    font-size: 2rem;
+  }
+
+  .van-nav-bar__left {
+    left: 0;
   }
 
   .line {
@@ -97,21 +137,26 @@ export default {
       font-size: 25px !important
     }
   }
-  .van-checkbox__icon{
+
+  .van-checkbox__icon {
     font-size: 1rem;
   }
-  .van-checkbox__label{
+
+  .van-checkbox__label {
     line-height: 2.4rem;
     color: #AFACB4;
   }
-  .van-cell:not(:last-child)::after{
+
+  .van-cell:not(:last-child)::after {
     display: none;
   }
-  .van-field__control{
+
+  .van-field__control {
     color: #DFDFDF;
     font-size: 1.4rem;
   }
-  .btn{
+
+  .btn {
     width: 100%;
     text-align: center;
     margin-top: 2rem;
