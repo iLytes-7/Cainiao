@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1 class="title">{{activeMenu}}</h1>
+    <h1 class="metaTitle">{{activeMenu}}</h1>
     <router-view/>
   </div>
 </template>
@@ -12,25 +12,30 @@ export default {
         activeMenu() {
             const route = this.$route
             const {meta, path} = route
-            // if set path, the sidebar will highlight the path you set
+          // if set path, the sidebar will highlight the path you set
             return meta.title
         }
     },
     mounted() {
-        console.log(this.activeMenu);
+
     }
 }
 </script>
 
 <style>
+  *{
+    box-sizing: border-box !important;
+  }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     height: 100%;
+    width: 90%;
+    margin: auto;
   }
 
-  html, body {
+  html{
     font-size: 10px;
     height: 100%;
     width: 100%;
@@ -41,7 +46,7 @@ export default {
     display: none;
   }
 
-  .title {
+  .metaTitle {
     text-align: center;
   }
 
@@ -91,5 +96,25 @@ export default {
     html {
       font-size: 25px !important
     }
+  }
+  .van-checkbox__icon{
+    font-size: 1rem;
+  }
+  .van-checkbox__label{
+    line-height: 2.4rem;
+    color: #AFACB4;
+  }
+  .van-cell:not(:last-child)::after{
+    display: none;
+  }
+  .van-field__control{
+    color: #DFDFDF;
+    font-size: 1.4rem;
+  }
+  .btn{
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+    /*color: rgba(255,255,255,0.3);*/
   }
 </style>

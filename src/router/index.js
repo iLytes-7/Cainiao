@@ -16,9 +16,25 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/components/login'),
+      component: () => import('@/components/login/login'),
       meta:{
         title: '登陆'
+      }
+    },
+    {
+      path: '/forget',
+      name: 'forget',
+      component: () => import('@/components/login/forgetPassword'),
+      meta:{
+        title: '忘记密码'
+      }
+    },
+    {
+      path: '/forget1',
+      name: 'forget1',
+      component: () => import('@/components/login/forgetPassword2'),
+      meta:{
+        title: '忘记密码'
       }
     }
   ]
