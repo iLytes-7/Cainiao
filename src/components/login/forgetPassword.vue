@@ -32,7 +32,7 @@
     },
     methods: {
       next() {
-        this.$router.push({path:"/forget1"})
+        this.$router.push({path:"/login/forget1"})
       }
     }
   }
