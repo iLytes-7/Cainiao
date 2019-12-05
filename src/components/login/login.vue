@@ -20,6 +20,7 @@
         <router-link to="/login/forget">忘记密码</router-link>
       </div>
       <van-button color="#FF6D44" class="btn" @click="login">立即登录</van-button>
+      <router-link class="zhuce" to="/login/registered">免费注册</router-link>
     </div>
   </div>
 </template>
@@ -131,5 +132,10 @@ export default {
     transform: translateY(-50%);
     right: 0;
     color: #AFACB4;
+  }
+  .zhuce{
+    float: right;
+    color: #AFACB4;
+    margin-top: 2rem;
   }
   </style>

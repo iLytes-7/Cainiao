@@ -17,10 +17,10 @@ export default new Router({
     {
       path: '/login',
       name: '',
-      component: () => import('@/components/login/index'),
+      component: () => import('@/components/login'),
       children: [
         {
-          path: '/login/loginView',
+          path: '/login',
           name: 'login',
           component: () => import('@/components/login/login'),
           meta: {
