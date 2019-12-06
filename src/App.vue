@@ -63,6 +63,9 @@
     background-color: #230F40;
     color: white;
   }
+  body{
+    height: 100%;
+  }
 
   iframe .app-header {
     display: none;

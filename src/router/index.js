@@ -15,14 +15,6 @@ export default new Router({
       }
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('@/components/login/login'),
-      meta:{
-        title: '登陆'
-      }
-    },
-    {
       path: '/cuxiao',
       name: 'cuxiao',
       component: () => import('@/components/cuxiao'),
