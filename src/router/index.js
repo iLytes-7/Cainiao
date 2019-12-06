@@ -23,6 +23,22 @@ export default new Router({
       }
     },
     {
+      path: '/transform',
+      name: 'transform',
+      component: () => import('@/components/transform'),
+      meta:{
+        title: '转账'
+      }
+    },
+    {
+      path: '/withdraw',
+      name: 'withdraw',
+      component: () => import('@/components/withdraw'),
+      meta:{
+        title: '提现'
+      }
+    },
+    {
       path:'/login',
       name: '',
       component: () => import('@/components/login'),
