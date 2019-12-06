@@ -9,33 +9,30 @@
              @click="downTask">任务
         </div>
       </div>
-      <transition name="van-fade">
-        <div v-show="ifshow" class="showModel">
+        <div v-show="ifshow">
           <div style="margin-top: 1.4rem;font-size: 1.6rem;color: #AFACB4">快捷筛选</div>
           <div class="kind">
-            <div>
-              电子竞技
-            </div>
-            <div>
-              老虎机
-            </div>
-            <div>
-              VIP优惠
-            </div>
-            <div>
-              体育
-            </div>
-            <div>
-              真人
-            </div>
-            <div>
-              彩票
-            </div>
+            <div>电子竞技</div>
+            <div>老虎机</div>
+            <div>VIP优惠</div>
+            <div>体育</div>
+            <div>真人</div>
+            <div>彩票</div>
             <div style="width: 50%">全部游戏</div>
           </div>
         </div>
-      </transition>
-      <van-collapse v-model="activeNames" class="collapse" accordion>
+      <div v-show="typeShow">
+        <div style="margin-top: 1.4rem;font-size: 1.6rem;color: #AFACB4">快捷筛选</div>
+        <div class="kind">
+          <div>adad</div>
+          <div>dada</div>
+          <div>ad</div>
+          <div>体育</div>
+          <div>真人</div>
+          <div>彩票</div>
+          <div style="width: 50%">全部游戏</div>
+        </div></div>
+      <van-collapse v-model="activeNames" class="collapse" accordion :class="{showModel:!ifshow}">
         <van-collapse-item :name="item" :is-link="false" class="collapseBox" v-for="item in 3" :key="item">
           <div slot="title" class="collapseBox-head">
             <img src="../assets/adv1.jpeg">
@@ -51,7 +48,6 @@
         </van-collapse-item>
       </van-collapse>
     </div>
-
   </div>
 </template>
 
@@ -63,11 +59,13 @@
         showTaskCategory: false,
         show: false,
         ifshow: true,
+        typeShow: false,
         activeNames: ['0']
       }
     },
     methods: {
       downGame() {
+        this.typeShow = false
         this.showGameCategory = !this.showGameCategory
         this.showTaskCategory = false
         this.show = true
@@ -77,6 +75,7 @@
         this.ifshow = false
         this.showTaskCategory = !this.showTaskCategory
         this.showGameCategory = false
+        this.typeShow = !this.typeShow
       },
       apply() {
         this.$toast.success('成功');
@@ -87,8 +86,8 @@
 
 <style >
   .page {
-    width: 98%;
     margin: 0 auto;
+    position: relative;
     padding-bottom: 3rem;
   }
 
@@ -196,6 +195,18 @@
     margin-top: -1px;
     /*-webkit-transform: rotate(135deg);*/
     transform: rotate(135deg);
+  }
+  /*.showModel{*/
+    /*position: absolute;*/
+    /*animation: searchTop .4s linear;*/
+  /*}*/
+  @keyframes searchTop {
+    from{
+      top:18rem;
+    }
+    to{
+      top: 2.1rem;
+    }
   }
 
   .datedown::after {

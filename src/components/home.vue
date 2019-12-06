@@ -1,6 +1,6 @@
 <template>
-  <div style="height: 100%">
-<!--    <van-button @click="showPopup" color="linear-gradient(to right, #4bb0ff, #6149f6)">渐变色按钮</van-button>-->
+  <div class="home"  style="height: 100%">
+    <van-button @click="showPopup" icon="orders-o" color="linear-gradient(to right, #4bb0ff, #6149f6)"></van-button>
     <div class="iframeDiv">
       <iframe id="iframe" src="https://h5.egaming1.com" width="100%" height="100%" frameborder="0"
       ></iframe>
@@ -85,9 +85,13 @@
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
         </div>
         <div>
-          <img src="../assets/cxyh.png" alt=""><span>促销优惠</span>
-          <van-icon name="arrow" size="1.4rem"
-                    style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+          <router-link to="/cuxiao">
+          <img src="../assets/cxyh.png" alt="">
+          <span>
+            促销优惠
+          </span>
+          <van-icon name="arrow" size="1.4rem" style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+          </router-link>
         </div>
         <div>
           <img src="../assets/aqsz.png" alt=""><span>安全设置</span>
@@ -148,7 +152,12 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
+  .home .menu a{
+    display: inline-block;
+    width: 100%;
+    color: white !important;
+  }
   h1, h2 {
     font-weight: normal;
   }
