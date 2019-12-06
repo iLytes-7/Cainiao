@@ -88,6 +88,7 @@
   .page {
     margin: 0 auto;
     position: relative;
+    width: 90%;
     padding-bottom: 3rem;
   }
 

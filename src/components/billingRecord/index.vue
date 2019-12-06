@@ -33,6 +33,11 @@
       </van-dropdown-item>
     </van-dropdown-menu>
     <div class="billList">
+      <div class="billBox">
+        <div class="billTitle">名称</div>
+        <div class="price">金额</div>
+        <div class="type">记录</div>
+      </div>
       <div class="billBox" v-for="item in 20" :key="item">
         <div class="billTitle">T1  王者联盟</div>
         <div class="price">¥ 0.00</div>
@@ -61,7 +66,8 @@
 
 <style scoped>
 .bill{
-
+width: 90%;
+  margin: auto;
 
 }
   .bill .van-hairline--top-bottom::after,.bill .van-hairline-unset--top-bottom::after{
@@ -76,13 +82,13 @@
     color: #AFACB4;
   }
   .billBox .billTitle{
-    width: 60%;
+    width: 55%;
   }
 .billBox .price{
   width: 30%;
 }
 .billBox .type{
-  width: 10%;
+  width: 15%;
   text-align: right;
 }
 .btnGroup{

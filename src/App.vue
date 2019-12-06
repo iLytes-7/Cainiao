@@ -1,11 +1,13 @@
 <template>
   <div id="app">
+    <van-sticky>
     <van-nav-bar
       class="metaTitle"
       :title='activeMenu'
       :left-arrow="show"
       @click-left="onClickLeft"
     />
+    </van-sticky>
     <router-view/>
   </div>
 </template>
@@ -52,7 +54,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     height: 100%;
-    width: 90%;
+    /*width: 90%;*/
     margin: auto;
   }
 
@@ -87,10 +89,6 @@
   .van-nav-bar .van-icon {
     color: white;
     font-size: 2rem;
-  }
-
-  .van-nav-bar__left {
-    left: 0;
   }
 
   .line {
@@ -167,13 +165,21 @@
     /*color: rgba(255,255,255,0.3);*/
   }
   .bill .van-dropdown-menu__title{
+    font-size: 1.4rem;
     color: #AFACB4;
+    line-height: 1.5;
+  }
+  .bill .van-dropdown-menu__title::after{
+    border-width: 0.2rem;
   }
   .bill .van-popup{
     background-color: #291744;
   }
   .bill .van-dropdown-menu__item{
-    width: 25%;
+    width: 26%;
     flex: none;
+  }
+  .bill .van-dropdown-menu{
+    height: 4.5rem;
   }
 </style>
