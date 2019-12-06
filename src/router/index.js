@@ -60,6 +60,37 @@ export default new Router({
           }
         }
       ]
+    },
+    {
+      path:'/bankAccount',
+      name: '',
+      component: () => import('@/components/bankAccounts'),
+      children: [
+        {
+          path: '/bankAccount/bankAccount',
+          name: 'bankAccount',
+          component: () => import('@/components/bankAccounts/accounts'),
+          meta: {
+            title: '银行账户'
+          }
+        },
+        {
+          path: '/bankAccount/addAccount',
+          name: 'addAccount',
+          component: () => import('@/components/bankAccounts/addAccount'),
+          meta: {
+            title: '添加银行账户'
+          }
+        },
+        {
+          path: '/bankAccount/detail',
+          name: 'detail',
+          component: () => import('@/components/bankAccounts/detail'),
+          meta: {
+            title: '查看详情'
+          }
+        }
+      ]
     }
   ]
 })

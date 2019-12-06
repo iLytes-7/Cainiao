@@ -81,7 +81,7 @@
 
   .van-nav-bar__title {
     color: white;
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .van-nav-bar .van-icon {
@@ -163,6 +163,7 @@
     width: 100%;
     text-align: center;
     margin-top: 2rem;
+    font-size: 1.3rem;
     /*color: rgba(255,255,255,0.3);*/
   }
 </style>

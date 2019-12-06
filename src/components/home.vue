@@ -75,9 +75,11 @@
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
         </div>
         <div>
+          <router-link to="/bankAccount/bankAccount">
           <img src="../assets/yhzh.png" alt=""><span>银行账户</span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+          </router-link>
         </div>
         <div>
           <img src="../assets/xxsz.png" alt=""><span>消息设置</span>
@@ -125,7 +127,7 @@
             }
             // this.url = encodeURI(JSON.stringify(data))
 
-            console.log(this.url);
+            // console.log(this.url);
         },
         mounted() {
 
@@ -152,7 +154,7 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
   .home .menu a{
     display: inline-block;
     width: 100%;
@@ -286,7 +288,7 @@
 
   .menu img{
     padding: 0 0.6rem;
-    width: 1.8rem;
+    width: 2.8rem;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

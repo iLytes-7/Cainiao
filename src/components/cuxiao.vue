@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div class="menu">
+    <div class="cuxiao">
       <div class="category">
         <div class="game" v-bind:class="{ active: showGameCategory,'gamedown':showGameCategory }"
              @click="downGame">游戏分类
