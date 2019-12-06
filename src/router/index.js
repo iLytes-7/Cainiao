@@ -107,6 +107,14 @@ export default new Router({
           }
         }
       ]
+    },
+    {
+      path: '/bill',
+      name: 'bill',
+      component: () => import('@/components/billingRecord'),
+      meta:{
+        title: '账户记录'
+      }
     }
   ]
 })

@@ -70,9 +70,11 @@
       </div>
       <div class="menu">
         <div>
+          <router-link to="/bill">
           <img src="../assets/zdjl.png" alt=""><span>账单记录</span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+          </router-link>
         </div>
         <div>
           <router-link to="/bankAccount/bankAccount">

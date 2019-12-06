@@ -166,4 +166,14 @@
     font-size: 1.3rem;
     /*color: rgba(255,255,255,0.3);*/
   }
+  .bill .van-dropdown-menu__title{
+    color: #AFACB4;
+  }
+  .bill .van-popup{
+    background-color: #291744;
+  }
+  .bill .van-dropdown-menu__item{
+    width: 25%;
+    flex: none;
+  }
 </style>
