@@ -31,35 +31,11 @@ export default new Router({
       }
     },
     {
-      path: '/safety-setting',
-      name: 'safety-setting',
-      component: () => import('@/components/safetySetting'),
-      meta:{
-        title: '安全设置'
-      }
-    },
-    {
       path: '/letter',
       name: 'letter',
       component: () => import('@/components/letter'),
       meta:{
         title: '站内信'
-      }
-    },
-    {
-      path: '/test-phone',
-      name: 'test-phone',
-      component: () => import('@/components/testPhoneNum'),
-      meta:{
-        title: '手机号码验证'
-      }
-    },
-    {
-      path: '/real-name',
-      name: 'real-name',
-      component: () => import('@/components/realName'),
-      meta:{
-        title: '真实姓名验证'
       }
     },
     {
@@ -136,6 +112,37 @@ export default new Router({
           component: () => import('@/components/bankAccounts/detail'),
           meta: {
             title: '查看详情'
+          }
+        }
+      ]
+    },
+    {
+      path:'/safety-setting',
+      name: '',
+      component: () => import('@/components/verification'),
+      children: [
+        {
+          path: '/safety-setting/safety-setting',
+          name: 'safety-setting',
+          component: () => import('@/components/verification/safetySetting'),
+          meta:{
+            title: '安全设置'
+          }
+        },
+        {
+          path: '/safety-setting/test-phone',
+          name: 'test-phone',
+          component: () => import('@/components/verification/testPhoneNum'),
+          meta:{
+            title: '手机号码验证'
+          }
+        },
+        {
+          path: '/safety-setting/real-name',
+          name: 'real-name',
+          component: () => import('@/components/verification/realName'),
+          meta:{
+            title: '真实姓名验证'
           }
         }
       ]

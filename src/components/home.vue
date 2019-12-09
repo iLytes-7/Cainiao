@@ -98,9 +98,11 @@
           </router-link>
         </div>
         <div>
+          <router-link to="/safety-setting/safety-setting">
           <img src="../assets/aqsz.png" alt=""><span>安全设置</span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+          </router-link>
         </div>
         <div>
           <img src="../assets/yqpy.png" alt=""><span>邀请朋友</span>

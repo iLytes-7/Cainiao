@@ -162,6 +162,7 @@
     text-align: center;
     margin-top: 2rem;
     font-size: 1.3rem;
+    border-radius: 0.5rem;
     /*color: rgba(255,255,255,0.3);*/
   }
   .bill .van-dropdown-menu__title{

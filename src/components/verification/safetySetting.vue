@@ -1,32 +1,34 @@
 <template>
-  <div style="width: 90%;margin-left: auto;margin-right: auto">
+  <div class="verification" style="width: 90%;margin-left: auto;margin-right: auto">
     <div class="content">
       <div class="info-row">
+        <router-link to="/safety-setting/real-name">
         <div class="info-item">真实姓名验证</div>
         <div style="display: flex;align-items: center">
           <div class="info-status have">已认证</div>
-          <img src="../assets/logo.png" alt="">
+          <van-icon name="arrow"/>
         </div>
+        </router-link>
       </div>
       <div class="info-row">
         <div class="info-item">资金来源证明</div>
         <div style="display: flex;align-items: center">
           <div class="info-status have">已认证</div>
-          <img src="../assets/logo.png">
+          <van-icon name="arrow"/>
         </div>
       </div>
       <div class="info-row">
         <div class="info-item">存款证明</div>
         <div style="display: flex;align-items: center">
           <div class="info-status havenot">未认证</div>
-          <img src="../assets/logo.png">
+          <van-icon name="arrow"/>
         </div>
       </div>
       <div class="info-row">
         <div class="info-item">地址证明</div>
         <div style="display: flex;align-items: center">
           <div class="info-status havenot">未认证</div>
-          <img src="../assets/logo.png">
+          <van-icon name="arrow"/>
         </div>
       </div>
     </div>
@@ -34,17 +36,19 @@
     </div>
     <div class="content" style="margin-top: 0rem;">
       <div class="info-row">
+        <router-link to="/safety-setting/test-phone">
         <div class="info-item">手机号码验证</div>
         <div style="display: flex;align-items: center">
           <div class="info-status havenot">未认证</div>
-          <img src="../assets/logo.png">
+          <van-icon name="arrow"/>
         </div>
+        </router-link>
       </div>
       <div class="info-row">
         <div class="info-item">邮箱验证</div>
         <div style="display: flex;align-items: center">
           <div class="info-status havenot">未认证</div>
-          <img src="../assets/logo.png">
+          <van-icon name="arrow"/>
         </div>
       </div>
     </div>
@@ -55,41 +59,56 @@
         <div class="info-item">登陆密码</div>
         <div style="display: flex;align-items: center">
           <div class="info-status havenot">未认证</div>
-          <img src="../assets/logo.png">
+          <van-icon name="arrow"/>
         </div>
       </div>
       <div class="info-row">
         <div class="info-item">取款密码</div>
         <div style="display: flex;align-items: center">
           <div class="info-status havenot">未认证</div>
-          <img src="../assets/logo.png">
+          <van-icon name="arrow"/>
         </div>
       </div>
     </div>
     <div style="height: 0.7rem;width: 110vw;background-color: #291744;margin-left: -2rem">
     </div>
-    <div class="logout">退出登录</div>
+    <div class="logout" @click="logout">退出登录</div>
     <div style="height: 0.7rem;width: 110vw;background-color: #291744;margin-left: -2rem">
     </div>
   </div>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {}
-        }
+  export default {
+    data() {
+      return {}
+    },
+    methods: {
+      logout() {
+      }
     }
+  }
 </script>
 
 <style scoped>
-  .logout{
+  .verification a{
+    width: 100%;
+    color: white !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3.5rem;
+    line-height: 3rem;
+    border-bottom: solid 1px #291744;
+  }
+  .logout {
     height: 3.5rem;
     line-height: 3.5rem;
     font-size: 1.5rem;
     text-align: center;
     color: #AFACB4;
   }
+
   .content {
     margin-top: 1rem;
     margin-left: auto;
@@ -113,6 +132,7 @@
 
   .info-status {
     font-size: 1.1rem;
+    margin-right: 1rem;
   }
 
   .have {
