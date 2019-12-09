@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 90%;margin-left: auto;margin-right: auto">
     <div class="content">
       <div style="margin-top: 1rem; padding-top: 1rem; margin-left:1rem;font-size: 1.2rem;color: #AFACB4">主钱包</div>
       <div class="input">

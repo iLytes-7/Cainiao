@@ -124,7 +124,7 @@ export default {
     color: #AFACB4;
   }
   .input>div.xuanZe>div{
-    width: 30%;
+    width: 35%;
   }
   .xuanZe>a{
     position: absolute;

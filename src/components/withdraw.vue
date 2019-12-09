@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 90%;margin-left: auto;margin-right: auto">
     <div style="margin-top: 1.5rem;  margin-left:0.3rem;font-size: 1.2rem;color: #AFACB4">到账银行卡</div>
     <div class="content">
       <div class="info">

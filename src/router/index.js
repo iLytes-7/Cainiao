@@ -27,7 +27,39 @@ export default new Router({
       name: 'transform',
       component: () => import('@/components/transform'),
       meta:{
-        title: '转账'
+        title: '玩家中心'
+      }
+    },
+    {
+      path: '/safety-setting',
+      name: 'safety-setting',
+      component: () => import('@/components/safetySetting'),
+      meta:{
+        title: '安全设置'
+      }
+    },
+    {
+      path: '/letter',
+      name: 'letter',
+      component: () => import('@/components/letter'),
+      meta:{
+        title: '站内信'
+      }
+    },
+    {
+      path: '/test-phone',
+      name: 'test-phone',
+      component: () => import('@/components/testPhoneNum'),
+      meta:{
+        title: '手机号码验证'
+      }
+    },
+    {
+      path: '/real-name',
+      name: 'real-name',
+      component: () => import('@/components/realName'),
+      meta:{
+        title: '真实姓名验证'
       }
     },
     {
