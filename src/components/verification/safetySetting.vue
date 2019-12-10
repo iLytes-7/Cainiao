@@ -85,6 +85,7 @@
     },
     methods: {
       logout() {
+        this.$router.push({path: "/login"})
       }
     }
   }

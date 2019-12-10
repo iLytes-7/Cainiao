@@ -4,7 +4,7 @@
     <div class="method">
       <p>充值方式</p>
       <ul>
-        <li @click="selectMethod(index)" v-for="(item,index) in 4" :key="item" :class="{liActive:index===curr}">
+        <li @click="selectMethod(index)" v-for="(item,index) in methodList" :key="index" :class="{liActive:index===curr}">
           <img src="../../assets/xxsz.png" alt="">
           <p>网银转账</p>
         </li>
@@ -12,7 +12,7 @@
       <div class="methodList">
         <van-radio-group v-model="methodRadio">
           <van-cell-group>
-            <van-cell clickable v-for="(item,index) in method"  @click="selectMethodRadio(index)">
+            <van-cell clickable v-for="(item,index) in method" :key="index"  @click="selectMethodRadio(index)">
               <div slot="title" class="methodList-title">
                 <img src="../../assets/xxsz.png" alt="">
                 <span>{{item.name}}</span>
@@ -49,6 +49,7 @@
         amount: 500,
         amountData: [50,100,500,1000,5000],
         methodRadio: 1,
+        methodList: [0,1,2,3],
         method: [],
         method1: [
           {name:'银联云闪付',Limit:'单笔限额￥10-￥100000'},

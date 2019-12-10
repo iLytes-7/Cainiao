@@ -1,5 +1,5 @@
 <template>
-  <div class="home"  style="height: 100%">
+  <div class="home" style="height: 100%">
     <van-button @click="showPopup" icon="orders-o" color="linear-gradient(to right, #4bb0ff, #6149f6)"></van-button>
     <div class="iframeDiv">
       <iframe id="iframe" src="https://h5.egaming1.com" width="100%" height="100%" frameborder="0"
@@ -9,7 +9,7 @@
                position="left"
                :style="{ height: '100%',width:'85%', backgroundColor:'#230F40'}">
       <van-icon name="cross" size="2.2rem" color="#ffffff" class="close" @click="closePopup"/>
-      <div class="top-box">
+      <div class="top-box" @click="goPerson">
         <div class="left-box">
           <img src="../assets/userhead.png" class="headpic">
         </div>
@@ -54,15 +54,15 @@
       </div>
       <div class="mid-box">
         <div @click="recharge">
-          <img src="../assets/chongzhi.png" >
+          <img src="../assets/chongzhi.png">
           <p>充值</p>
         </div>
         <div>
-          <img src="../assets/tixian.png" >
+          <img src="../assets/tixian.png">
           <p>提现</p>
         </div>
         <div>
-          <img src="../assets/zhuanzhang.png" >
+          <img src="../assets/zhuanzhang.png">
           <p>转账</p>
         </div>
       </div>
@@ -71,16 +71,16 @@
       <div class="menu">
         <div>
           <router-link to="/bill">
-          <img src="../assets/zdjl.png" alt=""><span>账单记录</span>
-          <van-icon name="arrow" size="1.4rem"
-                    style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+            <img src="../assets/zdjl.png" alt=""><span>账单记录</span>
+            <van-icon name="arrow" size="1.4rem"
+                      style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
           </router-link>
         </div>
         <div>
           <router-link to="/bankAccount/bankAccount">
-          <img src="../assets/yhzh.png" alt=""><span>银行账户</span>
-          <van-icon name="arrow" size="1.4rem"
-                    style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+            <img src="../assets/yhzh.png" alt=""><span>银行账户</span>
+            <van-icon name="arrow" size="1.4rem"
+                      style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
           </router-link>
         </div>
         <div>
@@ -90,18 +90,19 @@
         </div>
         <div>
           <router-link to="/cuxiao">
-          <img src="../assets/cxyh.png" alt="">
-          <span>
+            <img src="../assets/cxyh.png" alt="">
+            <span>
             促销优惠
           </span>
-          <van-icon name="arrow" size="1.4rem" style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+            <van-icon name="arrow" size="1.4rem"
+                      style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
           </router-link>
         </div>
         <div>
           <router-link to="/safety-setting/safety-setting">
-          <img src="../assets/aqsz.png" alt=""><span>安全设置</span>
-          <van-icon name="arrow" size="1.4rem"
-                    style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+            <img src="../assets/aqsz.png" alt=""><span>安全设置</span>
+            <van-icon name="arrow" size="1.4rem"
+                      style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
           </router-link>
         </div>
         <div>
@@ -116,57 +117,61 @@
 </template>
 
 <script>
-    export default {
-        name: 'HelloWorld',
-        data() {
-            return {
-                show: false,
-                value: 30,
-                url:''
-            }
-        },
-        created(){
-            const data = {
-                ocss:'http://www.fhi365.cn/css/app.cb458893d670b9e7ece80f5cbde06d57.css'
-            }
-            // this.url = encodeURI(JSON.stringify(data))
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        show: false,
+        value: 30,
+        url: ''
+      }
+    },
+    created() {
+      const data = {
+        ocss: 'http://www.fhi365.cn/css/app.cb458893d670b9e7ece80f5cbde06d57.css'
+      }
+      // this.url = encodeURI(JSON.stringify(data))
 
-            // console.log(this.url);
-        },
-        mounted() {
+      // console.log(this.url);
+    },
+    mounted() {
 
-           // window.onload = () =>{
-           //     let test =
-           //         document.getElementById('iframe').contentWindow.document.getElementById('app')
-           //     console.log(test);
-           //     test.style.display = 'none'
-           // }
+      // window.onload = () =>{
+      //     let test =
+      //         document.getElementById('iframe').contentWindow.document.getElementById('app')
+      //     console.log(test);
+      //     test.style.display = 'none'
+      // }
 
-        },
-        methods: {
-            showPopup() {
-                this.show = true;
-            },
-            closePopup() {
-                this.show = false;
-            },
-            onchange(value) {
-                this.value = 30;
-            },
-          recharge() {
-            this.$router.push({path:"/recharge/recharge"})
-          }
-        }
+    },
+    methods: {
+      showPopup() {
+        this.show = true;
+      },
+      closePopup() {
+        this.show = false;
+      },
+      onchange(value) {
+        this.value = 30;
+      },
+      recharge() {
+        this.$router.push({path: "/recharge/recharge"})
+      },
+      goPerson() {
+        this.$router.push({path: "/personal-info"})
+      }
     }
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  .home .menu a{
+  .home .menu a {
     display: inline-block;
     width: 100%;
     color: white !important;
   }
+
   h1, h2 {
     font-weight: normal;
   }
@@ -225,7 +230,7 @@
     flex-direction: row;
   }
 
-  .wallet{
+  .wallet {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -233,16 +238,18 @@
     border-radius: 1rem;
     width: 85%;
     height: 7.5rem;
-    margin:2rem auto;
-    box-shadow:0rem 0.1rem 0.4rem 0rem #FF6D44
+    margin: 2rem auto;
+    box-shadow: 0rem 0.1rem 0.4rem 0rem #FF6D44
   }
-  .wallet div{
+
+  .wallet div {
     position: relative;
     width: 50%;
     text-align: center;
 
   }
-  .wallet>div:first-of-type::after{
+
+  .wallet > div:first-of-type::after {
     position: absolute;
     content: '';
     top: 50%;
@@ -252,48 +259,57 @@
     width: 1px;
     background-color: white;
   }
-  .iframeDiv{
+
+  .iframeDiv {
     /*overflow-scrolling: touch;*/
     /*overflow: scroll;*/
     height: 100%;
     width: 100%;
   }
-  .iframeDiv iframe{
+
+  .iframeDiv iframe {
     width: 100%;
     height: 100%;
   }
-  .mid-box{
+
+  .mid-box {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-top: 2rem;
   }
-  .mid-box div{
+
+  .mid-box div {
     text-align: center;
     flex: 1;
   }
-  .mid-box img{
+
+  .mid-box img {
     width: 3rem;
   }
-  .mid-box p{
+
+  .mid-box p {
     margin-top: 1rem;
   }
-  .menu{
+
+  .menu {
     margin-top: 1rem;
   }
-  .menu>div{
+
+  .menu > div {
     padding: 0.3rem 0;
     position: relative;
     line-height: 4rem;
     height: 4rem;
     width: 100%;
   }
-  .menu span{
+
+  .menu span {
     margin-left: 5rem;
     font-size: 1.3rem;
   }
 
-  .menu img{
+  .menu img {
     padding: 0 0.6rem;
     width: 2.8rem;
     position: absolute;
