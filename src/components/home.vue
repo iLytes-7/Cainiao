@@ -57,11 +57,11 @@
           <img src="../assets/chongzhi.png">
           <p>充值</p>
         </div>
-        <div>
+        <div @click="withdraw">
           <img src="../assets/tixian.png">
           <p>提现</p>
         </div>
-        <div>
+        <div @click="transform">
           <img src="../assets/zhuanzhang.png">
           <p>转账</p>
         </div>
@@ -159,6 +159,12 @@
       },
       goPerson() {
         this.$router.push({path: "/personal-info"})
+      },
+      transform() {
+        this.$router.push({path: "/transform"})
+      },
+      withdraw() {
+        this.$router.push({path: "/withdraw"})
       }
     }
   }
