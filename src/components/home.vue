@@ -53,7 +53,7 @@
       <div class="line">
       </div>
       <div class="mid-box">
-        <div>
+        <div @click="recharge">
           <img src="../assets/chongzhi.png" >
           <p>充值</p>
         </div>
@@ -152,7 +152,10 @@
             },
             onchange(value) {
                 this.value = 30;
-            }
+            },
+          recharge() {
+            this.$router.push({path:"/recharge/recharge"})
+          }
         }
     }
 </script>

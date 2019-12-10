@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 import HelloWorld from '@/components/HelloWorld'
 import registered from  '@/components/login/registered'
 
 Vue.use(Router)
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -148,6 +150,21 @@ export default new Router({
       ]
     },
     {
+      path:'/recharge',
+      name: '',
+      component: () => import('@/components/recharge'),
+      children: [
+        {
+          path: '/recharge/recharge',
+          name: 'recharge',
+          component: () => import('@/components/recharge/recharge'),
+          meta:{
+            title: '充值'
+          }
+        }
+      ]
+    },
+    {
       path: '/bill',
       name: 'bill',
       component: () => import('@/components/billingRecord'),
@@ -157,3 +174,11 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach(function (to,from,next) {//// 全局路由守卫
+  NProgress.start()
+  next();
+  NProgress.done()
+})
+
+export default router
