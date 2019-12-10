@@ -2,27 +2,19 @@
   <div class="page">
     <div class="cuxiao">
       <van-dropdown-menu active-color="#FF6D44" style="background-color: #291744;border-radius: 0 0 1rem 1rem;width: 100vw;margin-left:-5vw;">
-        <van-dropdown-item title="账单类别" ref="type">
+        <van-dropdown-item title="游戏分类" ref="type">
           <p class="filter">快捷筛选</p>
           <div class="btnGroup">
-            <van-button type="default" @click="onConfirm">返还</van-button>
-            <van-button type="default" @click="onConfirm">充值</van-button>
-            <van-button type="default" @click="onConfirm">取款</van-button>
-            <van-button type="default" @click="onConfirm">转账</van-button>
-            <van-button type="default" @click="onConfirm">促销</van-button>
-            <van-button type="default" @click="onConfirm">游戏</van-button>
-            <van-button class="stauts" type="default" @click="onConfirm">朋友推荐状态</van-button>
+            <van-button type="default" @click="onConfirm">电子竞技</van-button>
+            <van-button type="default" @click="onConfirm">老虎机</van-button>
+            <van-button type="default" @click="onConfirm">VIP优惠</van-button>
+            <van-button type="default" @click="onConfirm">体育</van-button>
+            <van-button type="default" @click="onConfirm">真人</van-button>
+            <van-button type="default" @click="onConfirm">彩票</van-button>
+            <van-button class="stauts" type="default" @click="onConfirm">全部游戏</van-button>
           </div>
         </van-dropdown-item>
-        <van-dropdown-item title="每页记录" ref="log">
-          <p class="filter">快捷筛选</p>
-          <div class="btnGroup">
-            <van-button type="default" @click="log">默认按钮</van-button>
-            <van-button type="default" @click="log">默认按钮</van-button>
-            <van-button type="default" @click="log">默认按钮</van-button>
-          </div>
-        </van-dropdown-item>
-        <van-dropdown-item title="时间" ref="time">
+        <van-dropdown-item title="任务" ref="time">
           <p class="filter">快捷筛选</p>
           <div class="btnGroup">
             <van-button type="default" @click="time">默认按钮</van-button>
