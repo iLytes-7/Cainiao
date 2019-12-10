@@ -42,11 +42,11 @@
       </div>
       <div class="wallet">
         <div id="first">
-          <p style="font-size: 1.7rem;line-height: 1rem">543,012.00</p>
+          <p style="font-size: 1.7rem;line-height: 1rem">{{ mainWallet | amount}}</p>
           <p style="font-size: 1.2rem;line-height: 1rem;color: #FFC8BD">主钱包</p>
         </div>
         <div>
-          <p style="font-size: 1.7rem;line-height: 1rem">2913.00</p>
+          <p style="font-size: 1.7rem;line-height: 1rem">{{ gameWallet | amount}}</p>
           <p style="font-size: 1.2rem;line-height: 1rem;color: #FFC8BD">游戏钱包</p>
         </div>
       </div>
@@ -120,6 +120,8 @@
       return {
         show: false,
         value: 30,
+        mainWallet: 543012.00,
+        gameWallet: 2294.03,
         url: ''
       }
     },
