@@ -13,6 +13,15 @@ Vue.filter('account', function(input) {
   return x
 })
 
+Vue.filter('amount', function(input) {
+  let parts = input.toString().split('.')
+  if(parts.length === 1) {
+    parts[1] = '00'
+  }
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return parts.join('.')
+})
+
 Vue.use(Vant);
 
 Vue.use(VueClipboard);
