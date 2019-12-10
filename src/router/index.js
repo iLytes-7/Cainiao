@@ -25,14 +25,6 @@ const router = new Router({
       }
     },
     {
-      path: '/invitied',
-      name: 'invitied',
-      component: () => import('@/components/invitied'),
-      meta:{
-        title: '我的邀请码'
-      }
-    },
-    {
       path: '/personal-info',
       name: 'personal-info',
       component: () => import('@/components/personal-info'),
