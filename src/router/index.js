@@ -23,6 +23,22 @@ export default new Router({
       }
     },
     {
+      path: '/personal-info',
+      name: 'personal-info',
+      component: () => import('@/components/personal-info'),
+      meta:{
+        title: '个人信息'
+      }
+    },
+    {
+      path: '/charge',
+      name: 'charge',
+      component: () => import('@/components/charge'),
+      meta:{
+        title: '充值'
+      }
+    },
+    {
       path: '/transform',
       name: 'transform',
       component: () => import('@/components/transform'),
@@ -34,6 +50,14 @@ export default new Router({
       path: '/letter',
       name: 'letter',
       component: () => import('@/components/letter'),
+      meta:{
+        title: '站内信'
+      }
+    },
+    {
+      path: '/editletter',
+      name: 'editletter',
+      component: () => import('@/components/editletter'),
       meta:{
         title: '站内信'
       }

@@ -6,8 +6,11 @@ import router from './router'
 import Vant from 'vant';
 import './assets/common.css'
 import 'vant/lib/index.css';
+import VueClipboard from 'vue-clipboard2'
 
 Vue.use(Vant);
+
+Vue.use(VueClipboard);
 
 Vue.config.productionTip = false
 

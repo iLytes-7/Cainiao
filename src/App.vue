@@ -77,6 +77,13 @@
     background-color: #230F40;
   }
 
+  .verification .van-radio__label{
+    color: white;
+  }
+  .verification .van-image__error, .verification .van-image__img, .verification .van-image__loading{
+    border-radius: 12rem;
+  }
+
   .van-hairline--bottom::after {
     border: none;
   }
