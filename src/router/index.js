@@ -45,7 +45,7 @@ const router = new Router({
       name: 'transform',
       component: () => import('@/components/transform'),
       meta:{
-        title: '玩家中心'
+        title: '转账'
       }
     },
     {

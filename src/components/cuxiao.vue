@@ -1,38 +1,39 @@
 <template>
   <div class="page">
     <div class="cuxiao">
-      <div class="category">
-        <div class="game" v-bind:class="{ active: showGameCategory,'gamedown':showGameCategory }"
-             @click="downGame">游戏分类
-        </div>
-        <div class="date" v-bind:class="{ active: showTaskCategory,'datedown':showTaskCategory }"
-             @click="downTask">任务
-        </div>
-      </div>
-        <div v-show="ifshow">
-          <div style="margin-top: 1.4rem;font-size: 1.6rem;color: #AFACB4">快捷筛选</div>
-          <div class="kind">
-            <div>电子竞技</div>
-            <div>老虎机</div>
-            <div>VIP优惠</div>
-            <div>体育</div>
-            <div>真人</div>
-            <div>彩票</div>
-            <div style="width: 50%">全部游戏</div>
+      <van-dropdown-menu active-color="#FF6D44" style="background-color: #291744;border-radius: 0 0 1rem 1rem;width: 100vw;margin-left:-5vw;">
+        <van-dropdown-item title="账单类别" ref="type">
+          <p class="filter">快捷筛选</p>
+          <div class="btnGroup">
+            <van-button type="default" @click="onConfirm">返还</van-button>
+            <van-button type="default" @click="onConfirm">充值</van-button>
+            <van-button type="default" @click="onConfirm">取款</van-button>
+            <van-button type="default" @click="onConfirm">转账</van-button>
+            <van-button type="default" @click="onConfirm">促销</van-button>
+            <van-button type="default" @click="onConfirm">游戏</van-button>
+            <van-button class="stauts" type="default" @click="onConfirm">朋友推荐状态</van-button>
           </div>
-        </div>
-      <div v-show="typeShow">
-        <div style="margin-top: 1.4rem;font-size: 1.6rem;color: #AFACB4">快捷筛选</div>
-        <div class="kind">
-          <div>adad</div>
-          <div>dada</div>
-          <div>ad</div>
-          <div>体育</div>
-          <div>真人</div>
-          <div>彩票</div>
-          <div style="width: 50%">全部游戏</div>
-        </div></div>
-      <van-collapse v-model="activeNames" class="collapse" accordion :class="{showModel:!ifshow}">
+        </van-dropdown-item>
+        <van-dropdown-item title="每页记录" ref="log">
+          <p class="filter">快捷筛选</p>
+          <div class="btnGroup">
+            <van-button type="default" @click="log">默认按钮</van-button>
+            <van-button type="default" @click="log">默认按钮</van-button>
+            <van-button type="default" @click="log">默认按钮</van-button>
+          </div>
+        </van-dropdown-item>
+        <van-dropdown-item title="时间" ref="time">
+          <p class="filter">快捷筛选</p>
+          <div class="btnGroup">
+            <van-button type="default" @click="time">默认按钮</van-button>
+            <van-button type="default" @click="time">默认按钮</van-button>
+            <van-button type="default" @click="time">默认按钮</van-button>
+            <van-button type="default" @click="time">默认按钮</van-button>
+            <van-button type="default" @click="time">默认按钮</van-button>
+          </div>
+        </van-dropdown-item>
+      </van-dropdown-menu>
+      <van-collapse v-model="activeNames" class="collapse" accordion>
         <van-collapse-item :name="item" :is-link="false" class="collapseBox" v-for="item in 3" :key="item">
           <div slot="title" class="collapseBox-head">
             <img src="../assets/adv1.jpeg">
@@ -55,30 +56,21 @@
   export default {
     data() {
       return {
-        showGameCategory: false,
-        showTaskCategory: false,
-        show: false,
-        ifshow: true,
-        typeShow: false,
         activeNames: ['0']
       }
     },
     methods: {
-      downGame() {
-        this.typeShow = false
-        this.showGameCategory = !this.showGameCategory
-        this.showTaskCategory = false
-        this.show = true
-        this.ifshow = !this.ifshow
-      },
-      downTask() {
-        this.ifshow = false
-        this.showTaskCategory = !this.showTaskCategory
-        this.showGameCategory = false
-        this.typeShow = !this.typeShow
-      },
       apply() {
         this.$toast.success('成功');
+      },
+      onConfirm() {
+        this.$refs.type.toggle();
+      },
+      time() {
+        this.$refs.time.toggle();
+      },
+      log() {
+        this.$refs.log.toggle();
       }
     }
   }
@@ -264,5 +256,33 @@
     height: 3rem;
     background-color: transparent;
     line-height: 3rem;
+  }
+  .btnGroup{
+    display: grid;
+    width: 94%;
+    margin: auto;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, 30vw);
+  }
+  .btnGroup button{
+    margin-bottom: 1rem;
+    background-color: #403157;
+    color: #AFACB4;
+    border: none;
+    border-radius: 0.5rem;
+  }
+  .filter{
+    font-size: 1.5rem;
+    width: 94%;
+    color: #AFACB4;
+    padding-bottom: 1rem;
+    margin: auto;
+  }
+  .stauts{
+    width: 50vw;
+  }
+  .cuxiao .van-dropdown-menu__item{
+    width: 23%;
   }
 </style>

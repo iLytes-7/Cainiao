@@ -172,7 +172,7 @@
     border-radius: 0.5rem;
     /*color: rgba(255,255,255,0.3);*/
   }
-  .bill .van-dropdown-menu__title{
+  .bill .van-dropdown-menu__title,.cuxiao .van-dropdown-menu__title{
     font-size: 1.4rem;
     color: #AFACB4;
     line-height: 1.5;
@@ -180,10 +180,11 @@
   .bill .van-dropdown-menu__title::after{
     border-width: 0.2rem;
   }
-  .bill .van-popup{
+  .bill .van-popup,.cuxiao .van-popup{
     background-color: #291744;
   }
-  .bill .van-dropdown-menu__item{
+  .bill .van-dropdown-menu__item,.cuxiao .van-dropdown-menu__item{
+    text-align: left;
     width: 26%;
     flex: none;
   }
