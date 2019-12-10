@@ -5,11 +5,12 @@
   "author": "ilytes-7 <ilytes@163.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --open --hot --host 192.168.0.120",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --open --hot --host 192.168.0.124",
     "start": "npm run dev",
     "build": "node build/build.js"
   },
   "dependencies": {
+    "nprogress": "^0.2.0",
     "vant": "^2.2.16",
     "vue": "^2.5.2",
     "vue-clipboard2": "^0.3.1",

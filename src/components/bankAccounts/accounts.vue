@@ -1,17 +1,18 @@
 <template>
   <div class="accounts">
-    <div class="bank" v-for="item in 3" :key="item" @click="go(item)">
+    <div class="bank" v-for="(item,index) in banks" :key="index" @click="go(item)">
       <div class="imgBox">
         <img src="../../assets/logo.png" alt="">
       </div>
       <div class="info">
-        <p class="bankName">交通银行</p>
-        <p class="username">李二狗</p>
+        <p class="bankName">{{item.bankName}}</p>
+        <p class="username">{{item.userName}}</p>
         <p class="accountNum">
-          <span>****</span>
-          <span>****</span>
-          <span>****</span>
-          <span>8521</span>
+          <!--<span>****</span>-->
+          <!--<span>****</span>-->
+          <!--<span>****</span>-->
+          <!--<span>8521</span>-->
+          {{item.account | account}}
         </p>
       </div>
     </div>
@@ -22,6 +23,27 @@
 <script>
   export default {
     name: "accounts",
+    data() {
+      return {
+        banks: [
+          {
+            bankName: '交通银行',
+            userName: '李二狗',
+            account: '6288569536541257'
+          },
+          {
+            bankName: '交通银行',
+            userName: '李二狗',
+            account: '6288569536541257'
+          },
+          {
+            bankName: '交通银行',
+            userName: '李二狗',
+            account: '6288569536541257'
+          }
+        ]
+      }
+    },
     methods: {
       add() {
         this.$router.push({path:'/bankAccount/addAccount'})
@@ -77,6 +99,7 @@
 
   .info .accountNum {
     margin-top: 1rem;
+    font-size: 1.6rem;
   }
 
   .info .accountNum span {

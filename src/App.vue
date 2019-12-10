@@ -190,4 +190,13 @@
   .bill .van-dropdown-menu{
     height: 4.5rem;
   }
+  .line{
+    height: 0.7rem;
+    width: 101vw;
+    background-color: #291744;
+    margin-left: -2rem;
+  }
+  .transferAmount .van-cell{
+    background-color: #230F40;
+  }
 </style>

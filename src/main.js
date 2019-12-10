@@ -8,6 +8,11 @@ import './assets/common.css'
 import 'vant/lib/index.css';
 import VueClipboard from 'vue-clipboard2'
 
+Vue.filter('account', function(input) {
+  let x = '**** **** **** **** ' + input.substr('-4')
+  return x
+})
+
 Vue.use(Vant);
 
 Vue.use(VueClipboard);
