@@ -83,6 +83,28 @@
   .verification .van-image__error, .verification .van-image__img, .verification .van-image__loading{
     border-radius: 12rem;
   }
+  .charge-page .van-ellipsis{
+    color: white;
+  }
+  .charge-page .van-dropdown-menu__title::after{
+    color: white;
+  }
+  .charge-page .van-dropdown-menu{
+    height: 3.8rem;
+  }
+  .charge-page .van-dropdown-item__option{
+    width: 90%;
+    margin: 0 auto;
+    background-color: #32204C;
+  }
+  .charge-page .van-dropdown-item--down>div{
+    background-color: #230F40;
+    opacity: 0.9;
+  }
+  .charge-page .van-cell__title{
+    color: white;
+  }
+
 
   .van-hairline--bottom::after {
     border: none;

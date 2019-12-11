@@ -7,6 +7,7 @@ import Vant from 'vant';
 import './assets/common.css'
 import 'vant/lib/index.css';
 import VueClipboard from 'vue-clipboard2'
+import { Toast } from 'vant';
 
 Vue.filter('account', function(input) {
   let x = '**** **** **** **** ' + input.substr('-4')
@@ -23,6 +24,8 @@ Vue.filter('amount', function(input) {
 })
 
 Vue.use(Vant);
+
+Vue.use(Toast);
 
 Vue.use(VueClipboard);
 
