@@ -1,6 +1,6 @@
 <template>
   <div class="bill">
-    <van-dropdown-menu active-color="#FF6D44" style="background-color: #291744;border-radius: 0 0 1rem 1rem;width: 100vw;margin-left:-5vw;">
+    <van-dropdown-menu active-color="#FF6D44" style="background-color: #291744;border-radius: 0 0 1rem 1rem;width: 100vw;margin-left:-5vw;position: sticky;top: 46px;">
       <van-dropdown-item title="账单类别" ref="type">
         <p class="filter">快捷筛选</p>
         <div class="btnGroup">

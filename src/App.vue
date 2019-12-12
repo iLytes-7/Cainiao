@@ -112,7 +112,8 @@
 
   .van-nav-bar__title {
     color: white;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    letter-spacing: 0.1rem;
   }
 
   .van-nav-bar .van-icon {
@@ -170,6 +171,8 @@
 
   .van-checkbox__icon {
     font-size: 1rem;
+    height: auto;
+    line-height: normal;
   }
 
   .van-checkbox__label {

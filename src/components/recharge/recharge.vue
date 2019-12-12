@@ -10,15 +10,15 @@
         </li>
       </ul>
       <div class="methodList">
-        <van-radio-group v-model="methodRadio">
+        <van-radio-group v-model="methodRadio" @change="radioChange">
           <van-cell-group>
-            <van-cell clickable v-for="(item,index) in method" :key="index"  @click="selectMethodRadio(index)">
+            <van-cell clickable v-for="(item,index) in method" :key="index"  @click="selectMethodRadio(item.name)">
               <div slot="title" class="methodList-title">
                 <img src="../../assets/xxsz.png" alt="">
                 <span>{{item.name}}</span>
                 <span>{{item.Limit}}</span>
               </div>
-              <van-radio checked-color="#FF6D44" slot="right-icon" :name="index" />
+              <van-radio checked-color="#FF6D44" slot="right-icon" :name="item.name" />
             </van-cell>
           </van-cell-group>
         </van-radio-group>
@@ -48,7 +48,7 @@
         amountcurr: 500,
         amount: 500,
         amountData: [50,100,500,1000,5000],
-        methodRadio: 1,
+        methodRadio: '',
         methodList: [0,1,2,3],
         method: [],
         method1: [
@@ -83,6 +83,7 @@
       },
       selectMethod(index) {
         this.curr = index
+        this.methodRadio = ''
         switch (index) {
           case 0 :
             this.method = this.method1
@@ -110,6 +111,9 @@
       },
       selectMethodRadio(item) {
         this.methodRadio = item;
+      },
+      radioChange(val) {
+        console.log(val);
       }
     }
   }

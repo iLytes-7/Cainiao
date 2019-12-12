@@ -3,7 +3,7 @@
     <van-button @click="showPopup" icon="orders-o" color="linear-gradient(to right, #4bb0ff, #6149f6)"></van-button>
     <div class="iframeDiv">
       <iframe id="iframe" src="https://h5.egaming1.com" width="100%" height="100%" frameborder="0"
-      ></iframe>
+    ></iframe>
     </div>
     <van-popup v-model="show"
                position="left"
@@ -121,7 +121,7 @@
         show: false,
         value: 30,
         mainWallet: 543012.00,
-        gameWallet: 2294.03,
+        gameWallet: 229455.03,
         url: ''
       }
     },
@@ -196,7 +196,7 @@
     padding: 0;
   }
 
-  li {
+  .home li {
     display: inline-block;
     margin: 0 1rem;
   }
