@@ -122,7 +122,9 @@
       line-height: 3rem;
       padding: 0rem 0.8rem;
     }
-
+    .user .van-slider__button {
+      display: none;
+    }
     .transform-page .van-field__control {
       font-size: 2.4rem;
       line-height: 3rem;

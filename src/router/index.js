@@ -73,6 +73,14 @@ const router = new Router({
       }
     },
     {
+      path: '/user',
+      name: 'user',
+      component: () => import('@/components/user'),
+      meta:{
+        title: ''
+      }
+    },
+    {
       path: '/withdraw',
       name: 'withdraw',
       component: () => import('@/components/withdraw'),
