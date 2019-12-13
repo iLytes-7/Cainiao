@@ -27,11 +27,13 @@
         元大礼包</p></div>
       <div><p style="width: 30%; font-size: 1.1rem;text-align: center;color: #AFACB4">2019 12-05</p></div>
     </div>
-    <div style="margin-top: 5rem">
-      <div class="btn">
-        <img src="../assets/logo.png">
+    <router-link to="/editletter">
+      <div style="margin-top: 5rem">
+        <div class="btn-edit">
+          <img src="../assets/editicon.png">
+        </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -53,10 +55,10 @@
     justify-content: space-between;
     margin-top: 0.6rem;
     line-height: 2.7rem;
-    color:#7E7B83;
+    color: #7E7B83;
   }
 
-  .btn {
+  .btn-edit {
     position: relative;
     background-color: #FF6D44;
     margin: auto;
@@ -65,7 +67,7 @@
     border-radius: 2.5rem;
   }
 
-  .btn > img {
+  .btn-edit > img {
     position: absolute;
     width: 2.5rem;
     left: 50%;

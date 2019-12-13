@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 90%;margin-left: auto;margin-right: auto">
+  <div style="width: 90%;margin-left: auto;margin-right: auto" class="withdrow-page">
     <div style="margin-top: 1.5rem;  margin-left:0.3rem;font-size: 1.2rem;color: #AFACB4">到账银行卡</div>
     <div class="content">
       <div class="info">
@@ -7,14 +7,14 @@
         <div>账户名：<span>李二狗</span></div>
         <div class="bank-name">
           <div>银行名称：<span>中国银行</span></div>
-          <img src="../assets/logo.png" >
+          <van-icon name="arrow" />
         </div>
       </div>
     </div>
     <div style="margin-top: 1.5rem;  margin-left:0.6rem;font-size: 1.2rem;color: #7E7B83">单比限额 ¥10 - ¥100000</div>
     <div class="input">
       <div class="input-left-icon">
-        <img src="../assets/logo.png" style="width: 1.3rem">
+        <img src="../assets/yang.png" style="width: 1.2rem;margin-top: 0.7rem">
       </div>
       <div class="input-right">
         <van-field v-model="money" placeholder="0.00" type="number" size="large"

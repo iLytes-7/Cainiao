@@ -1,10 +1,10 @@
 <template>
-  <div style="width: 90%;margin-left: auto;margin-right: auto">
+  <div style="width: 90%;margin-left: auto;margin-right: auto" class="transform-page">
     <div class="content">
       <div style="margin-top: 1rem; padding-top: 1rem; margin-left:1rem;font-size: 1.2rem;color: #AFACB4">主钱包</div>
       <div class="input">
         <div class="input-left-icon">
-          <img src="../assets/logo.png" style="width: 1.3rem">
+          <img src="../assets/yang.png" style="width: 1.1rem">
         </div>
         <div class="input-right">
           <van-field v-model="money" placeholder="0.00" type="number" size="large"

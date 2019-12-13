@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="recharge">
     <div class="line"></div>
     <div class="method">
       <p>充值方式</p>
@@ -8,6 +8,11 @@
           <img src="../../assets/xxsz.png" alt="">
           <p>网银转账</p>
         </li>
+        <li @click="$router.push({path:'/charge'})">
+          <img src="../../assets/xxsz.png" alt="">
+          <p>传统转账</p>
+        </li>
+
       </ul>
       <div class="methodList">
         <van-radio-group v-model="methodRadio" @change="radioChange">
@@ -119,36 +124,35 @@
   }
 </script>
 
-<style scoped>
-  ul {
-    overflow-x: auto;
-    list-style: none;
-    white-space: nowrap;
-    color: #AFACB4;
-  }
-
-  li {
-    width: 7rem;
-    padding: 1rem 1rem 0rem;
-    margin-right: 1.5rem;
-    border: 0.1rem solid #32204C;
-    display: inline-block;
-    text-align: center;
-    background-color: #32204C;
-    border-radius: 0.5rem;
-  }
-
-  .liActive {
-    border-color: #FF6D44 !important;
-  }
-
-  .amountList .amountActive{
-    border-color: #FF6D44 !important;
-    color: #FF6D44;
-  }
-
-  li:last-of-type {
-    margin-right: 0.5rem;
+<style lang="scss" scoped>
+  .recharge{
+    ul {
+      overflow-x: auto;
+      list-style: none;
+      white-space: nowrap;
+      color: #AFACB4;
+      li {
+        width: 7rem;
+        padding: 1rem 1rem 0rem;
+        margin-right: 1.5rem;
+        margin-left: 0;
+        border: 0.1rem solid #32204C;
+        display: inline-block;
+        text-align: center;
+        background-color: #32204C;
+        border-radius: 0.5rem;
+        &:last-of-type {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+    .liActive {
+      border-color: #FF6D44 !important;
+    }
+    .amountList .amountActive{
+      border-color: #FF6D44 !important;
+      color: #FF6D44;
+    }
   }
 
   li>p {

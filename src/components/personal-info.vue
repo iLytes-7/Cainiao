@@ -1,19 +1,19 @@
 <template>
-  <div class="verification" style="width: 90%;margin-left: auto;margin-right: auto">
+  <div class="verification" style="margin-left: auto;margin-right: auto">
     <div class="content">
-      <div style="height: 0.5rem;width: 110vw;background-color: #291744;margin-left: -2rem">
+      <div style="height: 0.5rem;width: 100%;background-color: #291744">
       </div>
-      <div class="info-row">
+      <div class="info-row" @click="propHead">
         <div class="info-item">个人头像</div>
         <div style="display: flex;align-items: center">
           <div class="info-status have"></div>
           <van-icon name="arrow"/>
         </div>
       </div>
-      <div class="info-row" @click="prop">
+      <div class="info-row" @click="propNickName">
         <div class="info-item">昵称</div>
         <div style="display: flex;align-items: center">
-          <div class="info-status have">Mike</div>
+          <div class="info-status have">{{nickName}}</div>
           <van-icon name="arrow"/>
         </div>
       </div>
@@ -36,7 +36,22 @@
       <div class="info-row">
         <div class="info-item">生日</div>
         <div style="display: flex;align-items: center">
-          <div class="info-status have">1990.8.28</div>
+          <van-field
+            v-model="userListForm.end_time"
+             readonly="readonly"
+            @click="endTimePop = true"
+          />
+          <van-popup v-model="endTimePop" label="离开时间" position="bottom" :overlay="true">
+            <van-datetime-picker
+              v-model="currentDate_end"
+              type="date"
+              :min-date="minDate"
+              @cancel="endTimePop = false"
+              @confirm="endTimePop = false"
+              @change="endTimeChange"
+            />
+          </van-popup>
+
           <van-icon name="arrow"/>
         </div>
       </div>
@@ -55,7 +70,7 @@
         </div>
       </div>
     </div>
-    <div style="height: 0.5rem;width: 110vw;background-color: #291744;margin-left: -2rem">
+    <div style="height: 0.5rem;width: 100%;background-color: #291744">
     </div>
     <div class="content" style="margin-top: 0rem;">
       <div class="info-row">
@@ -82,7 +97,7 @@
         </div>
       </div>
     </div>
-    <van-popup v-model="visible" round closeable @close="handleClose" style="width: 70%;height: 60%">
+    <van-popup v-model="headVisible" round closeable @close="handleCloseHead" style="width: 70%;height: 60%">
       <div style="margin-top: 3rem;text-align: center;color: black">
         <div style="font-size: 1.5rem">更换头像</div>
         <van-uploader preview-size="10rem" v-model="filegroup"  :after-read="afterRead" :max-count="1" :preview-full-image="false"
@@ -93,38 +108,101 @@
         </van-uploader>
       </div>
     </van-popup>
-
+    <van-popup v-model="nameVisible" round closeable @close="handleCloseNickName"
+               style="width: 80%;height: 40%;text-align: center">
+      <div style="position: absolute; top: 10%;transform: translateY(-50%);
+        left: 50%;transform: translateX(-50%);
+        width: 90%;color: black;font-size: 1.4rem">
+        修改昵称
+      </div>
+      <div style="text-align: center;color: black;position: relative; height: 100%;width: 100%">
+        <div style="position: absolute; top: 30%;transform: translateY(-50%);
+        left: 50%;transform: translateX(-50%);
+        width: 90%">
+          <van-field v-model="copyNickName" placeholder="请输入昵称"
+                     style="background-color: #eeeeee;width: 100%;color: black; border-radius: 6px " />
+          <div class="btn-confirm">
+            <div style="background-color: #00befe" @click="confirmNickName">
+              确认
+            </div>
+            <div style="background-color: #AFACB4" @click="cancelNickName">
+              取消
+            </div>
+          </div>
+        </div>
+      </div>
+    </van-popup>
   </div>
-
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
         data() {
             return {
                 sex: '1',
-                visible: true,
+                minDate:new Date(1920, 1, 1),
+                maxDate:'',
+                headVisible: false,
+                nameVisible:false,
                 filegroup:[],
+                nickName:'Mik1e',
+                endTimePop:false,
+                copyNickName:'',
+                currentDate_end:'',
+                userListForm:{
+                    end_time:'2019-12-12',
+                },
+                currentDate: new Date(),
                 fileList: [
                     { url: 'https://img.yzcdn.cn/vant/leaf.jpg' }
                 ]
             }
         },
+        created(){
+            this.copyNickName = this.nickName
+            let y = new Date().getFullYear();
+            this.maxDate = new Date(y,11)
+        },
         methods: {
             logout() {
             },
-            prop() {
-                this.visible = true
+            propHead() {
+                this.headVisible = true
+            },
+            propNickName(){
+                this.nameVisible = true
             },
             afterRead(file) {
                 console.log(file)
                 this.fileList[0].url = file.content
                 this.filegroup = []
             },
-            handleClose(){
+            handleCloseHead(){
                 this.filegroup = []
-            }
+            },
+            handleCloseNickName(){
+                this.copyNickName = this.nickName
+                this.nameVisible = false
+            },
+            confirmNickName(){
 
+                if (this.copyNickName===''){
+                    Toast.fail('昵称不能为空！');
+                }else{
+                    this.nickName = this.copyNickName
+                    this.nameVisible = false
+                }
+
+            },
+            cancelNickName(){
+                this.copyNickName = this.nickName
+                this.nameVisible = false
+            },
+            endTimeChange(e) {
+                let endTimeArr = e.getValues();//["2019", "03", "22"]
+                this.userListForm.end_time = `${endTimeArr[0]}-${endTimeArr[1]}-${endTimeArr[2]}`
+            }
         }
     }
 </script>
@@ -140,13 +218,33 @@
     line-height: 3rem;
     border-bottom: solid 1px #291744;
   }
-
+  .van-cell{
+    background-color: #230F40;
+    height: 3.4rem;
+  }
   .logout {
     height: 3.5rem;
     line-height: 3.5rem;
     font-size: 1.5rem;
     text-align: center;
     color: #AFACB4;
+  }
+  .btn-confirm{
+    display: flex;
+    margin-top: 3rem;
+    justify-content: space-around;
+  }
+  .van-field__control{
+    color: black;
+  }
+  .btn-confirm>div{
+    background-color: red;
+    width: 6rem;
+    height: 2.8rem;
+    line-height: 2.8rem;
+    border-radius: 6px;
+    color: white;
+    font-size: 1.4rem;
   }
 
   .content {
@@ -162,6 +260,7 @@
     height: 3.5rem;
     line-height: 3rem;
     border-bottom: solid 1px #291744;
+    padding: 1rem;
   }
 
   .info-item {
