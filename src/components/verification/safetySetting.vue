@@ -1,5 +1,5 @@
 <template>
-  <div class="verification" style="width: 90%;margin-left: auto;margin-right: auto">
+  <div class="verification" style="width: 100%;margin-left: auto;margin-right: auto">
     <div class="content">
       <div class="info-row">
         <router-link to="/safety-setting/real-name">
@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <div style="height: 0.7rem;width: 110vw;background-color: #291744;margin-left: -2rem">
+    <div style="height: 0.7rem;width:100%;background-color: #291744">
     </div>
     <div class="content" style="margin-top: 0rem;">
       <div class="info-row">
@@ -52,7 +52,7 @@
         </div>
       </div>
     </div>
-    <div style="height: 0.7rem;width: 110vw;background-color: #291744;margin-left: -2rem">
+    <div style="height: 0.7rem;width: 100%;background-color: #291744">
     </div>
     <div class="content" style="margin-top: 0rem;">
       <div class="info-row">
@@ -70,10 +70,10 @@
         </div>
       </div>
     </div>
-    <div style="height: 0.7rem;width: 110vw;background-color: #291744;margin-left: -2rem">
+    <div style="height: 0.7rem;width:100%;background-color: #291744">
     </div>
     <div class="logout" @click="logout">退出登录</div>
-    <div style="height: 0.7rem;width: 110vw;background-color: #291744;margin-left: -2rem">
+    <div style="height: 0.7rem;width:100%;background-color: #291744">
     </div>
   </div>
 </template>
@@ -100,7 +100,6 @@
     align-items: center;
     height: 3.5rem;
     line-height: 3rem;
-    border-bottom: solid 1px #291744;
   }
   .logout {
     height: 3.5rem;
@@ -120,15 +119,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 3.5rem;
-    line-height: 3rem;
+    height: 4.5rem;
+    line-height: 4.5rem;
     border-bottom: solid 1px #291744;
+    padding: 0 1rem;
   }
 
   .info-item {
     font-size: 1.4rem;
     margin-left: 1rem;
     color: #AFACB4;
+
   }
 
   .info-status {

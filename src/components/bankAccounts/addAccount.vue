@@ -44,29 +44,29 @@
   .addAccount{
     margin-top: 2rem;
   }
-  .form{
+  .addAccount .form{
     background-color: #291744;
     border-radius: 0.5rem;
     padding: 1rem;
   }
-  .form::after{
+  .addAccount .form::after{
     border: none;
   }
-  .form>div{
+  .addAccount .form>div{
     background-color: transparent;
   }
-  .form .van-cell{
+  .addAccount .form .van-cell{
     color: #AFACB4;
     font-size: 1.3rem;
     border-bottom: 1px solid #352251;
   }
-  .form .van-cell:last-of-type{
+  .addAccount .form .van-cell:last-of-type{
     border: none;
   }
-  .form .van-cell .van-field__control{
+  .addAccount .form .van-cell .van-field__control{
     font-size: 1.3rem;
   }
-  .form .codeBtn{
+  .addAccount .form .codeBtn{
     color: #FF6D44;
     background-color: transparent;
     border: none;

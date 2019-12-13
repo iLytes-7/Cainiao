@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 90%;margin-left: auto;margin-right: auto">
+  <div style="width: 90%;margin-left: auto;margin-right: auto" class="real-name">
     <div>
       <p style="color: #7E7B83;font-size: 1.1rem;text-indent: 2.2rem">为了您的资金安全，请上传与您身份证一致的信息，否则不会 通过</p>
     </div>
@@ -30,27 +30,27 @@
 </script>
 
 <style >
-  .van-uploader{
+  .real-name .van-uploader{
     margin-top: 2rem;
     width: 100%;
   }
-  .van-uploader__upload{
+  .real-name .van-uploader__upload{
     width: 100%;
     height: 15rem;
     background-color: #230F40;
     border-width: 2px;
     border-color: #374C8C;
   }
-  .van-uploader__preview-image{
+  .real-name .van-uploader__preview-image{
     width: 100%;
     height: 16rem;
     margin-bottom: 1rem;
   }
-  .van-uploader__upload-icon{
+  .real-name .van-uploader__upload-icon{
     color: #547BF2;
     font-size:4.4rem
   }
-  .van-uploader__upload-text{
+  .real-name .van-uploader__upload-text{
     margin-top: 1rem;
     font-size: 1.3rem;
     color: #547BF2;

@@ -72,7 +72,8 @@
         <div>
           <router-link to="/bill">
             <img src="../assets/zdjl.png" alt=""><span>账单记录</span>
-            <van-icon name="arrow" size="1.4rem" style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+            <van-icon name="arrow" size="1.4rem"
+                      style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
           </router-link>
         </div>
         <div>
@@ -84,8 +85,9 @@
         </div>
         <div>
           <router-link to="/letter">
-          <img src="../assets/xxsz.png" alt=""><span>消息设置</span>
-          <van-icon name="arrow" size="1.4rem" style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+            <img src="../assets/xxsz.png" alt=""><span>消息设置</span>
+            <van-icon name="arrow" size="1.4rem"
+                      style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
           </router-link>
         </div>
         <div>
@@ -94,18 +96,23 @@
             <span>
             促销优惠
           </span>
-            <van-icon name="arrow" size="1.4rem" style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+            <van-icon name="arrow" size="1.4rem"
+                      style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
           </router-link>
         </div>
         <div>
           <router-link to="/safety-setting/safety-setting">
             <img src="../assets/aqsz.png" alt=""><span>安全设置</span>
-            <van-icon name="arrow" size="1.4rem" style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+            <van-icon name="arrow" size="1.4rem"
+                      style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
           </router-link>
         </div>
         <div>
-          <img src="../assets/yqpy.png" alt=""><span>邀请朋友</span>
-          <van-icon name="arrow" size="1.4rem" style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+          <router-link to="/invitied">
+            <img src="../assets/yqpy.png" alt=""><span>邀请朋友</span>
+            <van-icon name="arrow" size="1.4rem"
+                      style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
+          </router-link>
         </div>
 
       </div>
@@ -114,59 +121,59 @@
 </template>
 
 <script>
-  export default {
-    name: 'HelloWorld',
-    data() {
-      return {
-        show: false,
-        value: 30,
-        mainWallet: 543012.00,
-        gameWallet: 2294.03,
-        url: ''
-      }
-    },
-    created() {
-      const data = {
-        ocss: 'http://www.fhi365.cn/css/app.cb458893d670b9e7ece80f5cbde06d57.css'
-      }
-      // this.url = encodeURI(JSON.stringify(data))
+    export default {
+        name: 'HelloWorld',
+        data() {
+            return {
+                show: false,
+                value: 30,
+                mainWallet: 543012.00,
+                gameWallet: 2294.03,
+                url: ''
+            }
+        },
+        created() {
+            const data = {
+                ocss: 'http://www.fhi365.cn/css/app.cb458893d670b9e7ece80f5cbde06d57.css'
+            }
+            // this.url = encodeURI(JSON.stringify(data))
 
-      // console.log(this.url);
-    },
-    mounted() {
+            // console.log(this.url);
+        },
+        mounted() {
 
-      // window.onload = () =>{
-      //     let test =
-      //         document.getElementById('iframe').contentWindow.document.getElementById('app')
-      //     console.log(test);
-      //     test.style.display = 'none'
-      // }
+            // window.onload = () =>{
+            //     let test =
+            //         document.getElementById('iframe').contentWindow.document.getElementById('app')
+            //     console.log(test);
+            //     test.style.display = 'none'
+            // }
 
-    },
-    methods: {
-      showPopup() {
-        this.show = true;
-      },
-      closePopup() {
-        this.show = false;
-      },
-      onchange(value) {
-        this.value = 30;
-      },
-      recharge() {
-        this.$router.push({path: "/recharge/recharge"})
-      },
-      goPerson() {
-        this.$router.push({path: "/personal-info"})
-      },
-      transform() {
-        this.$router.push({path: "/transform"})
-      },
-      withdraw() {
-        this.$router.push({path: "/withdraw"})
-      }
+        },
+        methods: {
+            showPopup() {
+                this.show = true;
+            },
+            closePopup() {
+                this.show = false;
+            },
+            onchange(value) {
+                this.value = 30;
+            },
+            recharge() {
+                this.$router.push({path: "/recharge/recharge"})
+            },
+            goPerson() {
+                this.$router.push({path: "/personal-info"})
+            },
+            transform() {
+                this.$router.push({path: "/transform"})
+            },
+            withdraw() {
+                this.$router.push({path: "/withdraw"})
+            }
+        }
     }
-  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

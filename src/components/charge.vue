@@ -83,8 +83,6 @@
   </div>
 </template>
 
-<script src="vue-clipboard.min.js"></script>
-
 <script>
     export default {
         data() {
@@ -132,11 +130,11 @@
     margin-right: auto;
   }
 
-  .van-dropdown-menu {
+  .charge-page .van-dropdown-menu {
     background-color: #291744;
   }
 
-  .van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after {
+  .charge-page .van-hairline--top-bottom::after, .charge-page .van-hairline-unset--top-bottom::after {
     border-width: 0;
   }
 
@@ -162,7 +160,7 @@
     border-bottom: solid 1px #33204D;
   }
 
-  .van-cell {
+  .charge-page .van-cell {
     background-color: #291744;
   }
 

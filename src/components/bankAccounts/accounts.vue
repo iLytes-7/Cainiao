@@ -2,7 +2,7 @@
   <div class="accounts">
     <div class="bank" v-for="(item,index) in banks" :key="index" @click="go(item)">
       <div class="imgBox">
-        <img src="../../assets/logo.png" alt="">
+        <img src="../../assets/jtyh.png" alt="">
       </div>
       <div class="info">
         <p class="bankName">{{item.bankName}}</p>
