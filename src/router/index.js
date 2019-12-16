@@ -21,7 +21,7 @@ const router = new Router({
       name: 'cuxiao',
       component: () => import('@/components/cuxiao'),
       meta:{
-        title: '促销优惠'
+        title: '优惠任务'
       }
     },
     {
