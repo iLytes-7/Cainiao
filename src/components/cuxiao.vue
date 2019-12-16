@@ -1,74 +1,78 @@
 <template>
   <div class="page">
     <div class="cuxiao">
-      <van-dropdown-menu active-color="#FF6D44" style="background-color: #291744;border-radius: 0 0 1rem 1rem;width: 100vw;margin-left:-5vw;">
-        <van-dropdown-item title="游戏分类" ref="type">
-          <p class="filter">快捷筛选</p>
-          <div class="btnGroup">
-            <van-button type="default" @click="onConfirm">电子竞技</van-button>
-            <van-button type="default" @click="onConfirm">老虎机</van-button>
-            <van-button type="default" @click="onConfirm">VIP优惠</van-button>
-            <van-button type="default" @click="onConfirm">体育</van-button>
-            <van-button type="default" @click="onConfirm">真人</van-button>
-            <van-button type="default" @click="onConfirm">彩票</van-button>
-            <van-button class="stauts" type="default" @click="onConfirm">全部游戏</van-button>
+      <van-tabs type="card" animated color="#403158" background="#291744" title-active-color="white"
+                title-inactive-color="white">
+        <van-tab title="优惠">
+          <van-collapse v-model="activeNames" class="collapse" accordion>
+            <van-collapse-item :name="item" :is-link="false" class="collapseBox" v-for="item in 3" :key="item">
+              <div slot="title" class="collapseBox-head">
+                <img src="../assets/adv2.png">
+                <p class="collapseBox-title">
+                  <span>2019年10月现金回馈</span>
+                  <span>有效期：2019-12-31</span>
+                </p>
+              </div>
+              <div slot="default">
+                活动内容：啊发发发发发发嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎哈哈哈哈法国军方高级
+                <van-button round color="#6149f6" class='collapseBox-btn' plain @click="apply">立即申请</van-button>
+              </div>
+            </van-collapse-item>
+          </van-collapse>
+        </van-tab>
+        <van-tab title="任务">
+          <div style="margin-top: 2rem">
+            <div class="task-box">
+              <div style="width: 70%">
+                <div style="color: white;font-size: 1.8rem;font-weight: 500;line-height: 3rem">注册有礼</div>
+                <div style="font-size: 1.1em;line-height: 2rem;color: #AFACB4">注册时间：2019年12月16日起</div>
+              </div>
+              <div class="have-accpte">
+                已领取
+              </div>
+            </div>
+            <div class="task-box">
+              <div style="width: 70%">
+                <div style="color: white;font-size: 1.9rem;font-weight: 500;line-height: 3rem">注册有礼</div>
+                <div style="font-size: 1.1em;line-height: 2rem;color: #AFACB4">注册时间：2019年12月16日起</div>
+              </div>
+              <div class="havnot-accpte">
+                未领取
+              </div>
+            </div>
           </div>
-        </van-dropdown-item>
-        <van-dropdown-item title="任务" ref="time">
-          <p class="filter">快捷筛选</p>
-          <div class="btnGroup">
-            <van-button type="default" @click="time">默认按钮</van-button>
-            <van-button type="default" @click="time">默认按钮</van-button>
-            <van-button type="default" @click="time">默认按钮</van-button>
-            <van-button type="default" @click="time">默认按钮</van-button>
-            <van-button type="default" @click="time">默认按钮</van-button>
-          </div>
-        </van-dropdown-item>
-      </van-dropdown-menu>
-      <van-collapse v-model="activeNames" class="collapse" accordion>
-        <van-collapse-item :name="item" :is-link="false" class="collapseBox" v-for="item in 3" :key="item">
-          <div slot="title" class="collapseBox-head">
-            <img src="../assets/adv2.png">
-            <p class="collapseBox-title">
-              <span>2019年10月现金回馈</span>
-              <span>有效期：2019-12-31</span>
-            </p>
-          </div>
-          <div slot="default">
-            活动内容：啊发发发发发发嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎哈哈哈哈法国军方高级
-            <van-button round color="#6149f6" class='collapseBox-btn' plain @click="apply">立即申请</van-button>
-          </div>
-        </van-collapse-item>
-      </van-collapse>
+
+        </van-tab>
+      </van-tabs>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        activeNames: ['0']
-      }
-    },
-    methods: {
-      apply() {
-        this.$toast.success('成功');
-      },
-      onConfirm() {
-        this.$refs.type.toggle();
-      },
-      time() {
-        this.$refs.time.toggle();
-      },
-      log() {
-        this.$refs.log.toggle();
-      }
+    export default {
+        data() {
+            return {
+                activeNames: ['0']
+            }
+        },
+        methods: {
+            apply() {
+                this.$toast.success('成功');
+            },
+            onConfirm() {
+                this.$refs.type.toggle();
+            },
+            time() {
+                this.$refs.time.toggle();
+            },
+            log() {
+                this.$refs.log.toggle();
+            }
+        }
     }
-  }
 </script>
 
-<style >
+<style>
   .page {
     margin: 0 auto;
     position: relative;
@@ -79,6 +83,36 @@
   .shadow {
     display: flex;
     justify-content: space-between;
+  }
+
+  .have-accpte {
+    font-size: 1.2rem;
+    border: 1px solid #413651;
+    background-color: #230f40;
+    padding: 0.2rem 1.2rem;
+    color: #827d8d;
+    border-radius: 0.3rem;
+  }
+  .havnot-accpte {
+    font-size: 1.2rem;
+    border: 1px solid #ff6d44;
+    background-color: #230f40;
+    padding: 0.2rem 1.2rem;
+    color: #ff6d44;
+    border-radius: 0.3rem;
+  }
+
+  .task-box {
+    padding: 1.2rem;
+    width: 100%;
+    height: 8.5rem;
+    background-color: #291744;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-radius: 0.7rem;
   }
 
   .category {
@@ -181,15 +215,16 @@
     /*-webkit-transform: rotate(135deg);*/
     transform: rotate(135deg);
   }
+
   /*.showModel{*/
-    /*position: absolute;*/
-    /*animation: searchTop .4s linear;*/
+  /*position: absolute;*/
+  /*animation: searchTop .4s linear;*/
   /*}*/
   @keyframes searchTop {
-    from{
-      top:18rem;
+    from {
+      top: 18rem;
     }
-    to{
+    to {
       top: 2.1rem;
     }
   }
@@ -200,27 +235,32 @@
     transform: rotate(135deg);
   }
 
-  .collapseBox{
+  .collapseBox {
     border-radius: 0.5rem;
     margin-top: 2rem;
     overflow: hidden;
   }
-  .collapseBox img{
+
+  .collapseBox img {
     width: 100%;
     border-radius: 0.5rem 0.5rem 0 0;
   }
-  .collapseBox .van-cell{
+
+  .collapseBox .van-cell {
     padding: 0;
     background-color: transparent;
     line-height: 0.9;
   }
-  .page .van-hairline--top-bottom::after,.page .van-hairline-unset--top-bottom::after,.page .van-hairline--top::after{
+
+  .page .van-hairline--top-bottom::after, .page .van-hairline-unset--top-bottom::after, .page .van-hairline--top::after {
     border: none;
   }
-  .collapseBox-head{
+
+  .collapseBox-head {
     position: relative;
   }
-  .collapseBox-title{
+
+  .collapseBox-title {
     width: 100%;
     position: absolute;
     bottom: 0.1rem;
@@ -228,20 +268,24 @@
     color: white;
     padding: 0.8rem 0rem;
     font-size: 1rem;
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0, 0, 0, .5);
 
   }
-  .collapseBox-title span{
+
+  .collapseBox-title span {
     margin-left: 0.5rem;
   }
-  .collapseBox-title span:last-of-type{
+
+  .collapseBox-title span:last-of-type {
     float: right;
     margin-right: 0.5rem;
   }
-  .page .van-collapse-item__content{
+
+  .page .van-collapse-item__content {
     background-color: #230f40;
   }
-  .page .collapseBox-btn{
+
+  .page .collapseBox-btn {
     display: block;
     margin: auto;
     margin-top: 1rem;
@@ -249,7 +293,8 @@
     background-color: transparent;
     line-height: 3rem;
   }
-  .btnGroup{
+
+  .btnGroup {
     display: grid;
     width: 94%;
     margin: auto;
@@ -257,24 +302,28 @@
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, 30vw);
   }
-  .btnGroup button{
+
+  .btnGroup button {
     margin-bottom: 1rem;
     background-color: #403157;
     color: #AFACB4;
     border: none;
     border-radius: 0.5rem;
   }
-  .filter{
+
+  .filter {
     font-size: 1.5rem;
     width: 94%;
     color: #AFACB4;
     padding-bottom: 1rem;
     margin: auto;
   }
-  .stauts{
+
+  .stauts {
     width: 50vw;
   }
-  .cuxiao .van-dropdown-menu__item{
+
+  .cuxiao .van-dropdown-menu__item {
     width: 23%;
   }
 </style>

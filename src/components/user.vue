@@ -1,24 +1,29 @@
 <template>
   <div class="user">
-    <!--    <van-popup v-model="show"-->
-    <!--               position="left"-->
-    <!--               :style="{ height: '100%',width:'85%', backgroundColor:'#230F40'}">-->
-
-    <div class="top-box" @click="goPerson">
-      <div class="left-box">
+    <div class="top-box">
+      <div class="left-box" @click="goPerson">
         <img src="../assets/userhead.png" class="headpic">
       </div>
       <div class="right-box">
-        <div style="font-size: 1.5rem">蒋大仙</div>
+        <div style="display: flex; width:90%;flex-direction: row;justify-content: space-between">
+          <div style="font-size: 1.5rem" v-clipboard:copy="accountName"
+               v-clipboard:success="onCopy"
+               v-clipboard:error="onError">{{accountName}}
+          </div>
+          <a href="https://chat.liveneed.net/chat/Hotline/channel.jsp?cid=5052195&cnfid=42351&j=7220487914&s=1"><img src="../assets/kefu.png" style="width:2.1rem;height:2.3rem;position: absolute
+          ;z-index:99999;right: 2rem;top: 1.5rem"></a>
+
+        </div>
         <div class="vip-box">
           <img src="../assets/vip.png" style="width: 1.5rem;height: 1.5rem;border-radius: 1rem;z-index: 999">
-          <div style="font-size: 1rem;background-color: #654E40;width: 4.5rem;
+          <div @click="goCuxiao" style="font-size: 1rem;background-color: #654E40;width: 4.5rem;
             text-align: center;margin-left: -1rem;z-index: 1; height: 1.5rem;line-height: 1.8rem;border-radius: 0.9rem">
             VIP2
           </div>
-          <van-icon name="arrow" size="1.4rem" style="line-height: 1.5rem; position: absolute;right: 1.5rem"/>
+          <van-icon @click="goPerson" name="arrow" size="1.4rem"
+                    style="line-height: 1.5rem; position: absolute;right: 1.5rem"/>
         </div>
-        <div style="position: relative; margin-top: 0.8rem ">
+        <div style="position: relative; margin-top: 0.8rem " @click="goCuxiao">
           <van-slider
             @change="onchange"
             v-model="value"
@@ -27,8 +32,8 @@
             inactive-color="#41305B"
             style="width: 70%;"
           />
-          <span style="position: absolute;right: 3rem;top:-0.4rem">20%</span>
-          <p style="line-height: 0.5rem;font-size: 0.9rem">
+          <span style="position: absolute;right: 3rem;top:-0.4rem" @click="goCuxiao">20%</span>
+          <p style="line-height: 0.5rem;font-size: 0.9rem" @click="goCuxiao">
             <span>存款：30.00/0.00¥</span>
             <span style="margin-left: 1.8rem">下注：1.75/10.00$</span>
           </p>
@@ -36,29 +41,17 @@
       </div>
     </div>
     <div class="wallet">
-      <div id="first">
+      <div id="first" style="width: 38%;">
         <p style="font-size: 1.7rem;line-height: 1rem">{{ mainWallet | amount}}</p>
-        <p style="font-size: 1.2rem;line-height: 1rem;color: #FFC8BD">主钱包</p>
+        <p style="font-size: 1.2rem;line-height: 1rem;color: white">主钱包</p>
       </div>
-      <div>
-        <p style="font-size: 1.7rem;line-height: 1rem">{{ gameWallet | amount}}</p>
-        <p style="font-size: 1.2rem;line-height: 1rem;color: #FFC8BD">游戏钱包</p>
+      <div @click="recharge" style="width: 18%;">
+        <img src="../assets/chongzhi.png" style="width: 55%; ">
+        <p style="margin:0; ">充值</p>
       </div>
-    </div>
-    <div class="line">
-    </div>
-    <div class="mid-box">
-      <div @click="recharge">
-        <img src="../assets/chongzhi.png">
-        <p>充值</p>
-      </div>
-      <div @click="withdraw">
-        <img src="../assets/tixian.png">
-        <p>提现</p>
-      </div>
-      <div @click="transform">
-        <img src="../assets/zhuanzhang.png">
-        <p>转账</p>
+      <div @click="withdraw" style="width: 18%;">
+        <img src="../assets/tixian.png" style="width: 55%">
+        <p style="margin:0">提现</p>
       </div>
     </div>
     <div class="line">
@@ -89,7 +82,7 @@
         <router-link to="/cuxiao">
           <img src="../assets/cxyh.png" alt="">
           <span>
-            促销优惠
+            优惠任务
           </span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
@@ -110,14 +103,21 @@
         </router-link>
       </div>
     </div>
-    <!--    </van-popup>-->
+    <div style="height: 0.7rem;width:100%;background-color: #291744">
+    </div>
+    <div class="logout" @click="logout">退出登录</div>
+    <div style="height: 0.7rem;width:100%;background-color: #291744">
+    </div>
   </div>
 </template>
 
 <script>
+    import {Toast} from 'vant';
+
     export default {
         data() {
             return {
+                accountName: '蒋大仙',
                 value: 30,
                 mainWallet: 543012.00,
                 gameWallet: 2294.03,
@@ -134,11 +134,29 @@
             goPerson() {
                 this.$router.push({path: "/personal-info"})
             },
+            goCuxiao() {
+                this.$router.push({path: "/cuxiao"})
+            },
             transform() {
                 this.$router.push({path: "/transform"})
             },
             withdraw() {
                 this.$router.push({path: "/withdraw"})
+            },
+            // 复制成功
+            onCopy(e) {
+                console.log(e);
+                Toast('复制成功');
+            },
+            // 复制失败
+            onError(e) {
+                alert("失败");
+                Toast('复制失败');
+            },
+            logout() {
+                this.$router.push({path: "/login"})
+            },
+            goConsoult(){
             }
         }
     }
@@ -150,6 +168,7 @@
     width: 100%;
     color: white !important;
   }
+
   .close {
     margin-left: 88%;
     margin-top: 6%
@@ -188,7 +207,7 @@
   }
 
   .right-box {
-    width: 75%;
+    width: 70%;
     margin-left: 1.5rem;
   }
 
@@ -209,6 +228,7 @@
     align-items: center;
     flex-direction: row;
     background-color: #FF6D44;
+    justify-content: space-around;
     border-radius: 1rem;
     width: 85%;
     height: 7.5rem;
@@ -223,48 +243,26 @@
 
   }
 
-  .wallet > div:first-of-type::after {
-    position: absolute;
-    content: '';
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
-    height: 2rem;
-    width: 1px;
-    background-color: white;
-  }
 
-  .iframeDiv {
-    /*overflow-scrolling: touch;*/
-    /*overflow: scroll;*/
-    height: 100%;
-    width: 100%;
-  }
+  /*.mid-box {*/
+  /*  display: flex;*/
+  /*  flex-direction: row;*/
+  /*  align-items: center;*/
+  /*  margin-top: 2rem;*/
+  /*}*/
 
-  .iframeDiv iframe {
-    width: 100%;
-    height: 100%;
-  }
+  /*.mid-box div {*/
+  /*  text-align: center;*/
+  /*  flex: 1;*/
+  /*}*/
 
-  .mid-box {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 2rem;
-  }
+  /*.mid-box img {*/
+  /*  width: 3rem;*/
+  /*}*/
 
-  .mid-box div {
-    text-align: center;
-    flex: 1;
-  }
-
-  .mid-box img {
-    width: 3rem;
-  }
-
-  .mid-box p {
-    margin-top: 1rem;
-  }
+  /*.mid-box p {*/
+  /*  margin-top: 1rem;*/
+  /*}*/
 
   .menu {
     margin-top: 1rem;
@@ -273,14 +271,23 @@
   .menu > div {
     padding: 0.3rem 0;
     position: relative;
-    line-height: 4rem;
-    height: 4rem;
+    line-height: 4.5rem;
+    height: 4.5rem;
     width: 100%;
+    border-bottom: solid 2px #291744;
   }
 
   .menu span {
     margin-left: 5rem;
     font-size: 1.3rem;
+  }
+
+  .logout {
+    height: 3.5rem;
+    line-height: 3.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #AFACB4;
   }
 
   .menu img {

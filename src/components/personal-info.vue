@@ -3,24 +3,45 @@
     <div class="content">
       <div style="height: 0.5rem;width: 100%;background-color: #291744">
       </div>
-      <div class="info-row" @click="propHead">
-        <div class="info-item">个人头像</div>
+      <div style="margin-left: 1rem;font-size: 1.6rem;margin-top: 1rem; margin-bottom: 0.3rem">
+        关键信息:
+      </div>
+      <div class="info-row"
+           v-clipboard:copy="nickName"
+           v-clipboard:success="onCopy"
+           v-clipboard:error="onError">
+        <div class="info-item" required>账号</div>
         <div style="display: flex;align-items: center">
-          <div class="info-status have"></div>
-          <van-icon name="arrow"/>
+          <div class="info-status have">{{nickName}}</div>
         </div>
       </div>
       <div class="info-row" @click="propNickName">
-        <div class="info-item">昵称</div>
+        <div class="info-item">真实姓名</div>
         <div style="display: flex;align-items: center">
-          <div class="info-status have">{{nickName}}</div>
+          <div class="info-status have">周董</div>
           <van-icon name="arrow"/>
         </div>
       </div>
       <div class="info-row">
-        <div class="info-item">真实姓名</div>
+        <router-link to="/safety-setting/test-phone">
+          <div class="info-item">电话号码</div>
+          <div style="display: flex;align-items: center">
+            <div class="info-status have">188888888</div>
+            <van-icon name="arrow"/>
+          </div>
+        </router-link>
+      </div>
+    </div>
+    <div style="height: 0.5rem;width: 100%;background-color: #291744">
+    </div>
+    <div class="content">
+      <div style="margin-left: 1rem;font-size: 1.6rem;margin-top: 1rem; margin-bottom: 0.3rem">
+        其他信息:
+      </div>
+      <div class="info-row" @click="propHead">
+        <div class="info-item">个人头像</div>
         <div style="display: flex;align-items: center">
-          <div class="info-status have">周董</div>
+          <div class="info-status have"></div>
           <van-icon name="arrow"/>
         </div>
       </div>
@@ -38,7 +59,7 @@
         <div style="display: flex;align-items: center">
           <van-field
             v-model="userListForm.end_time"
-             readonly="readonly"
+            readonly="readonly"
             @click="endTimePop = true"
           />
           <van-popup v-model="endTimePop" label="离开时间" position="bottom" :overlay="true">
@@ -70,18 +91,7 @@
         </div>
       </div>
     </div>
-    <div style="height: 0.5rem;width: 100%;background-color: #291744">
-    </div>
     <div class="content" style="margin-top: 0rem;">
-      <div class="info-row">
-        <router-link to="/safety-setting/test-phone">
-          <div class="info-item">电话号码</div>
-          <div style="display: flex;align-items: center">
-            <div class="info-status have">188888888</div>
-            <van-icon name="arrow"/>
-          </div>
-        </router-link>
-      </div>
       <div class="info-row">
         <div class="info-item">微信</div>
         <div style="display: flex;align-items: center">
@@ -100,9 +110,10 @@
     <van-popup v-model="headVisible" round closeable @close="handleCloseHead" style="width: 70%;height: 60%">
       <div style="margin-top: 3rem;text-align: center;color: black">
         <div style="font-size: 1.5rem">更换头像</div>
-        <van-uploader preview-size="10rem" v-model="filegroup"  :after-read="afterRead" :max-count="1" :preview-full-image="false"
-                      :deletable="true" style="margin-top: 1.5rem" >
-          <div  slot="default" style="width: 100%;height: 100%">
+        <van-uploader preview-size="10rem" v-model="filegroup" :after-read="afterRead" :max-count="1"
+                      :preview-full-image="false"
+                      :deletable="true" style="margin-top: 1.5rem">
+          <div slot="default" style="width: 100%;height: 100%">
             <img :src="fileList[0].url" alt="" style="width: 12rem;height: 12rem;border-radius: 7rem">
           </div>
         </van-uploader>
@@ -120,7 +131,7 @@
         left: 50%;transform: translateX(-50%);
         width: 90%">
           <van-field v-model="copyNickName" placeholder="请输入昵称"
-                     style="background-color: #eeeeee;width: 100%;color: black; border-radius: 6px " />
+                     style="background-color: #eeeeee;width: 100%;color: black; border-radius: 6px "/>
           <div class="btn-confirm">
             <div style="background-color: #00befe" @click="confirmNickName">
               确认
@@ -136,33 +147,34 @@
 </template>
 
 <script>
-    import { Toast } from 'vant';
+    import {Toast} from 'vant';
+
     export default {
         data() {
             return {
                 sex: '1',
-                minDate:new Date(1920, 1, 1),
-                maxDate:'',
+                minDate: new Date(1920, 1, 1),
+                maxDate: '',
                 headVisible: false,
-                nameVisible:false,
-                filegroup:[],
-                nickName:'Mik1e',
-                endTimePop:false,
-                copyNickName:'',
-                currentDate_end:'',
-                userListForm:{
-                    end_time:'2019-12-12',
+                nameVisible: false,
+                filegroup: [],
+                nickName: 'Mik1e',
+                endTimePop: false,
+                copyNickName: '',
+                currentDate_end: '',
+                userListForm: {
+                    end_time: '2019-12-12',
                 },
                 currentDate: new Date(),
                 fileList: [
-                    { url: 'https://img.yzcdn.cn/vant/leaf.jpg' }
+                    {url: 'https://img.yzcdn.cn/vant/leaf.jpg'}
                 ]
             }
         },
-        created(){
+        created() {
             this.copyNickName = this.nickName
             let y = new Date().getFullYear();
-            this.maxDate = new Date(y,11)
+            this.maxDate = new Date(y, 11)
         },
         methods: {
             logout() {
@@ -170,7 +182,7 @@
             propHead() {
                 this.headVisible = true
             },
-            propNickName(){
+            propNickName() {
                 this.nameVisible = true
             },
             afterRead(file) {
@@ -178,24 +190,34 @@
                 this.fileList[0].url = file.content
                 this.filegroup = []
             },
-            handleCloseHead(){
+            handleCloseHead() {
                 this.filegroup = []
             },
-            handleCloseNickName(){
+            handleCloseNickName() {
                 this.copyNickName = this.nickName
                 this.nameVisible = false
             },
-            confirmNickName(){
+            // 复制成功
+            onCopy(e) {
+                console.log(e);
+                Toast('复制成功');
+            },
+            // 复制失败
+            onError(e) {
+                alert("失败");
+                Toast('复制失败');
+            },
+            confirmNickName() {
 
-                if (this.copyNickName===''){
+                if (this.copyNickName === '') {
                     Toast.fail('昵称不能为空！');
-                }else{
+                } else {
                     this.nickName = this.copyNickName
                     this.nameVisible = false
                 }
 
             },
-            cancelNickName(){
+            cancelNickName() {
                 this.copyNickName = this.nickName
                 this.nameVisible = false
             },
@@ -218,10 +240,12 @@
     line-height: 3rem;
     border-bottom: solid 1px #291744;
   }
-  .van-cell{
+
+  .van-cell {
     background-color: #230F40;
     height: 3.4rem;
   }
+
   .logout {
     height: 3.5rem;
     line-height: 3.5rem;
@@ -229,15 +253,18 @@
     text-align: center;
     color: #AFACB4;
   }
-  .btn-confirm{
+
+  .btn-confirm {
     display: flex;
     margin-top: 3rem;
     justify-content: space-around;
   }
-  .van-field__control{
+
+  .van-field__control {
     color: black;
   }
-  .btn-confirm>div{
+
+  .btn-confirm > div {
     background-color: red;
     width: 6rem;
     height: 2.8rem;

@@ -2,14 +2,18 @@
   <div style="width: 90%;margin-left: auto;margin-right: auto" class="withdrow-page">
     <div style="margin-top: 1.5rem;  margin-left:0.3rem;font-size: 1.2rem;color: #AFACB4">到账银行卡</div>
     <div class="content">
-      <div class="info">
-        <div>账号：<span>6222 **** **** 8521</span></div>
-        <div>账户名：<span>李二狗</span></div>
+      <div class="info" v-show="haveCard">
         <div class="bank-name">
           <div>银行名称：<span>中国银行</span></div>
           <van-icon name="arrow" />
         </div>
+        <div>账号：<span>6222 **** **** 8521</span></div>
+        <div>账户名：<span>李二狗</span></div>
       </div>
+      <van-button  class="btn" style="background-color: black;margin-top: 0;background-color: #230F40;
+        color:#FF6D44;border-color: #FF6D44   " icon="plus"
+                  @click="add" v-show="!haveCard">添加资金账户
+      </van-button>
     </div>
     <div style="margin-top: 1.5rem;  margin-left:0.6rem;font-size: 1.2rem;color: #7E7B83">单比限额 ¥10 - ¥100000</div>
     <div class="input">
@@ -43,9 +47,15 @@
     export default {
         data() {
             return {
-                money: '',
-                password:''
+                money: 543012.00,
+                password:'',
+                haveCard:true,
             }
+        },
+        methods:{
+            add() {
+                this.$router.push({path:'/bankAccount/addAccount'})
+            },
         }
     }
 </script>
