@@ -10,9 +10,9 @@
                v-clipboard:success="onCopy"
                v-clipboard:error="onError">{{accountName}}
           </div>
-          <img src="../assets/kefu.png" style="width:2.1rem;height:2.3rem;position: absolute
-          ;z-index:99999;right: 2rem;top: 1.5rem"
-               @click="goConsoult">
+          <a href="https://chat.liveneed.net/chat/Hotline/channel.jsp?cid=5052195&cnfid=42351&j=7220487914&s=1"><img src="../assets/kefu.png" style="width:2.1rem;height:2.3rem;position: absolute
+          ;z-index:99999;right: 2rem;top: 1.5rem"></a>
+
         </div>
         <div class="vip-box">
           <img src="../assets/vip.png" style="width: 1.5rem;height: 1.5rem;border-radius: 1rem;z-index: 999">
@@ -157,7 +157,6 @@
                 this.$router.push({path: "/login"})
             },
             goConsoult(){
-                alert("跳转客服")
             }
         }
     }
