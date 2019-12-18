@@ -16,7 +16,7 @@ router.beforeEach(async(to, from, next) => {
   // set page title
 
   // determine whether the user has logged in
-  const hasToken = getToken()
+  const hasToken = 11// getToken()
 
   if (hasToken) {
     if (to.path === '/login') {
@@ -25,8 +25,8 @@ router.beforeEach(async(to, from, next) => {
       NProgress.done()
     } else {
       // determine whether the user has obtained his permission roles through getInfo
-      const hasRoles = store.getters.roles && store.getters.roles.length > 0
-      if (hasRoles) {
+      // const hasRoles = store.getters.roles && store.getters.roles.length > 0
+      if (true) {
         next()
       } else {
         try {
