@@ -2,7 +2,7 @@
   <div class="bankDetail">
     <van-cell-group class="form">
       <div class="imgBox">
-        <img src="../../assets/logo.png" alt="">
+        <img src="../../assets/image/logo.png" alt="">
       </div>
       <p>建设银行</p>
       <van-field v-model="form.username" label="账号："/>

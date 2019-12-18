@@ -5,7 +5,7 @@
       <ul>
         <li @click="selectMethod(index)" v-for="(item,index) in methodList" :key="index"
             :class="{liActive:index===curr}">
-          <img src="../../assets/xxsz.png" alt="">
+          <img src="../../assets/image/xxsz.png" alt="">
           <p v-if="index==4">传统转账</p>
           <p v-else>网银转账</p>
         </li>
@@ -15,7 +15,7 @@
           <van-cell-group>
             <van-cell clickable v-for="(item,index) in method" :key="index" @click="selectMethodRadio(index)">
               <div slot="title" class="methodList-title">
-                <img src="../../assets/xxsz.png" alt="">
+                <img src="../../assets/image/xxsz.png" alt="">
                 <span>{{item.name}}</span>
                 <span>{{item.Limit}}</span>
               </div>

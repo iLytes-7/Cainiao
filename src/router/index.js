@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
 import HelloWorld from '@/components/HelloWorld'
 import registered from  '@/components/login/registered'
 
@@ -213,12 +211,6 @@ const router = new Router({
       }
     }
   ]
-})
-
-router.beforeEach(function (to,from,next) {//// 全局路由守卫
-  NProgress.start()
-  next();
-  NProgress.done()
 })
 
 export default router

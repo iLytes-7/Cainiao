@@ -4,10 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vant from 'vant';
-import './assets/common.css'
+import './assets/css/common.css'
 import 'vant/lib/index.css';
 import VueClipboard from 'vue-clipboard2'
-import { Toast } from 'vant';
+import { Toast, Notify } from 'vant';
+import store from './store'
+import './permission'
 
 Vue.filter('account', function(input) {
   let x = '**** **** **** **** ' + input.substr('-4')
@@ -23,6 +25,7 @@ Vue.filter('amount', function(input) {
   return parts.join('.')
 })
 
+
 Vue.use(Vant);
 
 Vue.use(Toast);
@@ -35,6 +38,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

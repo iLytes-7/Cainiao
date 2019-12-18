@@ -7,7 +7,7 @@
           <van-collapse v-model="activeNames" class="collapse" accordion>
             <van-collapse-item :name="item" :is-link="false" class="collapseBox" v-for="item in 3" :key="item">
               <div slot="title" class="collapseBox-head">
-                <img src="../assets/adv2.png">
+                <img src="../assets/image/adv2.png">
                 <p class="collapseBox-title">
                   <span>2019年10月现金回馈</span>
                   <span>有效期：2019-12-31</span>

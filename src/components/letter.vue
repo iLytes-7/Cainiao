@@ -30,7 +30,7 @@
     <router-link to="/editletter">
       <div style="margin-top: 5rem">
         <div class="btn-edit">
-          <img src="../assets/editicon.png">
+          <img src="../assets/image/editicon.png">
         </div>
       </div>
     </router-link>

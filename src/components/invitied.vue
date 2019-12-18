@@ -1,7 +1,7 @@
 <template>
   <div class="invitied">
     <div style="position: relative; margin-top: 5rem">
-      <img src="../assets/invitied.png" alt="">
+      <img src="../assets/image/invitied.png" alt="">
       <div class="invitied-num">
         <div style="color: #8C74B1;font-size: 1.4rem;line-height: 1.5rem">您的邀请码</div>
         <div style="color: #E6E2ED;font-size: 3rem;font-weight: 600;letter-spacing: 0.5rem;line-height: 4rem">{{invitiedNum}}

@@ -2,7 +2,7 @@
   <div class="user">
     <div class="top-box">
       <div class="left-box" @click="goPerson">
-        <img src="../assets/userhead.png" class="headpic">
+        <img src="../assets/image/userhead.png" class="headpic">
       </div>
       <div class="right-box">
         <div style="display: flex; width:90%;flex-direction: row;justify-content: space-between">
@@ -10,12 +10,12 @@
                v-clipboard:success="onCopy"
                v-clipboard:error="onError">{{accountName}}
           </div>
-          <a href="https://chat.liveneed.net/chat/Hotline/channel.jsp?cid=5052195&cnfid=42351&j=7220487914&s=1"><img src="../assets/kefu.png" style="width:2.1rem;height:2.3rem;position: absolute
+          <a href="https://chat.liveneed.net/chat/Hotline/channel.jsp?cid=5052195&cnfid=42351&j=7220487914&s=1"><img src="../assets/image/kefu.png" style="width:2.1rem;height:2.3rem;position: absolute
           ;z-index:99999;right: 2rem;top: 1.5rem"></a>
 
         </div>
         <div class="vip-box">
-          <img src="../assets/vip.png" style="width: 1.5rem;height: 1.5rem;border-radius: 1rem;z-index: 999">
+          <img src="../assets/image/vip.png" style="width: 1.5rem;height: 1.5rem;border-radius: 1rem;z-index: 999">
           <div @click="goCuxiao" style="font-size: 1rem;background-color: #654E40;width: 4.5rem;
             text-align: center;margin-left: -1rem;z-index: 1; height: 1.5rem;line-height: 1.8rem;border-radius: 0.9rem">
             VIP2
@@ -46,11 +46,11 @@
         <p style="font-size: 1.2rem;line-height: 1rem;color: white">主钱包</p>
       </div>
       <div @click="recharge" style="width: 18%;">
-        <img src="../assets/chongzhi.png" style="width: 55%; ">
+        <img src="../assets/image/chongzhi.png" style="width: 55%; ">
         <p style="margin:0; ">充值</p>
       </div>
       <div @click="withdraw" style="width: 18%;">
-        <img src="../assets/tixian.png" style="width: 55%">
+        <img src="../assets/image/tixian.png" style="width: 55%">
         <p style="margin:0">提现</p>
       </div>
     </div>
@@ -59,28 +59,28 @@
     <div class="menu">
       <div>
         <router-link to="/bill">
-          <img src="../assets/zdjl.png" alt=""><span>账单记录</span>
+          <img src="../assets/image/zdjl.png" alt=""><span>账单记录</span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
         </router-link>
       </div>
       <div>
         <router-link to="/bankAccount/bankAccount">
-          <img src="../assets/yhzh.png" alt=""><span>银行账户</span>
+          <img src="../assets/image/yhzh.png" alt=""><span>银行账户</span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
         </router-link>
       </div>
       <div>
         <router-link to="/letter">
-          <img src="../assets/xxsz.png" alt=""><span>消息设置</span>
+          <img src="../assets/image/xxsz.png" alt=""><span>消息设置</span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
         </router-link>
       </div>
       <div>
         <router-link to="/cuxiao">
-          <img src="../assets/cxyh.png" alt="">
+          <img src="../assets/image/cxyh.png" alt="">
           <span>
             优惠任务
           </span>
@@ -90,14 +90,14 @@
       </div>
       <div>
         <router-link to="/safety-setting/safety-setting">
-          <img src="../assets/aqsz.png" alt=""><span>安全设置</span>
+          <img src="../assets/image/aqsz.png" alt=""><span>安全设置</span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
         </router-link>
       </div>
       <div>
         <router-link to="/invitied">
-          <img src="../assets/yqpy.png" alt=""><span>邀请朋友</span>
+          <img src="../assets/image/yqpy.png" alt=""><span>邀请朋友</span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
         </router-link>

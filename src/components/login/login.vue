@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="loginBg">
-      <img src="../../assets/logo.png">
+      <img src="../../assets/image/logo.png">
     </div>
     <div class="input">
       <van-field v-model="username"  placeholder="账号" />

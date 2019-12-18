@@ -18,7 +18,7 @@
     <div style="margin-top: 1.5rem;  margin-left:0.6rem;font-size: 1.2rem;color: #7E7B83">单比限额 ¥10 - ¥100000</div>
     <div class="input">
       <div class="input-left-icon">
-        <img src="../assets/yang.png" style="width: 1.2rem;margin-top: 0.7rem">
+        <img src="../assets/image/yang.png" style="width: 1.2rem;margin-top: 0.7rem">
       </div>
       <div class="input-right">
         <van-field v-model="money" placeholder="0.00" type="number" size="large"

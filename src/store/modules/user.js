@@ -1,0 +1,111 @@
+import { login, logout, getInfo } from '@/api/user'
+import { getToken, setToken, removeToken } from '@/utils/auth'
+
+const state = {
+  token: getToken(),
+  name: '',
+  avatar: ''
+}
+
+const mutations = {
+  SET_TOKEN: (state, token) => {
+    state.token = token
+  },
+  SET_NAME: (state, name) => {
+    state.name = name
+  },
+  SET_AVATAR: (state, avatar) => {
+    state.avatar = avatar
+  }
+}
+
+const actions = {
+  // user login
+  login({ commit }, userInfo) {
+    const { username, password } = userInfo
+    return new Promise((resolve, reject) => {
+      login({ username: username.trim(), password: password }).then(response => {
+        console.log(response)
+        const { data } = response
+        console.log(data)
+        commit('SET_TOKEN', data.token)
+        commit('SET_NAME', data.name)
+        setToken(data.token)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  // get user info
+  getInfo({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      let userInfoReady = false
+      let userResponse = {}
+
+      // We don't get user info from server (for now)
+      // getInfo(state.token).then(response => {
+      // const { data } = response
+      const data = {
+        roles: ['admin'],
+        introduction: 'I am a super administrator',
+        avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+        name: 'Super Admin'
+      }
+
+      if (!data) {
+        reject('Verification failed, please Login again.')
+      }
+
+      const { roles, avatar } = data
+
+      // roles must be a non-empty array
+      if (!roles || roles.length <= 0) {
+        reject('getInfo: roles must be a non-null array!')
+      }
+      commit('SET_AVATAR', avatar)
+      userResponse = data
+      userInfoReady = true
+      // }).catch(error => {
+      //   reject(error)
+      // })
+      // Wait for both load to be ready, then we can resolve the promise
+      var interval = setInterval(() => {
+        if (userInfoReady) {
+          resolve(userResponse)
+          clearInterval(interval)
+        }
+      }, 300)
+    })
+  },
+
+  // user logout
+  logout({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      logout().then(res => {
+        commit('SET_TOKEN', '')
+        removeToken()
+        resetRouter()
+        resolve()
+      })
+    })
+  },
+
+  // remove token
+  resetToken({ commit }) {
+    return new Promise(resolve => {
+      commit('SET_TOKEN', '')
+      removeToken()
+      resolve()
+    })
+  }
+}
+
+export default {
+  namespaced: true,
+  state,
+  mutations,
+  actions
+}
+
