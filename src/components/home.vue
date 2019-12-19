@@ -30,7 +30,6 @@
             // console.log(this.url);
         },
         mounted() {
-
             // window.onload = () =>{
             //     let test =
             //         document.getElementById('iframe').contentWindow.document.getElementById('app')

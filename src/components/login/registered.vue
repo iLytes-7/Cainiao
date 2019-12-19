@@ -17,7 +17,7 @@
     <!--      <van-field v-model="code" placeholder="请输入验证码" right-icon="replay"/>-->
     <!--      <van-button color="#666666">1212</van-button>-->
     <!--    </div>-->
-    <van-button class="btn" color="#FF6D44" @click="submit">立即注册</van-button>
+    <van-button class="btn" color="#FF6D44" @click="submit" :loading="loading">立即注册</van-button>
     <van-checkbox v-model="checked" shape="square" class="noBg">
       <p slot="default">
         我已年满18岁并同意此
@@ -35,7 +35,6 @@
 
 <script>
     import {Toast} from 'vant';
-    import {register} from '@/api/user'
 
     export default {
         data() {
@@ -47,6 +46,7 @@
                 lastName: '',
                 firstName: '',
                 yqCode: '',
+                loading: false,
                 usernameError: false,
                 passwordError: false,
                 telError: false,
@@ -108,12 +108,13 @@
                     terms: termstemp,
                     referral_code: this.yqCode
                 }
-                register(data).then(response => {
-                    this.$toast.success("注册成功！")
-                    this.$router.push({path: "/"})
-                })
-
-
+              this.$store.dispatch('user/signUp', data).then(res => {
+                this.$toast.success("注册成功！")
+                this.$router.push({path: "/"})
+                this.loading = false
+              }).catch(() => {
+                this.loading = false
+              })
             },
             creatUsername() {
                 var Num = "";

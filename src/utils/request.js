@@ -75,9 +75,9 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
-    Notify({
-      message: res.message || 'Error',
-      type: 'danger',
+    Message({
+      message: error.message,
+      type: 'error',
       duration: 5 * 1000
     })
     return Promise.reject(error)

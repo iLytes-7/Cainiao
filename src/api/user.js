@@ -31,6 +31,13 @@ export function getGoods() {
   })
 }
 
+export function bannerMiddle() {
+  return request({
+    url: '/banner/list/banner_middle',
+    method: 'get'
+  })
+}
+
 export function logout() {
   return request({
     url: '/user/logout',

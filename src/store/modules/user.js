@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo, register } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const state = {
@@ -32,6 +32,21 @@ const actions = {
         commit('SET_NAME', data.name)
         setToken(data.token)
         resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  signUp({ commit }, userInfo) {
+    return new Promise((resolve, reject) => {
+      register(userInfo).then(response => {
+        console.log(response);
+        const data = response.result
+        commit('SET_TOKEN', data.token)
+        commit('SET_NAME', data.palyerName)
+        setToken(data.token)
+        resolve(response)
       }).catch(error => {
         reject(error)
       })
