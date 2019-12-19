@@ -1,8 +1,16 @@
 import request from '@/utils/request'
-
+import { param } from '@/utils'
 export function login(data) {
   return request({
-    url: '/user/login',
+    url: '/login',
+    method: 'post',
+    data: param(data)
+  })
+}
+
+export function forgetPwd(data) {
+  return request({
+    url: '/login',
     method: 'post',
     data: data
   })
@@ -29,3 +37,13 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function register(data) {
+  return request({
+    url: '/createPlayer',
+    method: 'post',
+    data: param(data)
+  })
+}
+
+

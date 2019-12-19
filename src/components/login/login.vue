@@ -27,6 +27,7 @@
 
 <script>
 import identifyCode from '../identifyCode.vue';
+import { login } from '@/api/user'
 export default {
   components: {
     identifyCode
@@ -67,10 +68,26 @@ export default {
       }
     },
     login() {
-      if (this.identifyCode != this.verifycode) {
-        this.$toast.fail('验证码输入错误');
-        return;
-      }
+        if (this.username === ''){
+            this.$toast('用户名不能为空');
+            return
+        }
+        if(this.password === ''){
+            this.$toast('密码不能为空！');
+            return;
+        }
+        let data = {
+            api_key:'ea443b05c7067089bd2716f47257ee73',
+            username: this.username,
+            password: this.password
+        }
+        login(data).then(response => {
+            console.log(response);
+        })
+      // if (this.identifyCode != this.verifycode) {
+      //   this.$toast.fail('验证码输入错误');
+      //   return;
+      // }
     }
   }
 }

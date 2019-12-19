@@ -10,6 +10,7 @@ import VueClipboard from 'vue-clipboard2'
 import { Toast, Notify } from 'vant';
 import store from './store'
 import './permission'
+import md5 from 'js-md5'
 
 Vue.filter('account', function(input) {
   let x = '**** **** **** **** ' + input.substr('-4')
@@ -31,6 +32,9 @@ Vue.use(Vant);
 Vue.use(Toast);
 
 Vue.use(VueClipboard);
+
+Vue.prototype.$md5 = md5;
+
 
 Vue.config.productionTip = false
 
