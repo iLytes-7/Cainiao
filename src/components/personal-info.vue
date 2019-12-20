@@ -18,7 +18,7 @@
       <div class="info-row" @click="propNickName">
         <div class="info-item">真实姓名</div>
         <div style="display: flex;align-items: center">
-          <div class="info-status have">周董</div>
+          <div class="info-status have">{{realName}}</div>
           <van-icon name="arrow"/>
         </div>
       </div>
@@ -26,7 +26,7 @@
         <router-link to="/safety-setting/test-phone">
           <div class="info-item">电话号码</div>
           <div style="display: flex;align-items: center">
-            <div class="info-status have">188888888</div>
+            <div class="info-status have">{{tel}}</div>
             <van-icon name="arrow"/>
           </div>
         </router-link>
@@ -38,17 +38,17 @@
       <div style="margin-left: 1rem;font-size: 1.6rem;margin-top: 1rem; margin-bottom: 0.3rem">
         其他信息:
       </div>
-      <div class="info-row" @click="propHead">
-        <div class="info-item">个人头像</div>
-        <div style="display: flex;align-items: center">
-          <div class="info-status have"></div>
-          <van-icon name="arrow"/>
-        </div>
-      </div>
+<!--      <div class="info-row" @click="propHead">-->
+<!--        <div class="info-item">个人头像</div>-->
+<!--        <div style="display: flex;align-items: center">-->
+<!--          <div class="info-status have"></div>-->
+<!--          <van-icon name="arrow"/>-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="info-row">
         <div class="info-item">性别</div>
         <div style="display: flex;align-items: center">
-          <van-radio-group v-model="sex" shape="square" icon-size="1.3rem" checked-color="#FF6D44">
+          <van-radio-group v-model="sex" shape="square"  icon-size="1.3rem" checked-color="#FF6D44">
             <van-radio name="1" checked>男</van-radio>
             <van-radio name="2">女</van-radio>
           </van-radio-group>
@@ -62,31 +62,31 @@
             readonly="readonly"
             @click="endTimePop = true"
           />
-          <van-popup v-model="endTimePop" label="离开时间" position="bottom" :overlay="true">
+          <van-popup v-model="endTimePop"  label="离开时间" position="bottom" :overlay="true">
             <van-datetime-picker
               v-model="currentDate_end"
               type="date"
               :min-date="minDate"
               @cancel="endTimePop = false"
-              @confirm="endTimePop = false"
-              @change="endTimeChange"
+              @confirm="endTimeChange"
+
             />
           </van-popup>
 
           <van-icon name="arrow"/>
         </div>
       </div>
+<!--      <div class="info-row">-->
+<!--        <div class="info-item">国籍</div>-->
+<!--        <div style="display: flex;align-items: center">-->
+<!--          <div class="info-status have">{{}}</div>-->
+<!--          <van-icon name="arrow"/>-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="info-row">
-        <div class="info-item">国籍</div>
+        <div class="info-item">城市</div>
         <div style="display: flex;align-items: center">
-          <div class="info-status have">中国</div>
-          <van-icon name="arrow"/>
-        </div>
-      </div>
-      <div class="info-row">
-        <div class="info-item">出生地</div>
-        <div style="display: flex;align-items: center">
-          <div class="info-status have">湖南长沙</div>
+          <div class="info-status have">{{city}}</div>
           <van-icon name="arrow"/>
         </div>
       </div>
@@ -95,30 +95,30 @@
       <div class="info-row">
         <div class="info-item">微信</div>
         <div style="display: flex;align-items: center">
-          <div class="info-status have">18888888888</div>
+          <div class="info-status have">{{wechat}}</div>
           <van-icon name="arrow"/>
         </div>
       </div>
       <div class="info-row">
         <div class="info-item">QQ</div>
         <div style="display: flex;align-items: center">
-          <div class="info-status have">787876576</div>
+          <div class="info-status have">{{qq}}</div>
           <van-icon name="arrow"/>
         </div>
       </div>
     </div>
-    <van-popup v-model="headVisible" round closeable @close="handleCloseHead" style="width: 70%;height: 60%">
-      <div style="margin-top: 3rem;text-align: center;color: black">
-        <div style="font-size: 1.5rem">更换头像</div>
-        <van-uploader preview-size="10rem" v-model="filegroup" :after-read="afterRead" :max-count="1"
-                      :preview-full-image="false"
-                      :deletable="true" style="margin-top: 1.5rem">
-          <div slot="default" style="width: 100%;height: 100%">
-            <img :src="fileList[0].url" alt="" style="width: 12rem;height: 12rem;border-radius: 7rem">
-          </div>
-        </van-uploader>
-      </div>
-    </van-popup>
+<!--    <van-popup v-model="headVisible" round closeable @close="handleCloseHead" style="width: 70%;height: 60%">-->
+<!--      <div style="margin-top: 3rem;text-align: center;color: black">-->
+<!--        <div style="font-size: 1.5rem">更换头像</div>-->
+<!--        <van-uploader preview-size="10rem" v-model="filegroup" :after-read="afterRead" :max-count="1"-->
+<!--                      :preview-full-image="false"-->
+<!--                      :deletable="true" style="margin-top: 1.5rem">-->
+<!--          <div slot="default" style="width: 100%;height: 100%">-->
+<!--            <img :src="fileList[0].url" alt="" style="width: 12rem;height: 12rem;border-radius: 7rem">-->
+<!--          </div>-->
+<!--        </van-uploader>-->
+<!--      </div>-->
+<!--    </van-popup>-->
     <van-popup v-model="nameVisible" round closeable @close="handleCloseNickName"
                style="width: 80%;height: 40%;text-align: center">
       <div style="position: absolute; top: 10%;transform: translateY(-50%);
@@ -143,11 +143,14 @@
         </div>
       </div>
     </van-popup>
+    <loading :show="loading"></loading>
   </div>
 </template>
 
 <script>
     import {Toast} from 'vant';
+    import { mapGetters } from 'vuex'
+    import { getPlayerProfile } from '@/api/user';
 
     export default {
         data() {
@@ -156,14 +159,20 @@
                 minDate: new Date(1920, 1, 1),
                 maxDate: '',
                 headVisible: false,
+                tel:'',
                 nameVisible: false,
                 filegroup: [],
-                nickName: 'Mik1e',
+                realName:'',
+                city:'',
+                nickName: '',
+                qq:'',
+                wechat:'',
                 endTimePop: false,
+                loading:false,
                 copyNickName: '',
                 currentDate_end: '',
                 userListForm: {
-                    end_time: '2019-12-12',
+                    end_time: '',
                 },
                 currentDate: new Date(),
                 fileList: [
@@ -171,10 +180,35 @@
                 ]
             }
         },
+        computed: {
+            ...mapGetters([
+                'name',
+                'token'
+            ])
+        },
         created() {
             this.copyNickName = this.nickName
             let y = new Date().getFullYear();
             this.maxDate = new Date(y, 11)
+            let data = {
+                api_key:'ea443b05c7067089bd2716f47257ee73',
+                username:this.name,
+                token:this.token
+            }
+            this.loading = true
+            getPlayerProfile(data).then(res=>{
+                console.log(res);
+                let userinfo = res.result
+                this.nickName = userinfo.username
+                this.realName = userinfo.firstName + ' ' + userinfo.lastName
+                this.tel = userinfo.contactNumber
+                this.sex = userinfo.gender == '男' ? '1':'2'
+                this.userListForm.end_time = userinfo.birthdate
+                this.city = userinfo.city
+                this.wechat = userinfo.imAccount
+                this.qq = userinfo.imAccount2
+                this.loading = false
+            })
         },
         methods: {
             logout() {
@@ -221,9 +255,19 @@
                 this.copyNickName = this.nickName
                 this.nameVisible = false
             },
-            endTimeChange(e) {
-                let endTimeArr = e.getValues();//["2019", "03", "22"]
-                this.userListForm.end_time = `${endTimeArr[0]}-${endTimeArr[1]}-${endTimeArr[2]}`
+            endTimeChange(value) {
+                var date = value;
+                var m = date.getMonth() + 1;
+                var d = date.getDate();
+                if (m >= 1 && m <= 9) {
+                    m = "0" + m;
+                }
+                if (d >= 0 && d <= 9) {
+                    d = "0" + d;
+                }
+                const timer = date.getFullYear() + "-" + m + "-" +d
+                this.userListForm.end_time = timer
+                this.endTimePop = false
             }
         }
     }

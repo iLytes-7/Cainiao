@@ -8,11 +8,25 @@ export function login(data) {
   })
 }
 
-export function forgetPwd(data) {
+export function forgetPwdsendMsg(data) {
   return request({
-    url: '/login',
+    url: '/passwordRecovSmsSend',
     method: 'post',
-    data: data
+    data: param(data)
+  })
+}
+
+export function isPlayerExist(api_key,data) {
+  return request({
+    url: '/isPlayerExist/'+api_key+'/'+data,
+    method: 'get'
+  })
+}
+export function forgetPwdRecvMsg(data) {
+  return request({
+    url: '/passwordRecovSmsRecv',
+    method: 'post',
+    data: param(data)
   })
 }
 
@@ -31,6 +45,14 @@ export function getGoods() {
   })
 }
 
+export function getPlayerProfile(data) {
+  return request({
+    url: '/getPlayerProfile',
+    method: 'post',
+    data:param(data)
+  })
+}
+
 export function bannerMiddle() {
   return request({
     url: '/banner/list/banner_middle',
@@ -38,10 +60,11 @@ export function bannerMiddle() {
   })
 }
 
-export function logout() {
+export function logout(data) {
   return request({
-    url: '/user/logout',
-    method: 'post'
+    url: '/logout',
+    method: 'post',
+    data:param(data)
   })
 }
 

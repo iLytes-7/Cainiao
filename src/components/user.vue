@@ -8,7 +8,7 @@
         <div style="display: flex; width:90%;flex-direction: row;justify-content: space-between">
           <div style="font-size: 1.5rem" v-clipboard:copy="accountName"
                v-clipboard:success="onCopy"
-               v-clipboard:error="onError">{{accountName}}
+               v-clipboard:error="onError">{{name}}
           </div>
           <a href="https://chat.liveneed.net/chat/Hotline/channel.jsp?cid=5052195&cnfid=42351&j=7220487914&s=1"><img src="../assets/image/kefu.png" style="width:2.1rem;height:2.3rem;position: absolute
           ;z-index:99999;right: 2rem;top: 1.5rem"></a>
@@ -108,21 +108,29 @@
     <div class="logout" @click="logout">退出登录</div>
     <div style="height: 0.7rem;width:100%;background-color: #291744">
     </div>
+    <loading :show="loading"></loading>
   </div>
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     import {Toast} from 'vant';
 
     export default {
         data() {
             return {
-                accountName: '蒋大仙',
                 value: 30,
                 mainWallet: 543012.00,
                 gameWallet: 2294.03,
+                loading:false,
                 url: ''
             }
+        },
+        computed: {
+            ...mapGetters([
+                'name',
+                'token'
+            ])
         },
         methods: {
             onchange(value) {
@@ -154,7 +162,13 @@
                 Toast('复制失败');
             },
             logout() {
-                this.$store.dispatch('user/logout').then(res => {
+                let data = {
+                    api_key:'ea443b05c7067089bd2716f47257ee73',
+                    username:this.name,
+                    token:this.token
+                }
+                this.loading = true
+                this.$store.dispatch('user/logout',data).then(res => {
                   location.reload()
                 })
             },

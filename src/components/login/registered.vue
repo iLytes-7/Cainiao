@@ -1,6 +1,6 @@
 <template>
   <div class="forget">
-    <van-field required v-model="username" placeholder="请输入用户名"/>
+    <van-field required v-model="username" placeholder="请输入用户名" @blur="testUsername"/>
     <span v-show="usernameError">用户名 长度必须为6-12之间由小写字母和数字组成！</span>
     <van-field required type="password" v-model="password" placeholder="请输入账户密码"/>
     <span v-show="passwordError">账户密码 长度必须为6-20之间由英文字母与数字组成！不能与您的用户名相似！</span>
@@ -36,6 +36,7 @@
 
 <script>
     import {Toast} from 'vant';
+    import {isPlayerExist} from '@/api/user';
 
     export default {
         data() {
@@ -58,9 +59,7 @@
                 loading: false
             }
         },
-        created() {
-
-        },
+        created() {},
         methods: {
             submit() {
                 let phone = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
@@ -70,26 +69,44 @@
                 if (!username.test(this.username)) {
                     this.usernameError = true
                     return;
+                }else {
+                    this.usernameError = false
                 }
                 if (!password.test(this.password)) {
                     this.passwordError = true
                     return;
+                }else {
+                    this.passwordError = false
+                }
+                if (this.username === this.password) {
+                    this.passwordError = true;
+                    return;
+                }else {
+                    this.passwordError = false;
                 }
                 if (this.cpassword != this.password) {
                     this.cpasswordError = true;
                     return;
+                }else {
+                    this.cpasswordError = false;
                 }
                 if (!phone.test(this.tel)) {
                     this.telError = true
                     return;
+                }else {
+                    this.telError = false
                 }
                 if (this.firstName === '') {
                     this.firstNameError = true
                     return;
+                }else {
+                    this.firstNameError = false
                 }
                 if (this.lastName === '') {
                     this.lastNameError = true
                     return;
+                }else {
+                    this.lastNameError = false
                 }
                 let termstemp = ''
                 if (this.checked == true) {
@@ -133,6 +150,15 @@
                 var code = result.join('');
                 return code + Num
 
+            },
+            testUsername(){
+                console.log(this.username);
+                let api_key = 'ea443b05c7067089bd2716f47257ee73'
+                isPlayerExist(api_key,this.username).then(res=>{
+                    // this.usernameError = true
+                }).catch(()=>{
+                    this.usernameError = true
+                })
             }
         }
     }

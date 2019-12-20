@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="xuanZe">
-        <van-checkbox v-model="checked" shape="square">保持登录状态</van-checkbox>
+<!--        <van-checkbox v-model="checked" shape="square">保持登录状态</van-checkbox>-->
         <router-link to="/login/forget">忘记密码</router-link>
       </div>
       <van-button color="#FF6D44" class="btn" @click="login">立即登录</van-button>
@@ -73,7 +73,7 @@
       },
       login() {
         if (this.username === '') {
-          this.$toast('用户名不能为空');
+          this.$toast('用户名不能为空!');
           return
         }
         if (this.password === '') {

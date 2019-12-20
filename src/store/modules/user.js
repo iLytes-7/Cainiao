@@ -1,9 +1,10 @@
 import { login, logout, getInfo, register } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import Cookies from 'js-cookie'
 
 const state = {
   token: getToken(),
-  name: '',
+  name: Cookies.get('userName'),
   avatar: ''
 }
 
@@ -26,8 +27,9 @@ const actions = {
       login(userInfo).then(response => {
         const data = response.result
         commit('SET_TOKEN', data.token)
-        commit('SET_NAME', data.name)
+        commit('SET_NAME', data.playerName)
         setToken(data.token)
+        Cookies.set('userName', data.playerName)
         resolve()
       }).catch(error => {
         reject(error)
@@ -42,6 +44,7 @@ const actions = {
         commit('SET_TOKEN', data.token)
         commit('SET_NAME', data.palyerName)
         setToken(data.token)
+        Cookies.set('userName', data.playerName)
         resolve(response)
       }).catch(error => {
         reject(error)
@@ -92,13 +95,13 @@ const actions = {
   },
 
   // user logout
-  logout({ commit, state }) {
+  logout({ commit, state },data) {
     return new Promise((resolve, reject) => {
-      // logout().then(res => {
+      logout(data).then(res => {
         commit('SET_TOKEN', '')
         removeToken()
         resolve()
-      // })
+      })
     })
   },
 
@@ -107,6 +110,7 @@ const actions = {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
       removeToken()
+      Cookies.remove('userName')
       resolve()
     })
   }
