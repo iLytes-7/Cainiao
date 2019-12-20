@@ -30,6 +30,7 @@
         </span>
       </p>
     </van-checkbox>
+    <loading :show="loading"></loading>
   </div>
 </template>
 
@@ -53,7 +54,8 @@
                 firstNameError: false,
                 lastNameError: false,
                 cpasswordError: false,
-                checked: false
+                checked: false,
+                loading: false
             }
         },
         created() {
@@ -108,6 +110,7 @@
                     terms: termstemp,
                     referral_code: this.yqCode
                 }
+              this.loading = true
               this.$store.dispatch('user/signUp', data).then(res => {
                 this.$toast.success("注册成功！")
                 this.$router.push({path: "/"})

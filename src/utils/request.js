@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import { MessageBox, Message } from 'element-ui'
 import { Notify } from 'vant';
 import store from '@/store'
 import { getToken } from './auth'
@@ -75,9 +74,9 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
-    Message({
+    Notify({
       message: error.message,
-      type: 'error',
+      type: 'danger',
       duration: 5 * 1000
     })
     return Promise.reject(error)

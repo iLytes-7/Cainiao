@@ -22,12 +22,9 @@ const mutations = {
 const actions = {
   // user login
   login({ commit }, userInfo) {
-    const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        console.log(response)
-        const { data } = response
-        console.log(data)
+      login(userInfo).then(response => {
+        const data = response.result
         commit('SET_TOKEN', data.token)
         commit('SET_NAME', data.name)
         setToken(data.token)
@@ -41,7 +38,6 @@ const actions = {
   signUp({ commit }, userInfo) {
     return new Promise((resolve, reject) => {
       register(userInfo).then(response => {
-        console.log(response);
         const data = response.result
         commit('SET_TOKEN', data.token)
         commit('SET_NAME', data.palyerName)
@@ -98,12 +94,11 @@ const actions = {
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout().then(res => {
+      // logout().then(res => {
         commit('SET_TOKEN', '')
         removeToken()
-        resetRouter()
         resolve()
-      })
+      // })
     })
   },
 

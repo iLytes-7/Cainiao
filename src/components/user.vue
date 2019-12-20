@@ -154,7 +154,9 @@
                 Toast('复制失败');
             },
             logout() {
-                this.$router.push({path: "/login"})
+                this.$store.dispatch('user/logout').then(res => {
+                  location.reload()
+                })
             },
             goConsoult(){
             }
