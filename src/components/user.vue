@@ -6,7 +6,7 @@
       </div>
       <div class="right-box">
         <div style="display: flex; width:90%;flex-direction: row;justify-content: space-between">
-          <div style="font-size: 1.5rem" v-clipboard:copy="accountName"
+          <div style="font-size: 1.5rem" v-clipboard:copy="name"
                v-clipboard:success="onCopy"
                v-clipboard:error="onError">{{name}}
           </div>

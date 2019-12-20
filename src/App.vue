@@ -197,6 +197,8 @@
 
     .van-checkbox__icon {
       font-size: 1rem;
+      height: auto;
+      line-height: normal;
     }
 
     .van-checkbox__label {
