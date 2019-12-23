@@ -87,7 +87,7 @@
         }
         this.loading = true
         this.$store.dispatch('user/login', data).then(res => {
-          this.$toast.success("登录成功！")
+          this.$toast("登录成功！")
           this.$router.push({path: "/"})
           this.loading = false
         }).catch(() => {

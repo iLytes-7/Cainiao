@@ -54,8 +54,8 @@
         <div class="info-item">性别</div>
         <div style="display: flex;align-items: center">
           <van-radio-group v-model="sex" shape="square" icon-size="1.3rem" checked-color="#FF6D44">
-            <van-radio name="1" checked>男</van-radio>
-            <van-radio name="2">女</van-radio>
+            <van-radio name="男" checked>男</van-radio>
+            <van-radio name="女">女</van-radio>
           </van-radio-group>
         </div>
       </div>
@@ -161,7 +161,7 @@
   export default {
     data() {
       return {
-        sex: '1',
+        sex: '',
         minDate: new Date(1920, 1, 1),
         maxDate: '',
         headVisible: false,
@@ -209,13 +209,12 @@
       }
       this.loading = true
       getPlayerProfile(data).then(res => {
-        console.log(res);
         let userinfo = res.result
         this.nickName = userinfo.username
         this.firstName = userinfo.firstName
         this.lastName = userinfo.lastName
         this.tel = userinfo.contactNumber
-        this.sex = userinfo.gender == '男' ? '1' : '2'
+        this.sex = userinfo.gender
         this.userListForm.end_time = userinfo.birthdate
         this.city = userinfo.city
         this.wechat = userinfo.imAccount
@@ -330,7 +329,7 @@
               }
               this.loading = true
               updatePlayerProfile(data).then(response => {
-                  console.log(response);
+                  this.$toast("保存成功！")
                   this.loading = false
               })
           }).catch(() => {
