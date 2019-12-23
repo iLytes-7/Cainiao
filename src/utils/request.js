@@ -51,7 +51,12 @@ service.interceptors.response.use(
           title: '标题',
           message: 'You have been logged out, you can cancel to stay on this page, or log in again'
         }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
+          let data = {
+            api_key: 'ea443b05c7067089bd2716f47257ee73',
+            username: store.getters.name,
+            token: store.getters.token
+          }
+          store.dispatch('user/logout',data).then(() => {
             location.reload()
           })
         })
