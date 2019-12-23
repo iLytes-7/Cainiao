@@ -53,6 +53,14 @@ export function getPlayerProfile(data) {
   })
 }
 
+export function updatePlayerProfile(data) {
+  return request({
+    url: '/updatePlayerProfile',
+    method: 'post',
+    data:param(data)
+  })
+}
+
 export function bannerMiddle() {
   return request({
     url: '/banner/list/banner_middle',

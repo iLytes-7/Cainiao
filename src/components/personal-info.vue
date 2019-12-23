@@ -15,10 +15,17 @@
           <div class="info-status have">{{nickName}}</div>
         </div>
       </div>
-      <div class="info-row" @click="propNickName">
-        <div class="info-item">真实姓名</div>
+      <div class="info-row" @click="propFirstName">
+        <div class="info-item">姓</div>
         <div style="display: flex;align-items: center">
-          <div class="info-status have">{{realName}}</div>
+          <div class="info-status have">{{firstName}}</div>
+          <van-icon name="arrow"/>
+        </div>
+      </div>
+      <div class="info-row" @click="propLastName">
+        <div class="info-item">名</div>
+        <div style="display: flex;align-items: center">
+          <div class="info-status have">{{lastName}}</div>
           <van-icon name="arrow"/>
         </div>
       </div>
@@ -139,6 +146,7 @@
         </div>
       </div>
     </van-popup>
+    <van-button class="btn" color="#FF6D44" @click="saveEdit">保存修改</van-button>
     <loading :show="loading"></loading>
     <edit-info ref="realName" :title="title"></edit-info>
   </div>
@@ -147,7 +155,7 @@
 <script>
   import {Toast} from 'vant';
   import {mapGetters} from 'vuex'
-  import {getPlayerProfile} from '@/api/user';
+  import {getPlayerProfile,updatePlayerProfile} from '@/api/user';
   import editInfo from './components/editInfo'
 
   export default {
@@ -157,11 +165,12 @@
         minDate: new Date(1920, 1, 1),
         maxDate: '',
         headVisible: false,
+        nameVisible:false,
         tel: '',
-        nameVisible: false,
         filegroup: [],
-        realName: '',
         city: '',
+        firstName:'',
+        lastName:'',
         nickName: '',
         qq: '',
         wechat: '',
@@ -203,7 +212,8 @@
         console.log(res);
         let userinfo = res.result
         this.nickName = userinfo.username
-        this.realName = userinfo.firstName + ' ' + userinfo.lastName
+        this.firstName = userinfo.firstName
+        this.lastName = userinfo.lastName
         this.tel = userinfo.contactNumber
         this.sex = userinfo.gender == '男' ? '1' : '2'
         this.userListForm.end_time = userinfo.birthdate
@@ -219,11 +229,17 @@
       propHead() {
         this.headVisible = true
       },
-      propNickName() {
+      propFirstName() {
         this.nameVisible = true
-        this.title = '修改真实姓名'
-        this.placeholder = '请输入真实姓名'
-        this.editVal = this.realName
+        this.title = '修改真实姓'
+        this.placeholder = '请输入真实姓'
+        this.editVal = this.firstName
+      },
+      propLastName() {
+          this.nameVisible = true
+          this.title = '修改真实名'
+          this.placeholder = '请输入真实名'
+          this.editVal = this.lastName
       },
       propTel() {
         this.nameVisible = true
@@ -274,8 +290,10 @@
         if (this.editVal === '') {
           Toast.fail('不能为空！');
         } else {
-          if (this.title === '修改真实姓名') {
-            this.realName = this.editVal
+          if (this.title === '修改真实姓') {
+            this.firstName = this.editVal
+          } else if (this.title === '修改真实名') {
+            this.lastName = this.editVal
           } else if (this.title === '修改电话号码') {
             this.tel = this.editVal
           } else if (this.title === '修改城市') {
@@ -288,6 +306,36 @@
           this.nameVisible = false
         }
 
+      },
+      saveEdit(){
+          this.$dialog.confirm({
+              title: '提示',
+              message: '是否保存修改信息？'
+          }).then(() => {
+              let fields = {
+                  firstName:this.firstName,
+                  lastName:this.lastName,
+                  contactNumber:this.tel,
+                  gender:this.sex,
+                  birthdate:this.userListForm.end_time,
+                  city:this.city,
+                  imAccount:this.wechat,
+                  imAccount2:this.qq
+              }
+              let data = {
+                  api_key: "ea443b05c7067089bd2716f47257ee73",
+                  username: this.name,
+                  token:this.token,
+                  fields: JSON.stringify(fields)
+              }
+              this.loading = true
+              updatePlayerProfile(data).then(response => {
+                  console.log(response);
+                  this.loading = false
+              })
+          }).catch(() => {
+              // on cancel
+          });
       },
       cancelNickName() {
         this.copyNickName = this.nickName
@@ -345,7 +393,13 @@
   .van-field__control {
     color: black;
   }
-
+  .verification .btn{
+    width: 90% !important;
+    margin-top: 4rem !important;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
   .btn-confirm > div {
     background-color: red;
     width: 6rem;

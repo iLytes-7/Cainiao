@@ -139,7 +139,6 @@
                 forgetPwdRecvMsg(data).then(response => {
                     console.log(response);
                 })
-
             }
         }
     }
