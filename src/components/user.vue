@@ -174,7 +174,8 @@
         }
         this.loading = true
         this.$store.dispatch('user/logout', data).then(res => {
-          location.reload()
+          this.loading = false
+          this.$router.push({path: "/login"})
         })
       },
       getQueryPlayerBalance() {

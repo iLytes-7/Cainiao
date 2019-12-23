@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Notify,Dialog  } from 'vant';
 import store from '@/store'
+import router from '@/router'
 
 // create an axios instance
 const service = axios.create({
@@ -42,22 +43,17 @@ service.interceptors.response.use(
       Notify({
         message: res.message || 'Error',
         type: 'danger',
-        duration: 5 * 1000
+        duration: 3 * 1000
       })
 
       if (res.code === 161) {
         // to re-login
         Dialog.alert({
           title: '标题',
-          message: 'You have been logged out, you can cancel to stay on this page, or log in again'
+          message: 'You have been logged out'
         }).then(() => {
-          let data = {
-            api_key: 'ea443b05c7067089bd2716f47257ee73',
-            username: store.getters.name,
-            token: store.getters.token
-          }
-          store.dispatch('user/logout',data).then(() => {
-            location.reload()
+          store.dispatch('user/resetToken').then(() => {
+            router.push({path: "/login"})
           })
         })
       }
@@ -71,7 +67,7 @@ service.interceptors.response.use(
     Notify({
       message: error.message,
       type: 'danger',
-      duration: 5 * 1000
+      duration: 3 * 1000
     })
     return Promise.reject(error)
   }
