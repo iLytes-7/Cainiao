@@ -6,26 +6,15 @@
       <div>时间</div>
     </div>
     <div style="height: 0.3rem;width: 100%"></div>
-    <div class="content">
-      <div><p style="width: 35%; font-size: 1.1rem;text-align: center;font-weight: 600">新用户享好礼</p></div>
-      <div><p style="width: 80%; font-size: 1.1rem;color: #AFACB4"
-              class="van-multi-ellipsis--l3">系统显萨达萨达萨达萨达萨达示您是平台新用户首次注册10
-        元大礼包</p></div>
-      <div><p style="width: 30%; font-size: 1.1rem;text-align: center;color: #AFACB4">2019 12-05</p></div>
-    </div>
-    <div class="content">
-      <div><p style="width: 35%; font-size: 1.1rem;text-align: center;font-weight: 600">新用户享好礼</p></div>
-      <div><p style="width: 80%; font-size: 1.1rem;color: #AFACB4"
-              class="van-multi-ellipsis--l3">系统显萨达萨达萨达萨达萨达示您是平台新用户首次注册10
-        元大礼包</p></div>
-      <div><p style="width: 30%; font-size: 1.1rem;text-align: center;color: #AFACB4">2019 12-05</p></div>
-    </div>
-    <div class="content">
-      <div><p style="width: 35%; font-size: 1.1rem;text-align: center;font-weight: 600">新用户享好礼</p></div>
-      <div><p style="width: 80%; font-size: 1.1rem;color: #AFACB4"
-              class="van-multi-ellipsis--l3">系统显萨达萨达萨达萨达萨达示您是平台新用户首次注册10
-        元大礼包</p></div>
-      <div><p style="width: 30%; font-size: 1.1rem;text-align: center;color: #AFACB4">2019 12-05</p></div>
+    <div class="messageBox">
+      <div class="content" v-for="(item,index) in messageData" :key="index">
+        <div><p style="width: 90%; font-size: 1.1rem;text-align: center;font-weight: 600">{{item.subject}}</p></div>
+        <div><p style="width: 80%; font-size: 1.1rem;color: #AFACB4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;" class="van-multi-ellipsis--l3">{{item.detail}}</p></div>
+        <div><p style="width: 90%; font-size: 1.1rem;text-align: center;color: #AFACB4">{{item.date}}</p></div>
+      </div>
+      <p v-if="messageData.length === 0" style="text-align: center">
+        暂无数据
+      </p>
     </div>
     <router-link to="/editletter">
       <div style="margin-top: 5rem">
@@ -34,15 +23,41 @@
         </div>
       </div>
     </router-link>
+    <loading :show="loading"></loading>
   </div>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {}
-        }
+  import {message} from '@/api/message'
+  import {mapGetters} from 'vuex'
+
+  export default {
+    data() {
+      return {
+        loading: false,
+        messageData: []
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'name',
+        'token'
+      ])
+    },
+    mounted() {
+      let data = {
+        api_key: "ea443b05c7067089bd2716f47257ee73",
+        username: this.name,
+        token: this.token
+      }
+      this.loading = true
+      message(data).then(res => {
+        console.log(res.result.messages);
+        this.messageData = res.result.messages
+        this.loading = false
+      })
     }
+  }
 </script>
 
 <style scoped>

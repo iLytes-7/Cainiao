@@ -9,8 +9,25 @@
           <van-button type="default" @click="onConfirm('transfer')">转账</van-button>
           <van-button type="default" @click="onConfirm('promo')">促销</van-button>
           <van-button type="default" @click="onConfirm('game')">游戏</van-button>
+          <van-button class="stauts" type="default" @click="onConfirm">朋友推荐状态</van-button>
         </div>
       </van-dropdown-item>
+      <!--<van-dropdown-item title="每页记录" ref="log">-->
+        <!--<div class="btnGroup">-->
+          <!--<van-button type="default" @click="log">默认按钮</van-button>-->
+          <!--<van-button type="default" @click="log">默认按钮</van-button>-->
+          <!--<van-button type="default" @click="log">默认按钮</van-button>-->
+        <!--</div>-->
+      <!--</van-dropdown-item>-->
+      <!--<van-dropdown-item title="时间" ref="time">-->
+        <!--<div class="btnGroup">-->
+          <!--<van-button type="default" @click="time">默认按钮</van-button>-->
+          <!--<van-button type="default" @click="time">默认按钮</van-button>-->
+          <!--<van-button type="default" @click="time">默认按钮</van-button>-->
+          <!--<van-button type="default" @click="time">默认按钮</van-button>-->
+          <!--<van-button type="default" @click="time">默认按钮</van-button>-->
+        <!--</div>-->
+      <!--</van-dropdown-item>-->
     </van-dropdown-menu>
     <div class="billList">
       <div class="billBox">
