@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { Notify } from 'vant';
+import { Notify,Dialog  } from 'vant';
+import store from '@/store'
 
 // create an axios instance
 const service = axios.create({
@@ -11,6 +12,8 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
+    // do something before request is sent
+    // config.headers['Content-Type'] = 'multipart/form-data'
     return config
   },
   error => {
@@ -42,6 +45,17 @@ service.interceptors.response.use(
         duration: 5 * 1000
       })
 
+      if (res.code === 161) {
+        // to re-login
+        Dialog.alert({
+          title: '标题',
+          message: 'You have been logged out, you can cancel to stay on this page, or log in again'
+        }).then(() => {
+          store.dispatch('user/resetToken').then(() => {
+            location.reload()
+          })
+        })
+      }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
       return res

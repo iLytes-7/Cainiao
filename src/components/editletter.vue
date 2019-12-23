@@ -51,6 +51,8 @@
           this.$toast('保存成功')
           this.$router.push({path: '/letter'})
           this.loading = false
+        }).catch(() => {
+          this.loading = false
         })
       }
     }

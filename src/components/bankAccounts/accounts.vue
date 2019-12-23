@@ -6,50 +6,57 @@
       </div>
       <div class="info">
         <p class="bankName">{{item.bankName}}</p>
-        <p class="username">{{item.userName}}</p>
+        <p class="username">{{item.bankAccountFullName}}</p>
         <p class="accountNum">
-          <!--<span>****</span>-->
-          <!--<span>****</span>-->
-          <!--<span>****</span>-->
-          <!--<span>8521</span>-->
-          {{item.account | account}}
+          {{item.bankAccountNumber | account}}
         </p>
       </div>
     </div>
     <van-button class="btn" icon="plus" @click="add">添加资金账户</van-button>
+    <loading :show="loading"></loading>
   </div>
 </template>
 
 <script>
+  import {getBank} from "@/api/bank";
+  import {mapGetters} from 'vuex'
   export default {
     name: "accounts",
     data() {
       return {
-        banks: [
-          {
-            bankName: '交通银行',
-            userName: '李二狗',
-            account: '6288569536541257'
-          },
-          {
-            bankName: '交通银行',
-            userName: '李二狗',
-            account: '6288569536541257'
-          },
-          {
-            bankName: '交通银行',
-            userName: '李二狗',
-            account: '6288569536541257'
-          }
-        ]
+        loading: false,
+        banks: []
       }
+    },
+    computed: {
+      ...mapGetters([
+        'name',
+        'token'
+      ])
+    },
+    mounted() {
+      this.getBank()
     },
     methods: {
       add() {
         this.$router.push({path:'/bankAccount/addAccount'})
       },
       go(item) {
-        this.$router.push({path:'/bankAccount/detail',query: {id: item}})
+        this.$router.push({path:'/bankAccount/detail',query: {backInfo: JSON.stringify(item)}})
+      },
+      getBank() {
+        let data = {
+          api_key: "ea443b05c7067089bd2716f47257ee73",
+          username: this.name,
+          token: this.token
+        }
+        this.loading = true
+        getBank(data).then(res => {
+          this.banks = res.result
+          this.loading = false
+        }).catch(() => {
+          this.loading = false
+        })
       }
     }
   }

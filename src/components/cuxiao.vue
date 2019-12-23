@@ -1,28 +1,28 @@
 <template>
   <div class="page">
     <div class="cuxiao">
-      <van-tabs type="card" animated color="#403158" background="#291744" title-active-color="white"
-                title-inactive-color="white">
+      <van-tabs animated background="#291744" color="#403158" title-active-color="white" title-inactive-color="white"
+                type="card">
         <van-tab title="优惠">
-          <van-collapse v-model="activeNames" class="collapse" accordion>
-            <van-collapse-item :name="item" :is-link="false" class="collapseBox" v-for="item in 3" :key="item">
-              <div slot="title" class="collapseBox-head">
+          <van-collapse accordion class="collapse" v-model="activeNames">
+            <van-collapse-item :is-link="false" :key="item.id" :name="item.name" class="collapseBox" v-for="item in categories">
+              <div class="collapseBox-head" slot="title">
                 <img src="../assets/image/adv2.png">
                 <p class="collapseBox-title">
-                  <span>2019年10月现金回馈</span>
-                  <span>有效期：2019-12-31</span>
+                  <span>{{item.name}}</span>
+                  <span></span>
                 </p>
               </div>
               <div slot="default">
                 活动内容：啊发发发发发发嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎哈哈哈哈法国军方高级
-                <van-button round color="#6149f6" class='collapseBox-btn' plain @click="apply">立即申请</van-button>
+                <van-button @click="apply" class='collapseBox-btn' color="#6149f6" plain round>立即申请</van-button>
               </div>
             </van-collapse-item>
           </van-collapse>
         </van-tab>
         <van-tab title="任务">
           <div style="margin-top: 2rem">
-            <div class="task-box">
+            <div class="task-box" v-for="item in promos" :key="item.promo_cms_id">
               <div style="width: 70%">
                 <div style="color: white;font-size: 1.8rem;font-weight: 500;line-height: 3rem">注册有礼</div>
                 <div style="font-size: 1.1em;line-height: 2rem;color: #AFACB4">注册时间：2019年12月16日起</div>
@@ -31,30 +31,45 @@
                 已领取
               </div>
             </div>
-            <div class="task-box">
-              <div style="width: 70%">
-                <div style="color: white;font-size: 1.9rem;font-weight: 500;line-height: 3rem">注册有礼</div>
-                <div style="font-size: 1.1em;line-height: 2rem;color: #AFACB4">注册时间：2019年12月16日起</div>
-              </div>
-              <div class="havnot-accpte">
-                未领取
-              </div>
-            </div>
+            <!--<div class="task-box">-->
+              <!--<div style="width: 70%">-->
+                <!--<div style="color: white;font-size: 1.9rem;font-weight: 500;line-height: 3rem">注册有礼</div>-->
+                <!--<div style="font-size: 1.1em;line-height: 2rem;color: #AFACB4">注册时间：2019年12月16日起</div>-->
+              <!--</div>-->
+              <!--<div class="havnot-accpte">-->
+                <!--未领取-->
+              <!--</div>-->
+            <!--</div>-->
           </div>
 
         </van-tab>
       </van-tabs>
     </div>
+    <loading :show="loading"></loading>
   </div>
 </template>
 
 <script>
+  import {getListPromos} from '@/api/cuxiao'
+  import {mapGetters} from 'vuex'
     export default {
         data() {
             return {
-                activeNames: ['0']
+                activeNames: ['0'],
+              categories: [],
+              promos: [],
+              loading: false
             }
         },
+      computed: {
+        ...mapGetters([
+          'name',
+          'token'
+        ])
+      },
+      mounted() {
+        this.getListPromos()
+      },
         methods: {
             apply() {
                 this.$toast.success('成功');
@@ -67,7 +82,24 @@
             },
             log() {
                 this.$refs.log.toggle();
+            },
+          getListPromos() {
+            let data = {
+              api_key: "ea443b05c7067089bd2716f47257ee73",
+              username: this.name,
+              token: this.token,
+              is_deposit: 0
             }
+            this.loading = true
+            getListPromos(data).then(res => {
+              console.log(res);
+              this.categories = res.result.categories
+              this.promos = res.result.promos
+              this.loading = false
+            }).catch(() => {
+              this.loading = false
+            })
+          }
         }
     }
 </script>

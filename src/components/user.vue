@@ -10,7 +10,8 @@
                v-clipboard:success="onCopy"
                v-clipboard:error="onError">{{name}}
           </div>
-          <a href="https://chat.liveneed.net/chat/Hotline/channel.jsp?cid=5052195&cnfid=42351&j=7220487914&s=1"><img src="../assets/image/kefu.png" style="width:2.1rem;height:2.3rem;position: absolute
+          <a href="https://chat.liveneed.net/chat/Hotline/channel.jsp?cid=5052195&cnfid=42351&j=7220487914&s=1"><img
+            src="../assets/image/kefu.png" style="width:2.1rem;height:2.3rem;position: absolute
           ;z-index:99999;right: 2rem;top: 1.5rem"></a>
 
         </div>
@@ -113,69 +114,88 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
-    import {Toast} from 'vant';
+  import {mapGetters} from 'vuex'
+  import {queryPlayerBalance} from '@/api/user'
+  import {Toast} from 'vant';
 
-    export default {
-        data() {
-            return {
-                value: 30,
-                mainWallet: 543012.00,
-                gameWallet: 2294.03,
-                loading:false,
-                url: ''
-            }
-        },
-        computed: {
-            ...mapGetters([
-                'name',
-                'token'
-            ])
-        },
-        methods: {
-            onchange(value) {
-                this.value = 30;
-            },
-            recharge() {
-                this.$router.push({path: "/recharge/recharge"})
-            },
-            goPerson() {
-                this.$router.push({path: "/personal-info"})
-            },
-            goCuxiao() {
-                this.$router.push({path: "/cuxiao"})
-            },
-            transform() {
-                this.$router.push({path: "/transform"})
-            },
-            withdraw() {
-                this.$router.push({path: "/withdraw"})
-            },
-            // 复制成功
-            onCopy(e) {
-                console.log(e);
-                Toast('复制成功');
-            },
-            // 复制失败
-            onError(e) {
-                alert("失败");
-                Toast('复制失败');
-            },
-            logout() {
-                let data = {
-                    api_key:'ea443b05c7067089bd2716f47257ee73',
-                    username:this.name,
-                    token:this.token
-                }
-                this.loading = true
-                this.$store.dispatch('user/logout',data).then(res => {
-                  location.reload()
-                })
-            },
-            goConsoult(){
-            }
+  export default {
+    data() {
+      return {
+        value: 30,
+        mainWallet: 0,
+        gameWallet: 2294.03,
+        loading: false,
+        url: ''
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'name',
+        'token'
+      ])
+    },
+    mounted() {
+      this.getQueryPlayerBalance()
+    },
+    methods: {
+      onchange(value) {
+        this.value = 30;
+      },
+      recharge() {
+        this.$router.push({path: "/recharge/recharge"})
+      },
+      goPerson() {
+        this.$router.push({path: "/personal-info"})
+      },
+      goCuxiao() {
+        this.$router.push({path: "/cuxiao"})
+      },
+      transform() {
+        this.$router.push({path: "/transform"})
+      },
+      withdraw() {
+        this.$router.push({path: "/withdraw"})
+      },
+      // 复制成功
+      onCopy(e) {
+        console.log(e);
+        Toast('复制成功');
+      },
+      // 复制失败
+      onError(e) {
+        alert("失败");
+        Toast('复制失败');
+      },
+      logout() {
+        let data = {
+          api_key: 'ea443b05c7067089bd2716f47257ee73',
+          username: this.name,
+          token: this.token
         }
+        this.loading = true
+        this.$store.dispatch('user/logout', data).then(res => {
+          location.reload()
+        })
+      },
+      getQueryPlayerBalance() {
+        let data = {
+          api_key: "ea443b05c7067089bd2716f47257ee73",
+          username: this.name,
+          token: this.token,
+          refresh: 1
+        }
+        this.loading = true
+        queryPlayerBalance(data).then(res => {
+          this.mainWallet = res.result.mainwallet
+          this.loading = false
+        }).catch(() => {
+          this.loading = false
+        })
+      },
+      goConsoult() {
+      }
     }
+  }
 </script>
 
 <style scoped>

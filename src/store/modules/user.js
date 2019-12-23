@@ -100,6 +100,7 @@ const actions = {
       logout(data).then(res => {
         commit('SET_TOKEN', '')
         removeToken()
+        Cookies.remove('userName')
         resolve()
       })
     })
