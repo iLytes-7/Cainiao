@@ -63,8 +63,12 @@ service.interceptors.response.use(
           message: res.message
         }).then(() => {
           store.dispatch('user/resetToken').then(() => {
-            router.push({path: "/login"})
-            location.reload()
+            const ua = navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) != "micromessenger") {
+              location.reload()
+            }else{
+              router.push({path: "/login"})
+            }
           })
         })
       }
