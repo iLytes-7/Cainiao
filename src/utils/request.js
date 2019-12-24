@@ -40,7 +40,7 @@ service.interceptors.response.use(
     const res = response.data
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 0) {
-      if (res.code === 21) {
+      if (res.code === 21 || res.code === 298) {
         const data = {
           result: []
         }
@@ -56,7 +56,7 @@ service.interceptors.response.use(
         // to re-login
         Dialog.alert({
           title: '标题',
-          message: 'You have been logged out'
+          message: res.message
         }).then(() => {
           store.dispatch('user/resetToken').then(() => {
             router.push({path: "/login"})

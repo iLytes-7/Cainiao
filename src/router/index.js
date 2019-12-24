@@ -139,9 +139,25 @@ const router = new Router({
           }
         },
         {
+          path: '/bankAccount/addType',
+          name: 'addType',
+          component: () => import('@/components/bankAccounts/addType'),
+          meta: {
+            title: '查看银行卡'
+          }
+        },
+        {
           path: '/bankAccount/addAccount',
           name: 'addAccount',
           component: () => import('@/components/bankAccounts/addAccount'),
+          meta: {
+            title: '添加银行账户'
+          }
+        },
+        {
+          path: '/bankAccount/withdrawAccount',
+          name: 'withdrawAccount',
+          component: () => import('@/components/bankAccounts/withdrawAccount'),
           meta: {
             title: '添加银行账户'
           }

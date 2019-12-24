@@ -8,3 +8,27 @@ export function getBank(data) {
     data: param(data)
   })
 }
+
+export function getListPlayerWithdrawAccounts(data) {
+  return request({
+    url: '/listPlayerWithdrawAccounts',
+    method: 'post',
+    data: param(data)
+  })
+}
+
+export function addPlayerWithdrawAccount(data) {
+  return request({
+    url: '/addPlayerWithdrawAccount',
+    method: 'post',
+    data: param(data)
+  })
+}
+
+export function queryDepositWithdrawalAvailableBank(data) {
+  return request({
+    url: '/queryDepositWithdrawalAvailableBank',
+    method: 'post',
+    data: param(data)
+  })
+}

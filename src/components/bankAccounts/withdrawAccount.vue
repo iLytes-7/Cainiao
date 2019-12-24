@@ -6,26 +6,28 @@
         <img src="../../assets/image/jtyh.png" alt="">
       </div>
       <div class="info">
-        <p class="bankName">{{item.bankName}}</p>
+        <p class="bankName">{{item.bankName | bankName}}</p>
         <p class="username">{{item.bankAccountFullName}}</p>
         <p class="accountNum">
           {{item.bankAccountNumber | account}}
         </p>
       </div>
     </div>
+    <van-button class="btn" icon="plus" @click="add">添加资金账户</van-button>
     <loading :show="loading"></loading>
   </div>
 </template>
 
 <script>
-  import {getBank} from "@/api/bank";
+  import {getListPlayerWithdrawAccounts} from "@/api/bank";
   import {mapGetters} from 'vuex'
   export default {
     name: "accounts",
     data() {
       return {
         loading: false,
-        banks: []
+        banks: [],
+        bankTypeIds: []
       }
     },
     computed: {
@@ -51,7 +53,7 @@
           token: this.token
         }
         this.loading = true
-        getBank(data).then(res => {
+        getListPlayerWithdrawAccounts(data).then(res => {
           this.banks = res.result
           this.loading = false
         }).catch(() => {

@@ -11,23 +11,14 @@ import { Toast, Notify } from 'vant';
 import store from './store'
 import './permission'
 
+import * as filters from './filters' // global filters
+
 import Loading from './components/components/Loading'
 Vue.component('Loading',Loading)
 
-Vue.filter('account', function(input) {
-  let x = '**** **** **** **** ' + input.substr('-4')
-  return x
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
 })
-
-Vue.filter('amount', function(input) {
-  let parts = input.toString().split('.')
-  if(parts.length === 1) {
-    parts[1] = '00'
-  }
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  return parts.join('.')
-})
-
 
 Vue.use(Vant);
 

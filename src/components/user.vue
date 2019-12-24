@@ -66,7 +66,7 @@
         </router-link>
       </div>
       <div>
-        <router-link to="/bankAccount/bankAccount">
+        <router-link to="/bankAccount/addType">
           <img src="../assets/image/yhzh.png" alt=""><span>银行账户</span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
