@@ -64,6 +64,7 @@ service.interceptors.response.use(
         }).then(() => {
           store.dispatch('user/resetToken').then(() => {
             router.push({path: "/login"})
+            location.reload()
           })
         })
       }

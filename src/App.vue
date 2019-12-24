@@ -112,6 +112,9 @@
     .metaTitle {
       background-color: #230F40;
     }
+    .van-overlay{
+      z-index: 999999 !important;
+    }
 
     iframe .app-header {
       display: none;
