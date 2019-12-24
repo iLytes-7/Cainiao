@@ -37,7 +37,11 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
-    const res = response.data
+    let res = response.data
+    if (typeof res == 'string') { // 拦截后台传回字符串问题
+      let resData = res.split('</div>')[1]
+      res = JSON.parse(resData)
+    }
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 0) {
       if (res.code === 21 || res.code === 298) {
