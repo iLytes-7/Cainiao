@@ -1,6 +1,6 @@
 <template>
   <div class="forget">
-    <van-field required v-model="username" placeholder="请输入用户名" @blur="testUsername"/>
+    <van-field required v-model="username" placeholder="请输入用户名" />
     <span v-show="usernameError">用户名 长度必须为6-12之间由小写字母和数字组成！</span>
     <van-field required type="password" v-model="password" placeholder="请输入账户密码"/>
     <span v-show="passwordError">账户密码 长度必须为6-20之间由英文字母与数字组成！不能与您的用户名相似！</span>

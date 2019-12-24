@@ -9,55 +9,61 @@
     <div class="messageBox">
       <div class="content" v-for="(item,index) in messageData" :key="index">
         <div><p style="width: 90%; font-size: 1.1rem;text-align: center;font-weight: 600">{{item.subject}}</p></div>
-        <div><p style="width: 80%; font-size: 1.1rem;color: #AFACB4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;" class="van-multi-ellipsis--l3">{{item.detail}}</p></div>
+        <div><p
+          style="width: 80%; font-size: 1.1rem;color: #AFACB4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;"
+          class="van-multi-ellipsis--l3">{{item.detail}}</p></div>
         <div><p style="width: 90%; font-size: 1.1rem;text-align: center;color: #AFACB4">{{item.date}}</p></div>
       </div>
       <p v-if="messageData.length === 0" style="text-align: center">
         暂无数据
       </p>
     </div>
-    <router-link to="/editletter">
-      <div style="margin-top: 5rem">
-        <div class="btn-edit">
+    <div style="margin-top: 5rem">
+        <div class="btn-edit" @click="goEdit">
           <img src="../assets/image/editicon.png">
         </div>
-      </div>
-    </router-link>
+    </div>
+
     <loading :show="loading"></loading>
   </div>
 </template>
 
 <script>
-  import {message} from '@/api/message'
-  import {mapGetters} from 'vuex'
+    import {message} from '@/api/message'
+    import {mapGetters} from 'vuex'
 
-  export default {
-    data() {
-      return {
-        loading: false,
-        messageData: []
-      }
-    },
-    computed: {
-      ...mapGetters([
-        'name',
-        'token'
-      ])
-    },
-    mounted() {
-      let data = {
-        api_key: "ea443b05c7067089bd2716f47257ee73",
-        username: this.name,
-        token: this.token
-      }
-      this.loading = true
-      message(data).then(res => {
-        console.log(res.result.messages);
-        this.messageData = res.result.messages
-        this.loading = false
-      })
+    export default {
+        data() {
+            return {
+                loading: false,
+                messageData: []
+            }
+        },
+        computed: {
+            ...mapGetters([
+                'name',
+                'token'
+            ])
+        },
+        mounted() {
+            let data = {
+                api_key: "ea443b05c7067089bd2716f47257ee73",
+                username: this.name,
+                token: this.token
+            }
+            this.loading = true
+            message(data).then(res => {
+                console.log(res.result.messages);
+                this.messageData = res.result.messages
+                this.loading = false
+            })
+        },
+        methods:{
+            goEdit() {
+                this.$router.push({path: "/editletter"})
+            },
+        }
     }
-  }
 </script>
 
 <style scoped>

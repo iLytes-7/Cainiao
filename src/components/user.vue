@@ -114,89 +114,88 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
-  import {queryPlayerBalance} from '@/api/user'
-  import {Toast} from 'vant';
+    import {mapGetters} from 'vuex'
+    import {Toast} from 'vant';
 
-  export default {
-    data() {
-      return {
-        value: 30,
-        mainWallet: 0,
-        gameWallet: 2294.03,
-        loading: false,
-        url: ''
-      }
-    },
-    computed: {
-      ...mapGetters([
-        'name',
-        'token'
-      ])
-    },
-    mounted() {
-      this.getQueryPlayerBalance()
-    },
-    methods: {
-      onchange(value) {
-        this.value = 30;
-      },
-      recharge() {
-        this.$router.push({path: "/recharge/recharge"})
-      },
-      goPerson() {
-        this.$router.push({path: "/personal-info"})
-      },
-      goCuxiao() {
-        this.$router.push({path: "/cuxiao"})
-      },
-      transform() {
-        this.$router.push({path: "/transform"})
-      },
-      withdraw() {
-        this.$router.push({path: "/withdraw"})
-      },
-      // 复制成功
-      onCopy(e) {
-        console.log(e);
-        Toast('复制成功');
-      },
-      // 复制失败
-      onError(e) {
-        alert("失败");
-        Toast('复制失败');
-      },
-      logout() {
-        let data = {
-          api_key: 'ea443b05c7067089bd2716f47257ee73',
-          username: this.name,
-          token: this.token
+    export default {
+        data() {
+            return {
+                value: 30,
+                gameWallet: 2294.03,
+                loading: false,
+                url: ''
+            }
+        },
+        computed: {
+            ...mapGetters([
+                'name',
+                'token',
+                'mainWallet'
+            ])
+        },
+        mounted() {
+            this.getQueryPlayerBalance()
+        },
+        methods: {
+            onchange(value) {
+                this.value = 30;
+            },
+            recharge() {
+                this.$router.push({path: "/recharge/recharge"})
+            },
+            goPerson() {
+                this.$router.push({path: "/personal-info"})
+            },
+            goCuxiao() {
+                this.$router.push({path: "/cuxiao"})
+            },
+            transform() {
+                this.$router.push({path: "/transform"})
+            },
+            withdraw() {
+                this.$router.push({path: "/withdraw"})
+            },
+            // 复制成功
+            onCopy(e) {
+                console.log(e);
+                Toast('复制成功');
+            },
+            // 复制失败
+            onError(e) {
+                alert("失败");
+                Toast('复制失败');
+            },
+            logout() {
+                let data = {
+                    api_key: 'ea443b05c7067089bd2716f47257ee73',
+                    username: this.name,
+                    token: this.token
+                }
+                this.loading = true
+                this.$store.dispatch('user/logout', data).then(res => {
+                    this.loading = false
+                    this.$router.push({path: "/login"})
+                })
+            },
+            getQueryPlayerBalance() {
+                let data = {
+                    api_key: "ea443b05c7067089bd2716f47257ee73",
+                    username: this.name,
+                    token: this.token,
+                    refresh: 1
+                }
+                console.log(1);
+                this.loading = true
+                this.$store.dispatch('bank/queryPlayerBalance', data).then(res => {
+                    this.loading = false
+                }).catch(() => {
+                    this.loading = false
+                })
+            },
+            goConsoult() {
+            }
         }
-        this.loading = true
-        this.$store.dispatch('user/logout', data).then(res => {
-          this.loading = false
-          this.$router.push({path: "/login"})
-        })
-      },
-      getQueryPlayerBalance() {
-        let data = {
-          api_key: "ea443b05c7067089bd2716f47257ee73",
-          username: this.name,
-          token: this.token,
-          refresh: 1
-        }
-        this.loading = true
-        queryPlayerBalance(data).then(res => {
-          this.mainWallet = res.result.mainwallet
-          this.loading = false
-        }).catch(() => {
-          this.loading = false
-        })
-      },
-      goConsoult() {
-      }
     }
-  }
 </script>
 
 <style scoped>

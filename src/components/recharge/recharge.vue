@@ -3,21 +3,23 @@
     <div class="method">
       <p>充值方式</p>
       <ul>
-        <li @click="selectMethod(index)" v-for="(item,index) in methodList" :key="index"
-            :class="{liActive:index===curr}">
+        <li @click="selectAutoMethod(index)" v-for="(item,index) in totalMethodList" :key="index"
+            :class="{liActive:index===autoCurr}">
           <img src="../../assets/image/xxsz.png" alt="">
-          <p v-if="index==4">传统转账</p>
-          <p v-else>网银转账</p>
+          <p>{{item.category_text}}</p>
         </li>
       </ul>
       <div class="methodList">
         <van-radio-group v-model="methodRadio">
           <van-cell-group>
-            <van-cell clickable v-for="(item,index) in method" :key="index" @click="selectMethodRadio(index)">
+            <van-cell clickable v-for="(item,index) in tempList.list" :key="index"
+                      @click="selectMethodRadio(index)">
               <div slot="title" class="methodList-title">
                 <img src="../../assets/image/xxsz.png" alt="">
-                <span>{{item.name}}</span>
-                <span>{{item.Limit}}</span>
+                <span style="max-width: 37%;display:inline-block;overflow: hidden;height: 2rem;white-space:nowrap;
+    text-overflow: ellipsis;">{{item.bank_name_local
+                  }}</span>
+                <span>单比限额 ¥{{item.minDeposit}}-¥{{item.maxDeposit}}</span>
               </div>
               <van-radio checked-color="#FF6D44" slot="right-icon" :name="index"/>
             </van-cell>
@@ -36,71 +38,67 @@
           </div>
         </div>
       </div>
-      <van-button  v-if="curr==4" class="btn" color="#FF6D44" @click="goTraditional">立即存款</van-button>
-      <van-button  v-else class="btn" color="#FF6D44" >立即存款</van-button>
+<!--      <van-button  v-if="curr==4" class="btn" color="#FF6D44" @click="goTraditional">立即存款</van-button>-->
+      <van-button  class="btn" color="#FF6D44" @click="handleCharge">立即存款</van-button>
     </div>
+    <loading :show="loading"></loading>
   </div>
 </template>
 
 <script>
+    import { depositPaymentCategories,thirdPartyDepositForm } from '@/api/recharge';
+    import {mapGetters} from 'vuex'
     export default {
         name: "recharge",
         data() {
             return {
-                curr: 0,
+                autoCurr: 0,
+                // manualCurr:0,
                 amountcurr: 500,
+                tempList:[],
                 amount: 500,
+                loading:false,
                 amountData: [50, 100, 500, 1000, 5000],
-                methodRadio: 1,
-                methodList: [0, 1, 2, 3, 4],
+                methodRadio: 0,
+                autoMethodList: [],
+                totalMethodList:[],
+                manualMethodList:[],
                 method: [],
-                method1: [
-                    {name: '银联云闪付', Limit: '单笔限额￥10-￥100000'},
-                    {name: '银联云闪付', Limit: '单笔限额￥10-￥100000'},
-                    {name: '银联云闪付', Limit: '单笔限额￥10-￥100000'}
-                ],
-                method2: [
-                    {name: '哈哈哈', Limit: '单笔限额￥10-￥100000'},
-                    {name: '银联云闪付', Limit: '单笔限额￥10-￥100000'}
-                ],
-                method3: [
-                    {name: '支付宝', Limit: '单笔限额￥10-￥100000'},
-                    {name: '银联云闪付', Limit: '单笔限额￥10-￥100000'},
-                    {name: '银联云闪付', Limit: '单笔限额￥10-￥100000'},
-                    {name: '银联云闪付', Limit: '单笔限额￥10-￥100000'}
-                ],
-                method4: [
-                    {name: '微信', Limit: '单笔限额￥10-￥100000'},
-                    {name: '银联云闪付', Limit: '单笔限额￥10-￥100000'},
-                    {name: '银联云闪付', Limit: '单笔限额￥10-￥100000'}
-                ],
             }
         },
         created() {
             this.method = this.method1
+            let data = {
+                api_key: "ea443b05c7067089bd2716f47257ee73",
+                username: this.name,
+                token:this.token
+            }
+            this.loading = true
+            depositPaymentCategories(data).then(response => {
+                console.log(response);
+                this.autoMethodList = response.result.payment_cats.auto
+                this.totalMethodList = this.autoMethodList
+                this.manualMethodList = response.result.payment_cats.manual
+                this.totalMethodList = this.totalMethodList.concat(this.manualMethodList)
+                this.tempList = this.totalMethodList[0]
+                this.loading = false
+            })
+        },
+        computed: {
+            ...mapGetters([
+                'name',
+                'token'
+            ])
         },
         methods: {
             selectAmount(item) {
                 this.amount = item;
                 this.amountcurr = item;
             },
-            selectMethod(index) {
-                this.curr = index
-
-                switch (index) {
-                    case 0 :
-                        this.method = this.method1
-                        break
-                    case 1 :
-                        this.method = this.method2
-                        break
-                    case 2 :
-                        this.method = this.method3
-                        break
-                    case 3 :
-                        this.method = this.method4
-                        break
-                }
+            selectAutoMethod(index) {
+                this.autoCurr = index
+                this.methodRadio = 0
+                this.tempList = this.totalMethodList[index]
             },
             change(val) {
                 const x = this.amountData.find(item => {
@@ -116,8 +114,31 @@
                 console.log(item);
                 this.methodRadio = item;
             },
-            goTraditional(){
-                this.$router.push({path: "/charge"})
+            handleCharge(){
+                let length = this.autoMethodList.length
+                if (this.autoCurr<length){
+                    if (this.amount > this.tempList.list[this.methodRadio].maxDeposit){
+                        this.$toast('该种方式单比限额上限为¥'+ this.tempList.list[this.methodRadio].maxDeposit);
+                        return
+                    }
+                    if (this.amount < this.tempList.list[this.methodRadio].minDeposit){
+                        this.$toast('该种方式单比限额下限为¥'+ this.tempList.list[this.methodRadio].minDeposit);
+                        return
+                    }
+                    let data = {
+                        api_key: "ea443b05c7067089bd2716f47257ee73",
+                        username: this.name,
+                        token:this.token,
+                        bankTypeId: this.tempList.list[this.methodRadio].bankTypeId
+                    }
+                    this.loading = true
+                    thirdPartyDepositForm(data).then(response => {
+                        this.$toast.success("充值成功！")
+                        this.loading = false
+                    })
+                }else{
+                    this.$router.push({path: "/charge"})
+                }
             }
         }
     }
@@ -142,6 +163,7 @@
         background-color: #32204C;
         border-radius: 0.5rem;
 
+
         &:last-of-type {
           margin-right: 0.5rem;
         }
@@ -161,6 +183,9 @@
   li > p {
     font-size: 1.2rem;
     text-align: center;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
     color: #AFACB4;
   }
 
@@ -220,6 +245,7 @@
   .methodList-title span:last-of-type {
     float: right;
     margin-right: 1rem;
+    margin-left: 0;
   }
 
   .methodList span:first-of-type {
