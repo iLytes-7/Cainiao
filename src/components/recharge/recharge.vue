@@ -151,6 +151,7 @@
       list-style: none;
       white-space: nowrap;
       color: #AFACB4;
+      height: 9rem;
 
       li {
         width: 7rem;

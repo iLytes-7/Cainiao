@@ -112,7 +112,7 @@
     .metaTitle {
       background-color: #230F40;
     }
-    .van-overlay{
+    .loading.van-overlay{
       z-index: 999999 !important;
     }
 
