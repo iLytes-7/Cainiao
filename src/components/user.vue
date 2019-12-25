@@ -134,7 +134,8 @@
             ])
         },
         mounted() {
-            this.getQueryPlayerBalance()
+          console.log(this.name);
+          this.getQueryPlayerBalance()
         },
         methods: {
             onchange(value) {

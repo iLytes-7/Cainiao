@@ -42,7 +42,7 @@ const actions = {
       register(userInfo).then(response => {
         const data = response.result
         commit('SET_TOKEN', data.token)
-        commit('SET_NAME', data.palyerName)
+        commit('SET_NAME', data.playerName)
         setToken(data.token)
         Cookies.set('userName', data.playerName)
         resolve(response)

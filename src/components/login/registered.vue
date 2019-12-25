@@ -38,6 +38,7 @@
   import {isPlayerExist} from '@/api/user';
 
   export default {
+    inject: ['reload'],
     data() {
       return {
         tel: '',
@@ -134,6 +135,7 @@
         this.$store.dispatch('user/signUp', data).then(res => {
           this.$toast.success("注册成功！")
           this.$router.push({path: "/"})
+          this.reload()
           this.loading = false
         }).catch(() => {
           this.loading = false

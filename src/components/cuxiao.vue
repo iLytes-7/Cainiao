@@ -2,8 +2,9 @@
   <div class="page">
     <div class="cuxiao">
       <div class="btnGroup">
+        <van-button @click="filter(99, 'all')" :class="{literBtn:99 === curr}" type="default">全部</van-button>
         <van-button @click="filter(index, item.id)" :class="{literBtn:index === curr}" v-for="(item,index) in categories"
-                    key="item.id" type="default">{{item.name}}
+                    :key="index" type="default">{{item.name}}
         </van-button>
       </div>
       <van-collapse accordion class="collapse" v-model="activeNames" v-if="show">
@@ -18,7 +19,7 @@
           </div>
           <div slot="default">
             <span v-html="item.promoDetails"></span>
-            <van-button @click="apply(item)" class='collapseBox-btn' color="#6149f6" plain round>立即申请</van-button>
+            <van-button @click="apply(item)" class='collapseBox-btn' color="#ff6d44 " plain round>立即申请</van-button>
           </div>
         </van-collapse-item>
         <p v-show="empty" style="text-align: center;font-size: 2rem">暂无优惠</p>
@@ -41,7 +42,7 @@
         promos: [],
         loading: false,
         promoData: [],
-        curr: 0,
+        curr: 99,
         show:true,
         empty: false
       }
@@ -98,11 +99,7 @@
           this.categories = res.result.categories
           this.promos = res.result.promos
           const id = this.categories[0].id
-          this.promos.forEach(item => {
-            if (item.promo_category == id) {
-              this.promoData.push(item)
-            }
-          })
+          this.promoData = this.promos
           if(this.promoData.length == 0){
             this.empty = true
           }else{
@@ -119,11 +116,16 @@
         this.$nextTick(()=>{
           this.curr = curr
           this.promoData = []
-          this.promos.forEach(item => {
-            if (item.promo_category == id) {
-              this.promoData.push(item)
-            }
-          })
+          if(id === 'all'){
+            this.curr = 99
+            this.promoData = this.promos
+          }else{
+            this.promos.forEach(item => {
+              if (item.promo_category == id) {
+                this.promoData.push(item)
+              }
+            })
+          }
           if(this.promoData.length == 0){
             this.empty = true
           }else{
@@ -253,6 +255,7 @@
 
   .collapseBox-title span {
     margin-left: 0.5rem;
+    font-size: 1.2rem;
   }
 
   .collapseBox-title span:last-of-type {
@@ -261,7 +264,7 @@
   }
 
   .page .van-collapse-item__content {
-    background-color: #230f40;
+    background-color: #403157;
   }
 
   .page .collapseBox-btn {
