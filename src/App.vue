@@ -8,7 +8,7 @@
       @click-left="onClickLeft"
     />
     </van-sticky>
-    <router-view/>
+    <router-view :key="key"/>
   </div>
 </template>
 
@@ -31,6 +31,9 @@
         }
         // if set path, the sidebar will highlight the path you set
         return meta.title
+      },
+      key() {
+        return this.$route.path + Math.random()
       }
     },
     mounted() {
@@ -112,7 +115,7 @@
     .metaTitle {
       background-color: #230F40;
     }
-    .van-overlay{
+    .loading.van-overlay{
       z-index: 999999 !important;
     }
 

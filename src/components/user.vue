@@ -172,9 +172,14 @@
                     token: this.token
                 }
                 this.loading = true
-                this.$store.dispatch('user/logout', data).then(res => {
+                this.$store.dispatch('user/logout', data).then( res => {
                     this.loading = false
+                  const ua = navigator.userAgent.toLowerCase();
+                  if (ua.match(/MicroMessenger/i) != "micromessenger") {
+                    location.reload()
+                  }else{
                     this.$router.push({path: "/login"})
+                  }
                 })
             },
             getQueryPlayerBalance() {
