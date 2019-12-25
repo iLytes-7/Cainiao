@@ -75,12 +75,13 @@
             }
             this.loading = true
             depositPaymentCategories(data).then(response => {
-                console.log(response);
                 this.autoMethodList = response.result.payment_cats.auto
                 this.totalMethodList = this.autoMethodList
                 this.manualMethodList = response.result.payment_cats.manual
                 this.totalMethodList = this.totalMethodList.concat(this.manualMethodList)
                 this.tempList = this.totalMethodList[0]
+                this.loading = false
+            }).catch(() => {
                 this.loading = false
             })
         },
@@ -111,18 +112,13 @@
                 }
             },
             selectMethodRadio(item) {
-                console.log(item);
                 this.methodRadio = item;
             },
             handleCharge(){
                 let length = this.autoMethodList.length
                 if (this.autoCurr<length){
-                    if (this.amount > this.tempList.list[this.methodRadio].maxDeposit){
-                        this.$toast('该种方式单比限额上限为¥'+ this.tempList.list[this.methodRadio].maxDeposit);
-                        return
-                    }
-                    if (this.amount < this.tempList.list[this.methodRadio].minDeposit){
-                        this.$toast('该种方式单比限额下限为¥'+ this.tempList.list[this.methodRadio].minDeposit);
+                    if (this.amount > this.tempList.list[this.methodRadio].maxDeposit ||this.amount < this.tempList.list[this.methodRadio].minDeposit){
+                        this.$toast('请填写该种方式限额内的提款金额');
                         return
                     }
                     let data = {
@@ -135,9 +131,17 @@
                     thirdPartyDepositForm(data).then(response => {
                         this.$toast.success("充值成功！")
                         this.loading = false
+                    }).catch(() => {
+                        this.loading = false
                     })
                 }else{
-                    this.$router.push({path: "/charge"})
+                    if (this.amount > this.tempList.list[this.methodRadio].maxDeposit ||this.amount < this.tempList.list[this.methodRadio].minDeposit){
+                        this.$toast('请填写该种方式限额内的提款金额');
+                        return
+                    }
+                    this.$router.push({path: "/charge",
+                        query:{chargeAmount : this.amount,
+                                 bankTypeId : this.tempList.list[this.methodRadio].bankTypeId}})
                 }
             }
         }

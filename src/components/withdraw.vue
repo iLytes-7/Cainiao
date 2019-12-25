@@ -49,7 +49,7 @@
             return {
                 money: 543012.00,
                 password:'',
-                haveCard:true,
+                haveCard:false,
             }
         },
         methods:{

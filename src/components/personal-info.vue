@@ -220,6 +220,8 @@
         this.wechat = userinfo.imAccount
         this.qq = userinfo.imAccount2
         this.loading = false
+      }).catch(() => {
+          this.loading = false
       })
     },
     methods: {
@@ -330,6 +332,8 @@
               this.loading = true
               updatePlayerProfile(data).then(response => {
                   this.$toast("保存成功！")
+                  this.loading = false
+              }).catch(() => {
                   this.loading = false
               })
           }).catch(() => {

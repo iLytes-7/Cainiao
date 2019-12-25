@@ -14,5 +14,21 @@ export function thirdPartyDepositForm(data) {
     data: param(data)
   })
 }
+export function manualDepositForm(data) {
+  return request({
+    url: '/manualDepositForm',
+    method: 'post',
+    data: param(data)
+  })
+}
+
+export function manualDepositRequest(data) {
+  return request({
+    url: '/manualDepositRequest',
+    method: 'post',
+    data: param(data)
+  })
+}
+
 
 
