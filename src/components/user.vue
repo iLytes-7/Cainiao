@@ -121,7 +121,6 @@
         data() {
             return {
                 value: 30,
-                gameWallet: 2294.03,
                 loading: false,
                 url: ''
             }
@@ -134,8 +133,8 @@
             ])
         },
         mounted() {
-          console.log(this.name);
-          this.getQueryPlayerBalance()
+            this.getQueryPlayerBalance()
+            console.log(this.mainWallet);
         },
         methods: {
             onchange(value) {
@@ -158,7 +157,6 @@
             },
             // 复制成功
             onCopy(e) {
-                console.log(e);
                 Toast('复制成功');
             },
             // 复制失败
@@ -190,7 +188,6 @@
                     token: this.token,
                     refresh: 1
                 }
-                console.log(1);
                 this.loading = true
                 this.$store.dispatch('bank/queryPlayerBalance', data).then(res => {
                     this.loading = false

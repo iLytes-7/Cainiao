@@ -1,20 +1,17 @@
 <template>
   <div class="verification" style="width: 100%;margin-left: auto;margin-right: auto">
-    <!--    <div class="content">-->
-    <!--      <div class="info-row">-->
-    <!--        <router-link to="/safety-setting/real-name">-->
-    <!--        <div class="info-item">真实姓名验证</div>-->
-    <!--        <div style="display: flex;align-items: center">-->
-    <!--          <div class="info-status have">已认证</div>-->
-    <!--          <van-icon name="arrow"/>-->
-    <!--        </div>-->
-    <!--        </router-link>-->
-    <!--      </div>-->
-    <!--    </div>-->
     <div class="content" style="margin-top: 0rem;">
       <div class="info-row">
-        <router-link to="/login/forget">
+        <router-link to="/login/updatePassword">
           <div class="info-item">修改账号密码</div>
+          <div style="display: flex;align-items: center">
+            <van-icon name="arrow"/>
+          </div>
+        </router-link>
+      </div>
+      <div class="info-row">
+        <router-link to="/login/updateWithdrawPassword">
+          <div class="info-item">修改取款密码</div>
           <div style="display: flex;align-items: center">
             <van-icon name="arrow"/>
           </div>

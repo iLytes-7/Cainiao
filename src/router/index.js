@@ -116,6 +116,22 @@ const router = new Router({
           }
         },
         {
+          path: '/login/updatePassword',
+          name: 'updatePassword',
+          component: () => import('@/components/login/updatePassword'),
+          meta:{
+            title: '修改密码'
+          }
+        },
+        {
+          path: '/login/updateWithdrawPassword',
+          name: 'updateWithdrawPassword',
+          component: () => import('@/components/login/updateWithdrawPassword'),
+          meta:{
+            title: '修改取款密码'
+          }
+        },
+        {
           path: '/login/forget1',
           name: 'forget1',
           component: () => import('@/components/login/forgetPassword2'),

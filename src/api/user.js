@@ -92,4 +92,18 @@ export function queryPlayerBalance(data) {
   })
 }
 
+export function updatePlayerPassword(data) {
+  return request({
+    url: '/updatePlayerPassword',
+    method: 'post',
+    data: param(data)
+  })
+}
 
+export function updatePlayerWithdrawalPassword(data) {
+  return request({
+    url: '/updatePlayerWithdrawalPassword',
+    method: 'post',
+    data: param(data)
+  })
+}
