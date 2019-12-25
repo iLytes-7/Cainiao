@@ -1,21 +1,26 @@
 <template>
   <div style="width: 90%;margin-left: auto;margin-right: auto" class="withdrow-page">
     <div style="margin-top: 1.5rem;  margin-left:0.3rem;font-size: 1.2rem;color: #AFACB4">到账银行卡</div>
+    <p v-if="banks.length === 0" style="text-align:center;font-size: 1.4rem">暂无取款银行卡，请先到银行账户添加！</p>
     <div class="content">
-      <div class="info" v-show="haveCard">
-        <div class="bank-name">
-          <div>银行名称：<span>中国银行</span></div>
-          <van-icon name="arrow" />
-        </div>
-        <div>账号：<span>6222 **** **** 8521</span></div>
-        <div>账户名：<span>李二狗</span></div>
-      </div>
+      <van-swipe  :show-indicators="false" @change="onChange">
+        <van-swipe-item v-for="(item,index) in banks" :key="index">
+          <div class="info" v-show="haveCard">
+            <div class="bank-name">
+              <div>银行名称：<span>{{item.bankName | bankName}}</span></div>
+            </div>
+            <div>账号：<span>{{item.bankAccountNumber | account}}</span></div>
+            <div>账户名：<span>{{item.bankAccountFullName}}</span></div>
+          </div>
+        </van-swipe-item>
+      </van-swipe>
+
       <van-button  class="btn" style="background-color: black;margin-top: 0;background-color: #230F40;
         color:#FF6D44;border-color: #FF6D44   " icon="plus"
                   @click="add" v-show="!haveCard">添加资金账户
       </van-button>
     </div>
-    <div style="margin-top: 1.5rem;  margin-left:0.6rem;font-size: 1.2rem;color: #7E7B83">单比限额 ¥10 - ¥100000</div>
+    <div style="margin-top: 1.5rem;  margin-left:0.6rem;font-size: 1.2rem;color: #7E7B83">提现金额</div>
     <div class="input">
       <div class="input-left-icon">
         <img src="../assets/image/yang.png" style="width: 1.2rem;margin-top: 0.7rem">
@@ -37,25 +42,108 @@
       </div>
     </div>
     <div style="text-align: center">
-      <van-button type="primary" size="large" color="#FF6D44" style="margin-top: 4rem;border-radius: 6px;width: 80%">提现
+      <van-button type="primary" size="large" color="#FF6D44" style="margin-top: 4rem;border-radius: 6px;width: 80%"
+                  @click="handleWithdraw">提现
       </van-button>
     </div>
+    <loading :show="loading"></loading>
   </div>
 </template>
 
 <script>
+    import {getListPlayerWithdrawAccounts ,manualWithdraw} from "@/api/bank"
+    import {queryPlayerBalance} from "@/api/user";
+    import {mapGetters} from 'vuex'
     export default {
         data() {
             return {
-                money: 543012.00,
+                money: 0,
                 password:'',
-                haveCard:false,
+                haveCard:true,
+                banks:[],
+                curr:0,
+                loading: false
             }
+        },
+        mounted(){
+            this.getBank()
+            this.getMainWallet()
+        },
+        computed: {
+            ...mapGetters([
+                'name',
+                'token'
+            ])
         },
         methods:{
             add() {
                 this.$router.push({path:'/bankAccount/addAccount'})
             },
+            onChange(index) {
+                this.curr = index
+            },
+            getBank() {
+                let data = {
+                    api_key: "ea443b05c7067089bd2716f47257ee73",
+                    username: this.name,
+                    token: this.token
+                }
+                this.loading = true
+                getListPlayerWithdrawAccounts(data).then(res => {
+                    this.banks = res.result
+                    this.loading = false
+                }).catch(() => {
+                    this.loading = false
+                })
+            },
+            getMainWallet(){
+                let data = {
+                    api_key: "ea443b05c7067089bd2716f47257ee73",
+                    username: this.name,
+                    token: this.token,
+                    refresh: 1
+                }
+                this.loading = true
+                queryPlayerBalance(data).then(res => {
+                    console.log(res.result);
+                    this.money = res.result.mainwallet
+                    this.loading = false
+                }).catch(() => {
+                    this.loading = false
+                })
+            },
+            handleWithdraw(){
+                if (this.banks.length === 0){
+                    this.$toast('请您先到银行账户添加取款银行卡！')
+                    return;
+                }
+                if (Number(this.money) >100000 || Number(this.money < 10)){
+                    this.$toast('提款金额必须在单比限额内！');
+                    return
+                }
+                if (this.password === ''){
+                    this.$toast('支付密码不能为空！')
+                    return;
+                }
+                let data = {
+                    api_key: "ea443b05c7067089bd2716f47257ee73",
+                    username: this.name,
+                    token: this.token,
+                    amount: this.money,
+                    withdrawal_password: this.password,
+                    bankDetailsId:this.banks[this.curr].playerBankDetailsId,
+                    bankTypeId:this.banks[this.curr].bankTypeId
+                }
+                this.loading = true
+                manualWithdraw(data).then(res => {
+                    console.log(res.result);
+                    this.$toast.success('提现成功！')
+                    this.loading = false
+                }).catch(() => {
+                    this.loading = false
+                })
+
+            }
         }
     }
 </script>

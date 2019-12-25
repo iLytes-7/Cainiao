@@ -32,3 +32,11 @@ export function queryDepositWithdrawalAvailableBank(data) {
     data: param(data)
   })
 }
+
+export function manualWithdraw(data) {
+  return request({
+    url: '/manualWithdraw',
+    method: 'post',
+    data: param(data)
+  })
+}
