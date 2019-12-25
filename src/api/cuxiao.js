@@ -8,3 +8,11 @@ export function getListPromos(data) {
     data: param(data)
   })
 }
+
+export function applyPromo(data) {
+  return request({
+    url: '/applyPromo',
+    method: 'post',
+    data: param(data)
+  })
+}

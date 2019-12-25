@@ -8,7 +8,7 @@
       @click-left="onClickLeft"
     />
     </van-sticky>
-    <router-view :key="key"/>
+    <router-view v-if="isRouterAlive" :key="key"/>
   </div>
 </template>
 
@@ -17,7 +17,13 @@
     name: 'App',
     data() {
       return {
-        show: true
+        show: true,
+        isRouterAlive: true
+      }
+    },
+    provide() {
+      return {
+        reload: this.reload
       }
     },
     computed: {
@@ -42,6 +48,12 @@
     methods: {
       onClickLeft() {
         this.$router.go(-1)
+      },
+      reload() {
+        this.isRouterAlive = false
+        this.$nextTick(function() {
+          this.isRouterAlive = true
+        })
       }
     }
   }
@@ -102,7 +114,9 @@
       font-size: 25px !important
     }
   }
-
+  .van-toast{
+    min-width: 40vw;
+  }
 
   #app{
     font-family: 'Avenir', Helvetica, Arial, sans-serif;

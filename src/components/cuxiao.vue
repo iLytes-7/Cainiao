@@ -1,150 +1,135 @@
 <template>
   <div class="page">
     <div class="cuxiao">
-      <van-tabs animated background="#291744" color="#403158" title-active-color="white" title-inactive-color="white"
-                type="card">
-        <van-tab title="优惠">
-          <van-collapse accordion class="collapse" v-model="activeNames">
-            <van-collapse-item :is-link="false" :key="item.id" :name="item.name" class="collapseBox" v-for="item in categories">
-              <div class="collapseBox-head" slot="title">
-                <img src="../assets/image/adv2.png">
-                <p class="collapseBox-title">
-                  <span>{{item.name}}</span>
-                  <span></span>
-                </p>
-              </div>
-              <div slot="default">
-                活动内容：啊发发发发发发嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎嘎哈哈哈哈法国军方高级
-                <van-button @click="apply" class='collapseBox-btn' color="#6149f6" plain round>立即申请</van-button>
-              </div>
-            </van-collapse-item>
-          </van-collapse>
-        </van-tab>
-        <van-tab title="任务">
-          <div style="margin-top: 2rem">
-            <div class="task-box" v-for="item in promos" :key="item.promo_cms_id">
-              <div style="width: 70%">
-                <div style="color: white;font-size: 1.8rem;font-weight: 500;line-height: 3rem">注册有礼</div>
-                <div style="font-size: 1.1em;line-height: 2rem;color: #AFACB4">注册时间：2019年12月16日起</div>
-              </div>
-              <div class="have-accpte">
-                已领取
-              </div>
-            </div>
-            <!--<div class="task-box">-->
-              <!--<div style="width: 70%">-->
-                <!--<div style="color: white;font-size: 1.9rem;font-weight: 500;line-height: 3rem">注册有礼</div>-->
-                <!--<div style="font-size: 1.1em;line-height: 2rem;color: #AFACB4">注册时间：2019年12月16日起</div>-->
-              <!--</div>-->
-              <!--<div class="havnot-accpte">-->
-                <!--未领取-->
-              <!--</div>-->
-            <!--</div>-->
+      <div class="btnGroup">
+        <van-button @click="filter(index, item.id)" :class="{literBtn:index === curr}" v-for="(item,index) in categories"
+                    key="item.id" type="default">{{item.name}}
+        </van-button>
+      </div>
+      <van-collapse accordion class="collapse" v-model="activeNames" v-if="show">
+        <van-collapse-item :is-link="false" :key="item.id" :name="item.name" class="collapseBox"
+                           v-for="(item,index) in promoData">
+          <div class="collapseBox-head" slot="title">
+            <img :src="'http://player.dj002.t1t.in/'+item.promo_image">
+            <p class="collapseBox-title">
+              <span>{{item.promoName}}</span>
+              <span></span>
+            </p>
           </div>
-
-        </van-tab>
-      </van-tabs>
+          <div slot="default">
+            <span v-html="item.promoDetails"></span>
+            <van-button @click="apply(item)" class='collapseBox-btn' color="#6149f6" plain round>立即申请</van-button>
+          </div>
+        </van-collapse-item>
+      </van-collapse>
     </div>
     <loading :show="loading"></loading>
   </div>
 </template>
 
 <script>
-  import {getListPromos} from '@/api/cuxiao'
+  import {getListPromos,applyPromo} from '@/api/cuxiao'
   import {mapGetters} from 'vuex'
-    export default {
-        data() {
-            return {
-                activeNames: ['0'],
-              categories: [],
-              promos: [],
-              loading: false
-            }
-        },
-      computed: {
-        ...mapGetters([
-          'name',
-          'token'
-        ])
-      },
-      mounted() {
-        this.getListPromos()
-      },
-        methods: {
-            apply() {
-                this.$toast.success('成功');
-            },
-            onConfirm() {
-                this.$refs.type.toggle();
-            },
-            time() {
-                this.$refs.time.toggle();
-            },
-            log() {
-                this.$refs.log.toggle();
-            },
-          getListPromos() {
-            let data = {
-              api_key: "ea443b05c7067089bd2716f47257ee73",
-              username: this.name,
-              token: this.token,
-              is_deposit: 0
-            }
-            this.loading = true
-            getListPromos(data).then(res => {
-              console.log(res);
-              this.categories = res.result.categories
-              this.promos = res.result.promos
-              this.loading = false
-            }).catch(() => {
-              this.loading = false
-            })
-          }
+
+  export default {
+    inject: ['reload'],
+    data() {
+      return {
+        activeNames: [0],
+        categories: [],
+        promos: [],
+        loading: false,
+        promoData: [],
+        curr: 0,
+        show:true
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'name',
+        'token'
+      ])
+    },
+    mounted() {
+      this.getListPromos()
+    },
+    methods: {
+      apply(item) {
+        if(!item.promo_check_player_allowed){
+          this.$toast.fail(item.promo_check_mesg);
+          return
         }
+        let data = {
+          api_key: "ea443b05c7067089bd2716f47257ee73",
+          username: this.name,
+          token: this.token,
+          promo_cms_id: item.promo_cms_id
+        }
+        this.loading = true
+        applyPromo(data).then(res => {
+          this.$toast.success('申请成功')
+          this.reload()
+          this.loading = false
+        }).catch(() => {
+          this.loading = false
+        })
+      },
+      onConfirm() {
+        this.$refs.type.toggle();
+      },
+      time() {
+        this.$refs.time.toggle();
+      },
+      log() {
+        this.$refs.log.toggle();
+      },
+      getListPromos() {
+        let data = {
+          api_key: "ea443b05c7067089bd2716f47257ee73",
+          username: this.name,
+          token: this.token,
+          is_deposit: 0
+        }
+        this.loading = true
+        getListPromos(data).then(res => {
+          console.log(res);
+          this.categories = res.result.categories
+          this.promos = res.result.promos
+          const id = this.categories[0].id
+          this.promos.forEach(item => {
+            if (item.promo_category == id) {
+              this.promoData.push(item)
+            }
+          })
+          this.loading = false
+        }).catch(() => {
+          this.loading = false
+        })
+      },
+      filter(curr,id) {
+        this.activeNames = []
+        this.show = false
+        this.$nextTick(()=>{
+          this.curr = curr
+          this.promoData = []
+          this.promos.forEach(item => {
+            if (item.promo_category == id) {
+              this.promoData.push(item)
+            }
+          })
+          this.show = true
+        })
+      }
     }
+  }
 </script>
 
-<style>
+<style lang="scss">
   .page {
     margin: 0 auto;
     position: relative;
     width: 90%;
     padding-bottom: 3rem;
-  }
-
-  .shadow {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .have-accpte {
-    font-size: 1.2rem;
-    border: 1px solid #413651;
-    background-color: #230f40;
-    padding: 0.2rem 1.2rem;
-    color: #827d8d;
-    border-radius: 0.3rem;
-  }
-  .havnot-accpte {
-    font-size: 1.2rem;
-    border: 1px solid #ff6d44;
-    background-color: #230f40;
-    padding: 0.2rem 1.2rem;
-    color: #ff6d44;
-    border-radius: 0.3rem;
-  }
-
-  .task-box {
-    padding: 1.2rem;
-    width: 100%;
-    height: 8.5rem;
-    background-color: #291744;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    border-radius: 0.7rem;
   }
 
   .category {
@@ -171,56 +156,6 @@
     width: 100%;
     margin-top: 2rem;
     border-radius: 0.7rem;
-  }
-
-  .show-enter-active, .show-leave-active {
-    transition: all 2s;
-  }
-
-  .show-enter, .show-leave-to {
-    margin-left: 100px;
-  }
-
-  .show-enter-to, .show-leave {
-    margin-left: 0px;
-  }
-
-  .game {
-    position: relative;
-    color: #AFACB4;
-  }
-
-  .date {
-    position: relative;
-    color: #AFACB4;
-  }
-
-  .game::after {
-    position: absolute;
-    top: 50%;
-    left: 6.2rem;
-    margin-top: -5px;
-    border: 3px solid;
-    border-color: transparent transparent currentColor currentColor;
-    /*-webkit-transform: rotate(-45deg);*/
-    transform: rotate(-45deg);
-    opacity: 0.8;
-    content: '';
-    transition: all .3s linear;
-  }
-
-  .date::after {
-    position: absolute;
-    top: 50%;
-    left: 3.4rem;
-    margin-top: -5px;
-    border: 3px solid;
-    border-color: transparent transparent currentColor currentColor;
-    /*-webkit-transform: rotate(-45deg);*/
-    transform: rotate(-45deg);
-    opacity: 0.8;
-    content: '';
-    transition: all .3s linear;
   }
 
   .kind {
@@ -328,11 +263,11 @@
 
   .btnGroup {
     display: grid;
-    width: 94%;
+    width: 100%;
     margin: auto;
     justify-content: space-between;
     flex-wrap: wrap;
-    grid-template-columns: repeat(auto-fill, 30vw);
+    grid-template-columns: repeat(auto-fill, 28vw);
   }
 
   .btnGroup button {
@@ -341,6 +276,16 @@
     color: #AFACB4;
     border: none;
     border-radius: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .literBtn {
+    border-color: rgb(255, 109, 68) !important;
+    color: rgb(255, 109, 68) !important;
+  }
+
+  .btnGroup button {
+    border: solid 1px #403157;
   }
 
   .filter {
