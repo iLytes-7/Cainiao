@@ -4,17 +4,17 @@
                        style="background-color: #291744;border-radius: 0 0 1rem 1rem;width: 100vw;margin-left:-5vw;position: sticky;top: 46px;z-index: 9">
       <van-dropdown-item title="账单类别" ref="type">
         <div class="btnGroup">
-          <van-button type="default" @click="onConfirm('cashback')" :class="{ literBtn: trans_type=='cashback' }">返还
-          </van-button>
+          <!--<van-button type="default" @click="onConfirm('cashback')" :class="{ literBtn: trans_type=='cashback' }">返还-->
+          <!--</van-button>-->
           <van-button type="default" @click="onConfirm('deposit')" :class="{ literBtn: trans_type=='deposit' }">充值
           </van-button>
           <van-button type="default" @click="onConfirm('withdrawal')" :class="{ literBtn: trans_type=='withdrawal' }">
             取款
           </van-button>
-          <van-button type="default" @click="onConfirm('transfer')" :class="{ literBtn: trans_type=='transfer' }">转账
-          </van-button>
-          <van-button type="default" @click="onConfirm('promo')" :class="{ literBtn: trans_type=='promo' }">促销
-          </van-button>
+          <!--<van-button type="default" @click="onConfirm('transfer')" :class="{ literBtn: trans_type=='transfer' }">转账-->
+          <!--</van-button>-->
+          <!--<van-button type="default" @click="onConfirm('promo')" :class="{ literBtn: trans_type=='promo' }">促销-->
+          <!--</van-button>-->
           <van-button type="default" @click="onConfirm('game')" :class="{ literBtn: trans_type=='game' }">游戏
           </van-button>
         </div>
@@ -33,10 +33,40 @@
       </van-dropdown-item>
     </van-dropdown-menu>
     <div class="billList">
-      <div class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
-        <div class="billTitle">名称</div>
+      <div v-if="trans_type == 'cashback'" class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
+        <div class="billTitle">时间</div>
+        <div class="billTitle">订单编码</div>
+        <div class="type">状态</div>
         <div class="price">金额</div>
-        <div class="type">记录</div>
+      </div>
+      <div v-if="trans_type == 'deposit'" class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
+        <div class="billTitle">时间</div>
+        <div class="billTitle">订单编码</div>
+        <div class="type">状态</div>
+        <div class="price">金额</div>
+      </div>
+      <div v-if="trans_type == 'withdrawal'" class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
+        <div class="billTitle">时间</div>
+        <div class="billTitle">订单编码</div>
+        <div class="type">状态</div>
+        <div class="price">金额</div>
+      </div>
+      <div v-if="trans_type == 'transfer'" class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
+        <div class="billTitle">时间</div>
+        <div class="billTitle">订单编码</div>
+        <div class="type">状态</div>
+        <div class="price">金额</div>
+      </div>
+      <div v-if="trans_type == 'promo'" class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
+        <div class="billTitle">时间</div>
+        <div class="billTitle">订单编码</div>
+        <div class="type">状态</div>
+        <div class="price">金额</div>
+      </div>
+      <div v-if="trans_type == 'game'" class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
+        <div>游戏平台</div>
+        <div>投注金额</div>
+        <div>结果</div>
       </div>
       <van-list
         v-model="listLoading"
@@ -46,34 +76,37 @@
       >
         <div v-for="(item,index) in list" :key="index">
           <div class="billBox" v-if="trans_type == 'cashback'">
-            <div class="billTitle">{{item.game_name}}</div>
-            <div class="price">¥ {{item.amount | amount}}</div>
-            <div class="type">{{trans_type | billCategory}}</div>
+            <div>{{item.date}}</div>
+            <div>{{item.game_name}}</div>
+            <div>{{trans_type | billCategory}}</div>
+            <div>¥ {{item.amount | amount}}</div>
           </div>
           <div class="billBox" v-if="trans_type == 'deposit'">
-            <div class="billTitle">{{item.pay_type}}</div>
-            <div class="price">¥ {{item.amount | amount}}</div>
-            <div class="type">{{trans_type | billCategory}}</div>
+            <div>{{item.pay_date.substr(0,10)}}</div>
+            <div>{{item.secure_id}}</div>
+            <div>{{item.status}}</div>
+            <div>¥ {{item.amount | amount}}</div>
           </div>
           <div class="billBox" v-if="trans_type == 'withdrawal'">
-            <div class="billTitle">{{item.pay_type}}</div>
-            <div class="price">¥ {{item.amount | amount}}</div>
-            <div class="type">{{trans_type | billCategory}}</div>
+            <div>{{item.date}}</div>
+            <div>¥ {{item.amount | amount}}</div>
+            <div>{{trans_type | billCategory}}</div>
           </div>
           <div class="billBox" v-if="trans_type == 'transfer'">
-            <div class="billTitle">{{item.transaction_type}}</div>
-            <div class="price">¥ {{item.amount | amount}}</div>
-            <div class="type">{{trans_type | billCategory}}</div>
+            <div>{{item.date}}</div>
+            <div>{{item.transaction_type}}</div>
+            <div>¥ {{item.amount | amount}}</div>
+            <div>{{trans_type | billCategory}}</div>
           </div>
           <div class="billBox" v-if="trans_type == 'promo'">
-            <div class="billTitle">{{item.promo_name}}</div>
-            <div class="price">¥ {{item.bonus_amount | amount}}</div>
-            <div class="type">{{trans_type | billCategory}}</div>
+            <div>{{item.promo_name}}</div>
+            <div>¥ {{item.bonus_amount | amount}}</div>
+            <div>{{trans_type | billCategory}}</div>
           </div>
           <div class="billBox" v-if="trans_type == 'game'">
-            <div class="billTitle">{{item.game_name}}</div>
-            <div class="price">¥ {{item.bet_amount | amount}}</div>
-            <div class="type">{{trans_type | billCategory}}</div>
+            <div>{{item.game_type}}</div>
+            <div>¥ {{item.bet_amount | amount}}</div>
+            <div>¥ {{item.bet_plus_result}}</div>
           </div>
         </div>
       </van-list>
@@ -110,7 +143,7 @@
       return {
         startTime: '',
         currentDate_end: new Date(),
-        trans_type: 'cashback',
+        trans_type: 'deposit',
         loading: false,
         listLoading: false,
         startTimePop: false,
@@ -263,17 +296,12 @@
     color: #AFACB4;
   }
 
-  .billBox .billTitle {
-    width: 55%;
-  }
-
-  .billBox .price {
-    width: 30%;
-  }
-
-  .billBox .type {
-    width: 15%;
-    text-align: right;
+  .billBox{
+    display: flex;
+    &>div{
+      flex: 1;
+      text-align: center;
+    }
   }
 
   .btnGroup {
