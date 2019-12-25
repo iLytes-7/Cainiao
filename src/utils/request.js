@@ -42,6 +42,14 @@ service.interceptors.response.use(
       let resData = res.split('</div>')[1]
       res = JSON.parse(resData)
     }
+    if(response.config.url.indexOf('http://player.dj002.t1t.in/api/player_center/isPlayerExist') > -1){
+      if (res.code === 0) {
+        res.code = 4
+        res.message = '用户名重复'
+      }else{
+        res.code = 0
+      }
+    }
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 0) {
       if (res.code === 21 || res.code === 298) {
