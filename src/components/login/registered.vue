@@ -3,7 +3,7 @@
     <van-field required v-model="username" placeholder="请输入用户名" />
     <span v-show="usernameError">用户名 长度必须为6-12之间由小写字母和数字组成！</span>
     <van-field required type="password" v-model="password" placeholder="请输入账户密码"/>
-    <span v-show="passwordError">账户密码 长度必须为6-20之间由英文字母与数字组成！不能与您的用户名相似！</span>
+    <span v-show="passwordError">账户密码 长度必须为6-12之间由英文字母与数字组成！不能与您的用户名相似！</span>
     <van-field required type="password" v-model="cpassword" placeholder="确认密码"/>
     <span v-show="cpasswordError">确认密码不能为空，且需要与账户密码一致！</span>
     <van-field required v-model="tel" placeholder="请输入手机号码"/>
@@ -64,7 +64,7 @@
             submit() {
                 let phone = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
                 let username = /^(?![0-9]+$)(?![a-z]+$)[0-9a-z]{6,12}$/;
-                let password = /^(?![0-9]+$)(?![a-z]+$)[0-9a-z]{6,20}$/;
+                let password = /^(?![0-9]+$)(?![a-z]+$)[0-9a-z]{6,12}$/;
                 // this.$toast.success('成功');
                 if (!username.test(this.username)) {
                     this.usernameError = true

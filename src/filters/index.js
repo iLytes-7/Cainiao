@@ -4,7 +4,7 @@ export function account(input) {
 }
 
 export function amount(input) {
-  if(!input){
+  if(input == undefined){
     return
   }
   let parts = input.toString().split('.')

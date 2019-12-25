@@ -122,7 +122,7 @@
                     return
                 }
                 if (this.password === ''){
-                    this.$toast('支付密码不能为空！')
+                    this.$toast('取款密码不能为空！')
                     return;
                 }
                 let data = {
