@@ -42,7 +42,7 @@ service.interceptors.response.use(
       let resData = res.split('</div>')[1]
       res = JSON.parse(resData)
     }
-    if(response.config.url.indexOf('http://player.dj002.t1t.in/api/player_center/isPlayerExist') > -1){
+    if(response.config.url.indexOf('http://player.dj002.t1t.in/api/player_center/isPlayerExist') > -1){ // 用户名重复问题
       if (res.code === 0) {
         res.code = 4
         res.message = '用户名重复'
@@ -52,7 +52,7 @@ service.interceptors.response.use(
     }
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 0) {
-      if (res.code === 21 || res.code === 298) {
+      if (res.code === 21 || res.code === 298) { // 数据为空时，接口不返回空数组，且报错时的处理
         const data = {
           result: []
         }
@@ -64,7 +64,7 @@ service.interceptors.response.use(
         duration: 3 * 1000
       })
 
-      if (res.code === 161) {
+      if (res.code === 161) { // token过期或者另一地点登录
         // to re-login
         Dialog.alert({
           title: '标题',

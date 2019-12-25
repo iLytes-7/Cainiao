@@ -35,7 +35,6 @@
 </template>
 
 <script>
-  import {Toast} from 'vant';
   import {isPlayerExist} from '@/api/user';
 
   export default {
@@ -60,6 +59,9 @@
       }
     },
     created() {
+      if(this.$route.query.referralcode){
+        this.yqCode = this.$route.query.referralcode
+      }
     },
     methods: {
       submit() {
