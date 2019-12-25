@@ -255,7 +255,7 @@
 
   .collapseBox-title span {
     margin-left: 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 
   .collapseBox-title span:last-of-type {
