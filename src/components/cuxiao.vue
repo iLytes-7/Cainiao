@@ -21,6 +21,7 @@
             <van-button @click="apply(item)" class='collapseBox-btn' color="#6149f6" plain round>立即申请</van-button>
           </div>
         </van-collapse-item>
+        <p v-show="empty" style="text-align: center;font-size: 2rem">暂无优惠</p>
       </van-collapse>
     </div>
     <loading :show="loading"></loading>
@@ -41,7 +42,8 @@
         loading: false,
         promoData: [],
         curr: 0,
-        show:true
+        show:true,
+        empty: false
       }
     },
     computed: {
@@ -101,6 +103,11 @@
               this.promoData.push(item)
             }
           })
+          if(this.promoData.length == 0){
+            this.empty = true
+          }else{
+            this.empty = false
+          }
           this.loading = false
         }).catch(() => {
           this.loading = false
@@ -117,6 +124,11 @@
               this.promoData.push(item)
             }
           })
+          if(this.promoData.length == 0){
+            this.empty = true
+          }else{
+            this.empty = false
+          }
           this.show = true
         })
       }
