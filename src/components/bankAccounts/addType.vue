@@ -1,7 +1,7 @@
 <template>
     <div class="accounts">
-      <van-button class="btn" icon="plus" @click="add('deposit')">查看存款银行卡</van-button>
-      <van-button class="btn" icon="plus" @click="add('withdraw')">查看取款银行卡</van-button>
+      <van-button class="btn" @click="add('deposit')">查看存款银行卡</van-button>
+      <van-button class="btn" @click="add('withdraw')">查看取款银行卡</van-button>
     </div>
 </template>
 
