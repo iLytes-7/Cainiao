@@ -117,7 +117,8 @@
             handleCharge(){
                 let length = this.autoMethodList.length
                 if (this.autoCurr<length){
-                    if (this.amount > this.tempList.list[this.methodRadio].maxDeposit ||this.amount < this.tempList.list[this.methodRadio].minDeposit){
+                    if (Number(this.amount) > this.tempList.list[this.methodRadio].maxDeposit ||Number(this.amount) <
+                        this.tempList.list[this.methodRadio].minDeposit){
                         this.$toast('请填写该种方式限额内的提款金额');
                         return
                     }
@@ -135,7 +136,7 @@
                         this.loading = false
                     })
                 }else{
-                    if (this.amount > this.tempList.list[this.methodRadio].maxDeposit ||this.amount < this.tempList.list[this.methodRadio].minDeposit){
+                    if (Number(this.amount) > this.tempList.list[this.methodRadio].maxDeposit ||Number(this.amount) < this.tempList.list[this.methodRadio].minDeposit){
                         this.$toast('请填写该种方式限额内的提款金额');
                         return
                     }

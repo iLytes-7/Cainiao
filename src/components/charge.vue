@@ -43,6 +43,7 @@
         <van-field v-model="chargeAmount" style="width: 55%"/>
       </div>
     </div>
+    <div style="color: #AFACB4; margin-top: 0.5rem">单笔限额：¥{{this.minDeposit}}-{{this.maxDeposit}}</div>
     <van-button type="primary" size="large" color="#FF6D44" @click="handleSubmit"
                 style="margin-top: 2rem;border-radius: 5px;width: 100%; height: 4rem;margin-bottom: 10rem ">提交
     </van-button>
@@ -114,11 +115,10 @@
                 Toast('复制失败');
             },
             handleSubmit(){
-                // if (this.chargeAmount > this.tempList.list[this.methodRadio].maxDeposit ||this.chargeAmount <
-                //     this.tempList.list[this.methodRadio].minDeposit){
-                //     this.$toast('请填写该种方式限额内的提款金额');
-                //     return
-                // }
+                if (Number(this.chargeAmount) > this.maxDeposit ||Number(this.chargeAmount) < this.minDeposit){
+                    this.$toast('请填写该种方式限额内的提款金额');
+                    return
+                }
                 let data = {
                     api_key: "ea443b05c7067089bd2716f47257ee73",
                     username: this.name,
