@@ -156,7 +156,7 @@
         }
         this.loading = true
         this.list = []
-        this.offset = 20
+        this.offset = 0
         getPlayerReports(data).then(response => {
           this.list = response.result?response.result:[]
           this.$refs.type.toggle();
