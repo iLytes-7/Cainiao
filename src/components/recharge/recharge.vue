@@ -48,7 +48,8 @@
     <van-popup v-model="showQrcode">
       <template>
         <div class="qrcodeBox">
-          <qriously :value="qrcode" :size="200" />
+          <div id="qrCode" class="qrconde" ref="qrCodeDiv"  style="width: 200px;height: 200px"></div>
+<!--          <qriously :value="qrcode" :size="200" />-->
           <div style="color: black;text-align: center;margin-top: 1rem">扫描二维码，以继续完成充值！</div>
         </div>
       </template>
@@ -60,6 +61,8 @@
 <script>
     import { depositPaymentCategories,thirdPartyDepositForm ,thirdPartyDepositRequest } from '@/api/recharge';
     import {mapGetters} from 'vuex'
+    import html2canvas from 'html2canvas'
+    import QRCode from 'qrcodejs2'
     export default {
         name: "recharge",
         data() {
@@ -76,7 +79,7 @@
                 tempArry:{},
                 showImg:false,
                 qrcode: '',
-                showQrcode:false,
+                showQrcode:true,
                 autoMethodList: [],
                 totalMethodList:[],
                 manualMethodList:[],
@@ -101,6 +104,9 @@
             }).catch(() => {
                 this.loading = false
             })
+        },
+        mounted(){
+            this.bindQRCode()
         },
         computed: {
             ...mapGetters([
@@ -127,6 +133,28 @@
                 } else {
                     this.amountcurr = -1
                 }
+            },
+            bindQRCode () {
+                let t = this
+                // console.log(t.userInfo.account)
+                new QRCode(this.$refs.qrCodeDiv, {
+                    text: 'http://www.baidu.com' ,
+                    width: 200,
+                    height: 200,
+                    colorDark: '#333333', // 二维码颜色
+                    colorLight: '#ffffff', // 二维码背景色
+                })
+                this.createPicture() // 二维码生成后，执行生成图片
+            },
+            createPicture () {
+                html2canvas(this.$refs.qrCodeDiv, {
+                    backgroundColor: null,
+                    width: 200,
+                    height: 200
+                }).then(canvas => {
+                    var imgData = canvas.toDataURL('image/jpeg')
+                    this.imgData = imgData
+                })
             },
             selectMethodRadio(item) {
                 this.methodRadio = item;

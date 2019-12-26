@@ -14,6 +14,7 @@ import axios from 'axios'
 import VueQriously from 'vue-qriously'
 
 
+
 Vue.use(VueQriously)
 
 Vue.prototype.axios = axios
