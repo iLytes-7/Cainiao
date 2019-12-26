@@ -11,6 +11,10 @@ import { Toast, Notify } from 'vant';
 import store from './store'
 import './permission'
 import axios from 'axios'
+import VueQriously from 'vue-qriously'
+
+
+Vue.use(VueQriously)
 
 Vue.prototype.axios = axios
 

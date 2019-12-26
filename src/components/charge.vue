@@ -98,8 +98,7 @@
                 'token'
             ]),
             makeCardNum: function () {
-                // 6222 **** **** 9876
-                var display = this.bankCard.substring(0, 4) + ' **** **** ' + this.bankCard.substring(this.bankCard.length - 4)
+                var display = this.bankCard
                 return display
             }
         },

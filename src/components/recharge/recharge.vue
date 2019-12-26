@@ -42,9 +42,18 @@
       <van-button  class="btn" color="#FF6D44" @click="handleCharge">立即存款</van-button>
     </div>
     <loading :show="loading"></loading>
-    <van-popup v-model="show">
+    <van-popup v-model="showImg">
       <img :src="image" alt="">
     </van-popup>
+    <van-popup v-model="showQrcode">
+      <template>
+        <div class="qrcodeBox">
+          <qriously :value="qrcode" :size="200" />
+          <div style="color: black;text-align: center;margin-top: 1rem">扫描二维码，以继续完成充值！</div>
+        </div>
+      </template>
+    </van-popup>
+
   </div>
 </template>
 
@@ -65,7 +74,9 @@
                 amountData: [50, 100, 500, 1000, 5000],
                 methodRadio: 0,
                 tempArry:{},
-                show:false,
+                showImg:false,
+                qrcode: '',
+                showQrcode:false,
                 autoMethodList: [],
                 totalMethodList:[],
                 manualMethodList:[],
@@ -121,59 +132,70 @@
                 this.methodRadio = item;
             },
             handleThirdPartyDepositRequest(){
-                console.log(this.tempArry);
-                let data = {
-                    api_key: "ea443b05c7067089bd2716f47257ee73",
-                    username: this.name,
-                    token:this.token,
-                    bankTypeId: this.tempList.list[this.methodRadio].bankTypeId,
-                    deposit_from:this.tempArry.default_fields.deposit_from,
-                    minDeposit:this.tempArry.default_fields.minDeposit,
-                    maxDeposit:this.tempArry.default_fields.maxDeposit,
-                    deposit_amount:this.amount
-                }
-                this.loading = true
-                thirdPartyDepositRequest(data).then(response => {
-                    console.log(response);
-                    let url = response.result.url
-                    let data = response.result.params
-                    if(response.result.type_text === 'form'){
-                        this.axios({
-                            headers: {'Content-Type': 'multipart/form-data'},
-                            method: 'post',
-                            url: url,
-                            data: data
-                        });
+                this.$dialog.confirm({
+                    title: '提示',
+                    message: '确定以继续充值，此过程需您耐心等待几秒，请求过程中不要进行其他操作！'
+                }).then(() => {
+                    let data = {
+                        api_key: "ea443b05c7067089bd2716f47257ee73",
+                        username: this.name,
+                        token:this.token,
+                        bankTypeId: this.tempList.list[this.methodRadio].bankTypeId,
+                        deposit_from:this.tempArry.default_fields.deposit_from,
+                        minDeposit:this.tempArry.default_fields.minDeposit,
+                        maxDeposit:this.tempArry.default_fields.maxDeposit,
+                        deposit_amount:this.amount
                     }
-                    if (response.result.type_text === 'URL'){
-                        location.href = url
-                    }
-                    if (response.result.type_text === 'qrcode'){
-                        if (response.result.subtype === 'base64'){
-                            console.log("base64");
-                            if(response.result.base64.substr(0,11) == 'data:image/'){
-                                this.image = response.result.base64
-                            }else {
-                                this.image = 'data:image/gif;base64,' + response.result.base64
+                    this.loading = true
+                    thirdPartyDepositRequest(data).then(response => {
+                        console.log(response);
+                        let url = response.result.url
+                        let data = response.result.params
+                        if(response.result.type_text === 'form'){
+                            this.axios({
+                                headers: {'Content-Type': 'multipart/form-data'},
+                                method: 'post',
+                                url: url,
+                                data: data
+                            });
+                        }
+                        if (response.result.type_text === 'URL'){
+                            location.href = url
+                        }
+                        if (response.result.type_text === 'qrcode'){
+                            if (response.result.subtype === 'base64'){
+                                console.log("base64");
+                                if(response.result.base64.substr(0,11) == 'data:image/'){
+                                    this.image = response.result.base64
+                                    this.showImg = true
+                                }else {
+                                    this.image = 'data:image/gif;base64,' + response.result.base64
+                                    this.showImg = true
+                                }
+                            }
+                            if (response.result.subtype === 'url'){
+                                this.qrcode = url
+                                this.showQrcode = true
+                            }
+                            if (response.result.subtype === 'base64_url'){
+                                this.qrcode = response.result.base64_url
+                                this.showQrcode = true
+                            }
+                            if (response.result.subtype === 'image_url'){
+                                console.log("image_url");
+                                this.image = response.result.image_url
+                                this.showImg = true
                             }
                         }
-                        if (response.result.subtype === 'url'){
-                            console.log("url");
-                            this.image = response.result.url
-                            this.show = true
-                        }
-                        if (response.result.subtype === 'base64_url'){
-                            console.log("base64_url");
-                        }
-                        if (response.result.subtype === 'image_url'){
-                            console.log("image_url");
-                        }
-                    }
 
-                    this.loading = false
+                        this.loading = false
+                    }).catch(() => {
+                        this.loading = false
+                    })
                 }).catch(() => {
-                    this.loading = false
-                })
+
+                });
+
 
             },
             handleCharge(){
@@ -214,6 +236,9 @@
 
 <style lang="scss" scoped>
   .recharge {
+    .van-popup--center{
+      border-radius: 0.8rem;
+    }
     ul {
       overflow-x: auto;
       list-style: none;
@@ -246,6 +271,12 @@
     .amountList .amountActive {
       border-color: #FF6D44 !important;
       color: #FF6D44;
+    }
+
+    .qrcodeBox{
+      background-color: white;
+      padding: 2rem;
+      border-radius: 0.5rem;
     }
   }
 
