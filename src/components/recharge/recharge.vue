@@ -42,6 +42,9 @@
       <van-button  class="btn" color="#FF6D44" @click="handleCharge">立即存款</van-button>
     </div>
     <loading :show="loading"></loading>
+    <van-popup v-model="show">
+      <img :src="image" alt="">
+    </van-popup>
   </div>
 </template>
 
@@ -56,11 +59,13 @@
                 // manualCurr:0,
                 amountcurr: 500,
                 tempList:[],
+                image:'',
                 amount: 500,
                 loading:false,
                 amountData: [50, 100, 500, 1000, 5000],
                 methodRadio: 0,
                 tempArry:{},
+                show:false,
                 autoMethodList: [],
                 totalMethodList:[],
                 manualMethodList:[],
@@ -146,10 +151,16 @@
                     if (response.result.type_text === 'qrcode'){
                         if (response.result.subtype === 'base64'){
                             console.log("base64");
+                            if(response.result.base64.substr(0,11) == 'data:image/'){
+                                this.image = response.result.base64
+                            }else {
+                                this.image = 'data:image/gif;base64,' + response.result.base64
+                            }
                         }
                         if (response.result.subtype === 'url'){
                             console.log("url");
-
+                            this.image = response.result.url
+                            this.show = true
                         }
                         if (response.result.subtype === 'base64_url'){
                             console.log("base64_url");
