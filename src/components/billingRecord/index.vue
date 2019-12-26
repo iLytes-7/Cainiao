@@ -1,21 +1,21 @@
 <template>
   <div class="bill">
     <van-dropdown-menu active-color="#FF6D44" :close-on-click-outside="false"
-                       style="background-color: #291744;border-radius: 0 0 1rem 1rem;width: 100vw;margin-left:-5vw;position: sticky;top: 46px;z-index: 9">
-      <van-dropdown-item title="账单类别" ref="type">
+                       style="background-color: #291744;border-radius: 0 0 0rem 0rem;width: 100vw;margin-left:-5vw;position: sticky;top: 46px;z-index: 9">
+      <van-dropdown-item  @closed="close" title="账单类别" ref="type">
         <div class="btnGroup">
           <!--<van-button type="default" @click="onConfirm('cashback')" :class="{ literBtn: trans_type=='cashback' }">返还-->
           <!--</van-button>-->
-          <van-button type="default" @click="onConfirm('deposit')" :class="{ literBtn: trans_type=='deposit' }">充值
+          <van-button type="default" @click="onConfirm('deposit',1)" :class="{ literBtn: curr==1 }">充值
           </van-button>
-          <van-button type="default" @click="onConfirm('withdrawal')" :class="{ literBtn: trans_type=='withdrawal' }">
+          <van-button type="default" @click="onConfirm('withdrawal',2)" :class="{ literBtn: curr==2 }">
             取款
           </van-button>
           <!--<van-button type="default" @click="onConfirm('transfer')" :class="{ literBtn: trans_type=='transfer' }">转账-->
           <!--</van-button>-->
           <!--<van-button type="default" @click="onConfirm('promo')" :class="{ literBtn: trans_type=='promo' }">促销-->
           <!--</van-button>-->
-          <van-button type="default" @click="onConfirm('game')" :class="{ literBtn: trans_type=='game' }">游戏
+          <van-button type="default" @click="onConfirm('game',3)" :class="{ literBtn: curr==3 }">游戏
           </van-button>
         </div>
         <div>
@@ -32,38 +32,38 @@
         <van-button class="btn" color="#FF6D44" @click="handleFilter">查询</van-button>
       </van-dropdown-item>
     </van-dropdown-menu>
-    <div class="billList">
-      <div v-if="trans_type == 'cashback'" class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
+    <div class="billList" style="position: relative">
+      <div v-if="trans_type == 'cashback'" class="billBox" style="position: sticky;top:8.2rem;background-color: #230F40;z-index: 0">
         <div class="billTitle">时间</div>
         <div class="billTitle">订单编码</div>
         <div class="type">状态</div>
         <div class="price">金额</div>
       </div>
-      <div v-if="trans_type == 'deposit'" class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
+      <div v-if="trans_type == 'deposit'" class="billBox" style="position: sticky;top:8.32rem;background-color: #230F40;z-index: 0">
+        <div class="billTitle">时间</div>
+        <div class="billTitle">订单编码</div>
+        <div style="width: 15%;flex: none">状态</div>
+        <div class="price">金额</div>
+      </div>
+      <div v-if="trans_type == 'withdrawal'" class="billBox" style="position: sticky;top:8.2rem;background-color: #230F40;z-index: 0">
+        <div class="billTitle">时间</div>
+        <div class="billTitle">订单编码</div>
+        <div style="width: 15%;flex: none">状态</div>
+        <div class="price">金额</div>
+      </div>
+      <div v-if="trans_type == 'transfer'" class="billBox" style="position: sticky;top:8.2rem;background-color: #230F40;z-index: 0">
         <div class="billTitle">时间</div>
         <div class="billTitle">订单编码</div>
         <div class="type">状态</div>
         <div class="price">金额</div>
       </div>
-      <div v-if="trans_type == 'withdrawal'" class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
+      <div v-if="trans_type == 'promo'" class="billBox" style="position: sticky;top:8.2rem;background-color: #230F40;z-index: 0">
         <div class="billTitle">时间</div>
         <div class="billTitle">订单编码</div>
         <div class="type">状态</div>
         <div class="price">金额</div>
       </div>
-      <div v-if="trans_type == 'transfer'" class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
-        <div class="billTitle">时间</div>
-        <div class="billTitle">订单编码</div>
-        <div class="type">状态</div>
-        <div class="price">金额</div>
-      </div>
-      <div v-if="trans_type == 'promo'" class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
-        <div class="billTitle">时间</div>
-        <div class="billTitle">订单编码</div>
-        <div class="type">状态</div>
-        <div class="price">金额</div>
-      </div>
-      <div v-if="trans_type == 'game'" class="billBox" style="position: sticky;top: 100px;background-color: #230F40;z-index: 0">
+      <div v-if="trans_type == 'game'" class="billBox" style="position: sticky;top:8.2rem;background-color: #230F40;z-index: 0">
         <div>游戏平台</div>
         <div>投注金额</div>
         <div>结果</div>
@@ -75,35 +75,36 @@
         @load="onLoad"
       >
         <div v-for="(item,index) in list" :key="index">
-          <div class="billBox" v-if="trans_type == 'cashback'">
+          <div class="billBox" v-if="trans_type == 'cashback'" style="font-size: 1.1rem">
             <div>{{item.date}}</div>
             <div>{{item.game_name}}</div>
             <div>{{trans_type | billCategory}}</div>
             <div>¥ {{item.amount | amount}}</div>
           </div>
-          <div class="billBox" v-if="trans_type == 'deposit'">
+          <div class="billBox" v-if="trans_type == 'deposit'" style="font-size: 1.1rem">
             <div>{{item.pay_date.substr(0,10)}}</div>
             <div>{{item.secure_id}}</div>
-            <div>{{item.status}}</div>
+            <div style="width: 15%;flex: none">{{item.status}}</div>
             <div>¥ {{item.amount | amount}}</div>
           </div>
-          <div class="billBox" v-if="trans_type == 'withdrawal'">
-            <div>{{item.date}}</div>
+          <div class="billBox" v-if="trans_type == 'withdrawal'" style="font-size: 1.1rem">
+            <div>{{item.date.substr(0,10)}}</div>
+            <div>{{item.tx_code}}</div>
+            <div style="width: 15%;flex: none">{{item.status}}</div>
             <div>¥ {{item.amount | amount}}</div>
-            <div>{{trans_type | billCategory}}</div>
           </div>
-          <div class="billBox" v-if="trans_type == 'transfer'">
+          <div class="billBox" v-if="trans_type == 'transfer'" style="font-size: 1.1rem">
             <div>{{item.date}}</div>
             <div>{{item.transaction_type}}</div>
             <div>¥ {{item.amount | amount}}</div>
             <div>{{trans_type | billCategory}}</div>
           </div>
-          <div class="billBox" v-if="trans_type == 'promo'">
+          <div class="billBox" v-if="trans_type == 'promo'" style="font-size: 1.1rem">
             <div>{{item.promo_name}}</div>
             <div>¥ {{item.bonus_amount | amount}}</div>
             <div>{{trans_type | billCategory}}</div>
           </div>
-          <div class="billBox" v-if="trans_type == 'game'">
+          <div class="billBox" v-if="trans_type == 'game'" style="font-size: 1.1rem">
             <div>{{item.game_type}}</div>
             <div>¥ {{item.bet_amount | amount}}</div>
             <div>¥ {{item.bet_plus_result}}</div>
@@ -144,6 +145,7 @@
         startTime: '',
         currentDate_end: new Date(),
         trans_type: 'deposit',
+        newTransType: '',
         loading: false,
         listLoading: false,
         startTimePop: false,
@@ -153,7 +155,8 @@
         list: [],
         maxDate: new Date(),
         finished: false,
-        offset: -20
+        offset: -20,
+        curr: 1
       }
     },
     computed: {
@@ -169,21 +172,23 @@
       this.endTime = JSON.stringify(new Date()).substr(1,10)
     },
     methods: {
-      onConfirm(item) {
+      onConfirm(item,curr) {
         // this.$refs.type.toggle();
-        this.trans_type = item
+        this.newTransType = item
+        this.curr = curr
       },
       onLoad() {
         this.getList()
       },
       handleFilter() {
+        this.trans_type = this.newTransType
         let data = {
           api_key: "ea443b05c7067089bd2716f47257ee73",
           username: this.name,
           token: this.token,
           trans_type: this.trans_type,
           time_from: this.startTime,
-          time_to: this.endTime,
+          time_to: this.endTime + ' 23:59:59',
           limit: 20,
           offset: 0
         }
@@ -200,6 +205,20 @@
           this.finished = false
         })
       },
+      close(){
+        console.log(this.trans_type);
+        switch (this.trans_type) {
+          case 'deposit':
+            this.curr = 1
+                break
+          case 'withdrawal':
+            this.curr = 2
+            break
+          case 'game':
+            this.curr = 3
+            break
+        }
+      },
       getList() {
         let data = {
           api_key: "ea443b05c7067089bd2716f47257ee73",
@@ -207,7 +226,7 @@
           token: this.token,
           trans_type: this.trans_type,
           time_from: this.startTime,
-          time_to: this.endTime,
+          time_to: this.endTime + ' 23:59:59',
           limit: 20,
           offset: this.offset+=20
         }
