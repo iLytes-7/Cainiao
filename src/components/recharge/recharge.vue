@@ -46,7 +46,7 @@
 </template>
 
 <script>
-    import { depositPaymentCategories,thirdPartyDepositForm } from '@/api/recharge';
+    import { depositPaymentCategories,thirdPartyDepositForm ,thirdPartyDepositRequest } from '@/api/recharge';
     import {mapGetters} from 'vuex'
     export default {
         name: "recharge",
@@ -60,6 +60,7 @@
                 loading:false,
                 amountData: [50, 100, 500, 1000, 5000],
                 methodRadio: 0,
+                tempArry:{},
                 autoMethodList: [],
                 totalMethodList:[],
                 manualMethodList:[],
@@ -114,6 +115,56 @@
             selectMethodRadio(item) {
                 this.methodRadio = item;
             },
+            handleThirdPartyDepositRequest(){
+                console.log(this.tempArry);
+                let data = {
+                    api_key: "ea443b05c7067089bd2716f47257ee73",
+                    username: this.name,
+                    token:this.token,
+                    bankTypeId: this.tempList.list[this.methodRadio].bankTypeId,
+                    deposit_from:this.tempArry.default_fields.deposit_from,
+                    minDeposit:this.tempArry.default_fields.minDeposit,
+                    maxDeposit:this.tempArry.default_fields.maxDeposit,
+                    deposit_amount:this.amount
+                }
+                this.loading = true
+                thirdPartyDepositRequest(data).then(response => {
+                    console.log(response);
+                    let url = response.result.url
+                    let data = response.result.params
+                    if(response.result.type_text === 'form'){
+                        this.axios({
+                            headers: {'Content-Type': 'multipart/form-data'},
+                            method: 'post',
+                            url: url,
+                            data: data
+                        });
+                    }
+                    if (response.result.type_text === 'URL'){
+                        location.href = url
+                    }
+                    if (response.result.type_text === 'qrcode'){
+                        if (response.result.subtype === 'base64'){
+                            console.log("base64");
+                        }
+                        if (response.result.subtype === 'url'){
+                            console.log("url");
+
+                        }
+                        if (response.result.subtype === 'base64_url'){
+                            console.log("base64_url");
+                        }
+                        if (response.result.subtype === 'image_url'){
+                            console.log("image_url");
+                        }
+                    }
+
+                    this.loading = false
+                }).catch(() => {
+                    this.loading = false
+                })
+
+            },
             handleCharge(){
                 let length = this.autoMethodList.length
                 if (this.autoCurr<length){
@@ -130,7 +181,8 @@
                     }
                     this.loading = true
                     thirdPartyDepositForm(data).then(response => {
-                        this.$toast.success("充值成功！")
+                        this.tempArry = response.result
+                        this.handleThirdPartyDepositRequest()
                         this.loading = false
                     }).catch(() => {
                         this.loading = false

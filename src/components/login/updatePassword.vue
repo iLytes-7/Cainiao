@@ -1,14 +1,14 @@
 <template>
   <div class="forget">
     <p class="title"></p>
-    <van-field v-model="oldpwd" type="password" placeholder="请输入您的旧密码"/>
-    <span v-show="oldpwdError">请填写旧密码！</span>
-    <van-field v-model="newpwd" type="password" placeholder="请输入您的新密码"/>
-    <span v-show="sameName">账户密码 不能与用户名相似！</span>
-    <span v-show="sameOld">账户密码 不能与旧密码相似！</span>
-    <span v-show="newpwdError">账户密码 长度必须为6-12之间由小写英文字母与数字组成！</span>
-    <van-field v-model="cnewpwd" type="password" placeholder="请重新输入您的密码"/>
-    <span v-show="cnewpwdError">确认密码不能为空，且需要与账户密码一致！</span>
+    <van-field v-model="oldpwd" type="password" placeholder="请输入您的旧登陆密码"/>
+    <span v-show="oldpwdError">请填写旧登陆密码！</span>
+    <van-field v-model="newpwd" type="password" placeholder="请输入您的新登陆密码"/>
+    <span v-show="sameName">登陆密码 不能与用户名相似！</span>
+    <span v-show="sameOld">登陆密码 不能与旧密码相似！</span>
+    <span v-show="newpwdError">登陆密码 长度必须为6-12之间由小写英文字母与数字组成！</span>
+    <van-field v-model="cnewpwd" type="password" placeholder="请重新输入您的新登陆密码"/>
+    <span v-show="cnewpwdError">确认登陆密码不能为空，且需要与新登陆密码一致！</span>
     <van-button class="btn" color="#FF6D44"  @click="submit">确定</van-button>
     <loading :show="loading"></loading>
   </div>

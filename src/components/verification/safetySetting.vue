@@ -3,7 +3,7 @@
     <div class="content" style="margin-top: 0rem;">
       <div class="info-row">
         <router-link to="/login/updatePassword">
-          <div class="info-item">修改账号密码</div>
+          <div class="info-item">修改登陆密码</div>
           <div style="display: flex;align-items: center">
             <van-icon name="arrow"/>
           </div>
@@ -17,14 +17,14 @@
           </div>
         </router-link>
       </div>
-      <div class="info-row">
-        <router-link to="/safety-setting/test-phone">
-          <div class="info-item">修改绑定手机号码</div>
-          <div style="display: flex;align-items: center">
-            <van-icon name="arrow"/>
-          </div>
-        </router-link>
-      </div>
+<!--      <div class="info-row">-->
+<!--        <router-link to="/safety-setting/test-phone">-->
+<!--          <div class="info-item">修改绑定手机号码</div>-->
+<!--          <div style="display: flex;align-items: center">-->
+<!--            <van-icon name="arrow"/>-->
+<!--          </div>-->
+<!--        </router-link>-->
+<!--      </div>-->
     </div>
   </div>
 </template>

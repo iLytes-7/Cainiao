@@ -10,6 +10,9 @@ import VueClipboard from 'vue-clipboard2'
 import { Toast, Notify } from 'vant';
 import store from './store'
 import './permission'
+import axios from 'axios'
+
+Vue.prototype.axios = axios
 
 import * as filters from './filters' // global filters
 
