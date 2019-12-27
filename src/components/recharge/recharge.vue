@@ -48,9 +48,12 @@
     <van-popup v-model="showQrcode">
       <template>
         <div class="qrcodeBox">
-          <div id="qrCode" class="qrconde" ref="qrCodeDiv"  style="width: 200px;height: 200px"></div>
-<!--          <qriously :value="qrcode" :size="200" />-->
-          <div style="color: black;text-align: center;margin-top: 1rem">扫描二维码，以继续完成充值！</div>
+          <div id="QRCodeNone" style="width:54%;height:200px;display:none;">
+          </div>
+          <div id="QRCode" style="width:54%;height:200px;padding: 1rem">
+            <img :src="qrcodeImg" alt="">
+          </div>
+          <div style="color: black;text-align: center;margin-top: 2rem">扫描二维码，以继续完成充值！</div>
         </div>
       </template>
     </van-popup>
@@ -78,8 +81,9 @@
                 methodRadio: 0,
                 tempArry:{},
                 showImg:false,
+                qrcodeImg:'',
                 qrcode: '',
-                showQrcode:false,
+                showQrcode:true,
                 autoMethodList: [],
                 totalMethodList:[],
                 manualMethodList:[],
@@ -105,14 +109,14 @@
                 this.loading = false
             })
         },
-        mounted(){
-
-        },
         computed: {
             ...mapGetters([
                 'name',
                 'token'
             ])
+        },
+        mounted(){
+            this.bindQRCode("https://www.baidu.com")
         },
         methods: {
             selectAmount(item) {
@@ -135,26 +139,19 @@
                 }
             },
             bindQRCode (url) {
-                let t = this
-                // console.log(t.userInfo.account)
-                new QRCode(this.$refs.qrCodeDiv, {
-                    text:  url,
+                let qrcode = new QRCode(document.getElementById("QRCodeNone"), {
+                    text: url,//二维码数据
                     width: 200,
                     height: 200,
                     colorDark: '#333333', // 二维码颜色
                     colorLight: '#ffffff', // 二维码背景色
-                })
-                this.createPicture() // 二维码生成后，执行生成图片
+                });
+                let myCanvas = document.getElementsByTagName('canvas')[0]
+                let img = this.convertCanvasToImage(myCanvas)
+                this.qrcodeImg = img
             },
-            createPicture () {
-                html2canvas(this.$refs.qrCodeDiv, {
-                    backgroundColor: null,
-                    width: 200,
-                    height: 200
-                }).then(canvas => {
-                    var imgData = canvas.toDataURL('image/jpeg')
-                    this.imgData = imgData
-                })
+            convertCanvasToImage(canvas){
+                return canvas.toDataURL("image/png");
             },
             selectMethodRadio(item) {
                 this.methodRadio = item;
@@ -219,7 +216,6 @@
                                 this.showImg = true
                             }
                         }
-
                         this.loading = false
                     }).catch(() => {
                         this.loading = false
@@ -227,8 +223,6 @@
                 }).catch(() => {
 
                 });
-
-
             },
             handleCharge(){
                 let length = this.autoMethodList.length
@@ -307,7 +301,7 @@
 
     .qrcodeBox{
       background-color: white;
-      padding: 2rem;
+      padding: 1rem;
       border-radius: 0.5rem;
     }
   }
