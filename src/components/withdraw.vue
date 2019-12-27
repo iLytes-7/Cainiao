@@ -138,6 +138,7 @@
                 manualWithdraw(data).then(res => {
                     console.log(res.result);
                     this.$toast.success('提现成功！')
+                    this.$router.go(-1)
                     this.loading = false
                 }).catch(() => {
                     this.loading = false

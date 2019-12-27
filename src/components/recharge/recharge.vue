@@ -79,7 +79,7 @@
                 tempArry:{},
                 showImg:false,
                 qrcode: '',
-                showQrcode:true,
+                showQrcode:false,
                 autoMethodList: [],
                 totalMethodList:[],
                 manualMethodList:[],
@@ -106,7 +106,7 @@
             })
         },
         mounted(){
-            this.bindQRCode()
+
         },
         computed: {
             ...mapGetters([
@@ -134,11 +134,11 @@
                     this.amountcurr = -1
                 }
             },
-            bindQRCode () {
+            bindQRCode (url) {
                 let t = this
                 // console.log(t.userInfo.account)
                 new QRCode(this.$refs.qrCodeDiv, {
-                    text: 'http://www.baidu.com' ,
+                    text:  url,
                     width: 200,
                     height: 200,
                     colorDark: '#333333', // 二维码颜色
@@ -204,6 +204,10 @@
                             if (response.result.subtype === 'url'){
                                 this.qrcode = url
                                 this.showQrcode = true
+                                this.$nextTick(()=>{
+                                    this.bindQRCode(url)
+                                })
+
                             }
                             if (response.result.subtype === 'base64_url'){
                                 this.qrcode = response.result.base64_url
