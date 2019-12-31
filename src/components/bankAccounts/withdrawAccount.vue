@@ -3,7 +3,7 @@
     <p v-if="banks.length === 0" style="text-align:center;font-size: 2rem">暂无银行卡</p>
     <div class="bank" v-for="(item,index) in banks" :key="index">
       <div class="imgBox">
-        <img src="../../assets/image/jtyh.png" alt="">
+        <img src="../../assets/image/yllogo.png" alt="">
       </div>
       <div class="info">
         <p class="bankName">{{item.bankName | bankName}}</p>
@@ -68,7 +68,8 @@
   .bank {
     border-radius: 0.5rem;
     padding: 2rem;
-    border: 1px solid white;
+    background: url("../../assets/image/ylbkg.png") center no-repeat;
+    background-size: 100% 100%;
     margin-top: 2rem;
   }
 
@@ -77,13 +78,13 @@
     width: 4rem;
     height: 4rem;
     border-radius: 4rem;
-    background-color: #CAE7FA;
+    /*background-color: #CAE7FA;*/
     position: relative;
   }
 
   .imgBox img {
-    width: 3rem;
-    height: 3rem;
+    width: 4rem;
+    height: 4rem;
     position: absolute;
     top: 50%;
     left: 50%;

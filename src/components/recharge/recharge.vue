@@ -19,7 +19,7 @@
                 <span style="max-width: 37%;display:inline-block;overflow: hidden;height: 2rem;white-space:nowrap;
     text-overflow: ellipsis;">{{item.bank_name_local
                   }}</span>
-                <span>单比限额 ¥{{item.minDeposit}}-¥{{item.maxDeposit}}</span>
+                <span>单笔限额 ¥{{item.minDeposit}}-¥{{item.maxDeposit}}</span>
               </div>
               <van-radio checked-color="#FF6D44" slot="right-icon" :name="index"/>
             </van-cell>
@@ -83,7 +83,7 @@
                 showImg:false,
                 qrcodeImg:'',
                 qrcode: '',
-                showQrcode:true,
+                showQrcode:false,
                 autoMethodList: [],
                 totalMethodList:[],
                 manualMethodList:[],
@@ -114,9 +114,6 @@
                 'name',
                 'token'
             ])
-        },
-        mounted(){
-            this.bindQRCode("https://www.baidu.com")
         },
         methods: {
             selectAmount(item) {
@@ -204,11 +201,13 @@
                                 this.$nextTick(()=>{
                                     this.bindQRCode(url)
                                 })
-
                             }
                             if (response.result.subtype === 'base64_url'){
                                 this.qrcode = response.result.base64_url
                                 this.showQrcode = true
+                                this.$nextTick(()=>{
+                                    this.bindQRCode(this.qrcode)
+                                })
                             }
                             if (response.result.subtype === 'image_url'){
                                 console.log("image_url");

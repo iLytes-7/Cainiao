@@ -128,7 +128,7 @@
                 }
                 this.loading = true
                 manualDepositRequest(data).then(response => {
-                    this.$toast.success("充值成功！")
+                    this.$toast.success("充值请求已提交！感谢您的使用")
                     this.$router.go(-1);
                     this.loading = false
                 }).catch(() => {

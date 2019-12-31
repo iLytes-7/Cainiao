@@ -1,4 +1,4 @@
-import { login, logout, getInfo, register } from '@/api/user'
+import { login, logout, getPlayerProfile, register } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import Cookies from 'js-cookie'
 
@@ -30,6 +30,7 @@ const actions = {
         commit('SET_NAME', data.playerName)
         setToken(data.token)
         Cookies.set('userName', data.playerName)
+
         resolve()
       }).catch(error => {
         reject(error)
@@ -49,48 +50,6 @@ const actions = {
       }).catch(error => {
         reject(error)
       })
-    })
-  },
-
-  // get user info
-  getInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      let userInfoReady = false
-      let userResponse = {}
-
-      // We don't get user info from server (for now)
-      // getInfo(state.token).then(response => {
-      // const { data } = response
-      const data = {
-        roles: ['admin'],
-        introduction: 'I am a super administrator',
-        avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-        name: 'Super Admin'
-      }
-
-      if (!data) {
-        reject('Verification failed, please Login again.')
-      }
-
-      const { roles, avatar } = data
-
-      // roles must be a non-empty array
-      if (!roles || roles.length <= 0) {
-        reject('getInfo: roles must be a non-null array!')
-      }
-      commit('SET_AVATAR', avatar)
-      userResponse = data
-      userInfoReady = true
-      // }).catch(error => {
-      //   reject(error)
-      // })
-      // Wait for both load to be ready, then we can resolve the promise
-      var interval = setInterval(() => {
-        if (userInfoReady) {
-          resolve(userResponse)
-          clearInterval(interval)
-        }
-      }, 300)
     })
   },
 

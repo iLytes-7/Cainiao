@@ -19,7 +19,7 @@
           <img src="../assets/image/vip.png" style="width: 1.5rem;height: 1.5rem;border-radius: 1rem;z-index: 999">
           <div @click="goCuxiao" style="font-size: 1rem;background-color: #654E40;width: 4.5rem;
             text-align: center;margin-left: -1rem;z-index: 1; height: 1.5rem;line-height: 1.8rem;border-radius: 0.9rem">
-            VIP2
+            {{level}}
           </div>
           <van-icon @click="goPerson" name="arrow" size="1.4rem"
                     style="line-height: 1.5rem; position: absolute;right: 1.5rem"/>
@@ -116,12 +116,13 @@
 <script>
     import {mapGetters} from 'vuex'
     import {Toast} from 'vant';
-
+    import { getPlayerProfile } from '@/api/user'
     export default {
         data() {
             return {
                 value: 30,
                 loading: false,
+                level:'',
                 url: ''
             }
         },
@@ -134,7 +135,15 @@
         },
         mounted() {
             this.getQueryPlayerBalance()
-            console.log(this.mainWallet);
+            let data = {
+                api_key: 'ea443b05c7067089bd2716f47257ee73',
+                username: this.name,
+                token: this.token
+            }
+            getPlayerProfile(data).then(response => {
+                console.log(response.result);
+                this.level = response.result.vip_level
+            })
         },
         methods: {
             onchange(value) {
