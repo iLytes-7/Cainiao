@@ -4,7 +4,8 @@
     <p v-if="banks.length === 0" style="text-align:center;font-size: 1.4rem">暂无取款银行卡，请先到银行账户添加！</p>
     <div class="content">
       <van-swipe  :show-indicators="false" @change="onChange">
-        <van-swipe-item v-for="(item,index) in banks" :key="index">
+        <van-swipe-item style="border: solid 0.1rem #43345d ; border-radius: 0.5rem" v-for="(item,index) in banks"
+                        :key="index">
           <div class="info" v-show="haveCard">
             <div class="bank-name">
               <div>银行名称：<span>{{item.bankName | bankName}}</span></div>
