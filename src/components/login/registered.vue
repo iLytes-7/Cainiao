@@ -140,6 +140,7 @@
         }).catch(() => {
           this.loading = false
         })
+
       },
       creatUsername() {
         var Num = "";
@@ -159,7 +160,7 @@
       testUsername() {
         console.log(this.username);
         let api_key = 'ea443b05c7067089bd2716f47257ee73'
-        isPlayerExist(api_key, this.username).then(res => {
+          isPlayerExist(api_key, this.username).then(res => {
           // this.usernameError = true
         }).catch(() => {
           this.usernameError = true

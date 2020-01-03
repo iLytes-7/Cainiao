@@ -5,7 +5,9 @@
       <ul>
         <li @click="selectAutoMethod(index)" v-for="(item,index) in totalMethodList" :key="index"
             :class="{liActive:index===autoCurr}">
-          <img src="../../assets/image/xxsz.png" alt="">
+          <img v-if="item.category_text.indexOf('支付宝') != -1" src="../../assets/image/daalipay.png" alt="">
+          <img v-else-if="item.category_text.indexOf('微信') != -1" src="../../assets/image/dawepay.png" alt="">
+          <img v-else src="../../assets/image/daimg.png" alt="">
           <p>{{item.category_text}}</p>
         </li>
       </ul>
@@ -15,7 +17,7 @@
             <van-cell clickable v-for="(item,index) in tempList.list" :key="index"
                       @click="selectMethodRadio(index)">
               <div slot="title" class="methodList-title">
-                <img src="../../assets/image/xxsz.png" alt="">
+                <img src="../../assets/image/xiaoimg.png" alt="">
                 <span style="max-width: 37%;display:inline-block;overflow: hidden;height: 2rem;white-space:nowrap;
     text-overflow: ellipsis;">{{item.bank_name_local
                   }}</span>
@@ -64,7 +66,6 @@
 <script>
     import { depositPaymentCategories,thirdPartyDepositForm ,thirdPartyDepositRequest } from '@/api/recharge';
     import {mapGetters} from 'vuex'
-    import html2canvas from 'html2canvas'
     import QRCode from 'qrcodejs2'
     export default {
         name: "recharge",

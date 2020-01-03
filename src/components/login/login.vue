@@ -1,12 +1,12 @@
 <template>
   <div class="login">
     <div class="loginBg">
-      <img src="../../assets/image/logo.png">
+      <img src="../../assets/image/loginlogo.png">
     </div>
     <div class="input">
       <van-field v-model="username" placeholder="账号"/>
       <van-field v-model="password" type="password" placeholder="密码"/>
-      <div class="code" id="code">
+      <div class="code" id="code" v-show="false">
         <van-field style="padding:1rem 0px 1rem 2rem" v-model="verifycode" placeholder="验证码"/>
         <div class="codeBox">
           <identify-code :identifyCode="identifyCode" :contentWidth="contentWidth" :contentHeight="contentHeight"

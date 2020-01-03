@@ -16,7 +16,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       queryPlayerBalance(data).then(response => {
         const data = response.result
-        commit('SET_MAINWALLET', data.mainwallet)
+        let mainwallet = data.mainwallet + data.subwallets[5593]
+        commit('SET_MAINWALLET', mainwallet)
         resolve()
       }).catch(error => {
         reject(error)

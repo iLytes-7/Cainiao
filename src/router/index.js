@@ -11,7 +11,7 @@ const router = new Router({
       name: 'home',
       component: () => import('@/components/home'),
       meta:{
-        title: '菜鸟竞技'
+        title: ''
       }
     },
     {
@@ -147,14 +147,6 @@ const router = new Router({
       component: () => import('@/components/bankAccounts'),
       children: [
         {
-          path: '/bankAccount/bankAccount',
-          name: 'bankAccount',
-          component: () => import('@/components/bankAccounts/accounts'),
-          meta: {
-            title: '银行账户'
-          }
-        },
-        {
           path: '/bankAccount/addType',
           name: 'addType',
           component: () => import('@/components/bankAccounts/addType'),
@@ -163,17 +155,17 @@ const router = new Router({
           }
         },
         {
-          path: '/bankAccount/addAccount',
-          name: 'addAccount',
-          component: () => import('@/components/bankAccounts/addAccount'),
+          path: '/bankAccount/accountList',
+          name: 'accountList',
+          component: () => import('@/components/bankAccounts/accountList'),
           meta: {
-            title: '添加银行账户'
+            title: '查看银行卡'
           }
         },
         {
-          path: '/bankAccount/withdrawAccount',
-          name: 'withdrawAccount',
-          component: () => import('@/components/bankAccounts/withdrawAccount'),
+          path: '/bankAccount/addAccount',
+          name: 'addAccount',
+          component: () => import('@/components/bankAccounts/addAccount'),
           meta: {
             title: '添加银行账户'
           }

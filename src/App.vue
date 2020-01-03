@@ -6,6 +6,7 @@
       :title='activeMenu'
       :left-arrow="show"
       @click-left="onClickLeft"
+      v-show="show"
     />
     </van-sticky>
     <router-view v-if="isRouterAlive" :key="key"/>

@@ -64,7 +64,8 @@
         this.loading = true
         getPlayerProfile(data).then(res => {
           this.invitiedNum = res.result.referral_code
-          this.invitiedUrl = 'http://192.168.0.124:8080/#/login/registered?referralcode=' + this.invitiedNum
+          this.invitiedUrl = 'http://applet.fhi365.cn/dist/index.html#/login/registered?referralcode=' +
+              this.invitiedNum
           this.loading = false
         }).catch(() => {
           this.loading = false

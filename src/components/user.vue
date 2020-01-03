@@ -10,10 +10,6 @@
                v-clipboard:success="onCopy"
                v-clipboard:error="onError">{{name}}
           </div>
-          <a href="https://chat.liveneed.net/chat/Hotline/channel.jsp?cid=5052195&cnfid=42351&j=7220487914&s=1"><img
-            src="../assets/image/kefu.png" style="width:2.1rem;height:2.3rem;position: absolute
-          ;z-index:99999;right: 2rem;top: 1.5rem"></a>
-
         </div>
         <div class="vip-box">
           <img src="../assets/image/vip.png" style="width: 1.5rem;height: 1.5rem;border-radius: 1rem;z-index: 999">
@@ -66,7 +62,7 @@
         </router-link>
       </div>
       <div>
-        <router-link to="/bankAccount/addType">
+        <router-link to="/bankAccount/accountList">
           <img src="../assets/image/yhzh.png" alt=""><span>银行账户</span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
@@ -141,7 +137,6 @@
                 token: this.token
             }
             getPlayerProfile(data).then(response => {
-                console.log(response.result);
                 this.level = response.result.vip_level
             })
         },
@@ -199,6 +194,7 @@
                 }
                 this.loading = true
                 this.$store.dispatch('bank/queryPlayerBalance', data).then(res => {
+
                     this.loading = false
                 }).catch(() => {
                     this.loading = false
