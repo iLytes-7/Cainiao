@@ -84,6 +84,14 @@ export function register(data) {
   })
 }
 
+export function getRegSettings(data) {
+  return request({
+    url: '/getRegSettings',
+    method: 'post',
+    data: param(data)
+  })
+}
+
 export function queryPlayerBalance(data) {
   return request({
     url: '/queryPlayerBalance',

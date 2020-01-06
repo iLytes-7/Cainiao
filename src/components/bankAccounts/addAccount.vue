@@ -95,7 +95,9 @@
           this.bankTypeIds = res.result
           this.bankTypeIds.forEach(item => {
             const x = JSON.parse(item.bankName.substr(6))
-            this.columns.push(x[2])
+              if(item.enabled_withdrawal ==='1'&& item.enabled_deposit ==='0'){
+                  this.columns.push(x[2])
+              }
           })
           this.loading = false
         }).catch(() => {

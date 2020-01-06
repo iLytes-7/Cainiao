@@ -15,14 +15,13 @@
           <div class="info-status have">{{nickName}}</div>
         </div>
       </div>
-      <div class="info-row" @click="propFirstName">
-        <div class="info-item">姓</div>
+      <div class="info-row" >
+        <div class="info-item">姓名</div>
         <div style="display: flex;align-items: center">
-          <div class="info-status have">{{firstName}}</div>
-          <van-icon name="arrow"/>
+          <div class="info-status have">{{firstName}}{{lastName}}</div>
         </div>
       </div>
-      <div class="info-row" @click="propLastName">
+      <div class="info-row" @click="propLastName" v-if="false">
         <div class="info-item">名</div>
         <div style="display: flex;align-items: center">
           <div class="info-status have">{{lastName}}</div>

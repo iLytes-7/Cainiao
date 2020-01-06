@@ -58,13 +58,12 @@
                     platform_id: parseInt(this.platform_id)
                 }
                 listGamesByPlatform(post1).then(response => {
-
                     if (this.token === undefined || this.token === ''){
                         this.url =
-                            'http://player.dj002.t1t.in/'+response.result.game_types.e_sports.mobile+'?init=%7B%22ocss%22%3A%22https%3A%2F%2Fapplet.fhi365.cn%2Fh5_20190912.css%22%7D'
+                            'http://player.dj002.t1t.in/'+response.result.game_types.e_sports.mobile
                     } else {
                         this.url =
-                        'https://player.dj002.t1t.in/iframe/auth/login_with_token/'+this.token+'?next=/'+response.result.game_types.e_sports.mobile+'&init=%7B%22ocss%22%3A%22https%3A%2F%2Fapplet.fhi365.cn%2Fh5_20190912.css%22%7D'
+                        'https://player.dj002.t1t.in/iframe/auth/login_with_token/'+this.token+'?next=/'+response.result.game_types.e_sports.mobile
                     }
                     console.log(this.url);
                     this.loading = false
@@ -74,31 +73,6 @@
             }).catch(() => {
                 this.loading = false
             })
-
-
-            // const token = jwt.sign({
-            //     app_key:'22e5da3edff',
-            //     method: 'account.register',
-            //     data:{
-            //         'account_name' : 'jc123456',
-            //         'nickname' : '⼤大⻰龙王',
-            //         'currency' : 'CNY/USD/HKD/uBCH'
-            //     }
-            // }, secret);
-            // console.log(token);
-            // let a  = {
-            //     payload: token
-            // }
-            // this.axios({
-            //     headers: {'Content-Type': 'multipart/form-data'},
-            //     method: 'post',
-            //     url: 'https://openapi.raygaming.co/gateway',
-            //     data: param(a),
-            // });
-
-            // this.url = encodeURI(JSON.stringify(data))
-
-            // console.log(this.url);
         },
         mounted() {
         },
@@ -111,7 +85,6 @@
                   var url = obj.contentWindow.location.href;
                  console.log(url);
             }
-
         }
     }
 </script>

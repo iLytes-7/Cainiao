@@ -33,7 +33,7 @@
         <van-field v-model="amount" type="number" placeholder="" @input="change">
           <div slot="label" style="text-align: right">￥</div>
         </van-field>
-        <div class="amountList" v-if="false">
+        <div class="amountList">
           <div v-for="(item,index) in amountData" :key="item" :class="{amountActive:item==amountcurr}"
                @click="selectAmount(item)">
             {{item}}元
@@ -74,12 +74,12 @@
             return {
                 autoCurr: 0,
                 // manualCurr:0,
-                amountcurr: null,
+                amountcurr: 100,
                 tempList: [],
                 image: '',
-                amount: 0,
+                amount: 100,
                 loading: false,
-                amountData: [50, 100, 500, 1000, 5000],
+                amountData: [100,200, 500, 1000],
                 methodRadio: 0,
                 tempArry: {},
                 showImg: false,
