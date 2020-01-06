@@ -38,3 +38,7 @@ export function billCategory(input) {
   }
   return x
 }
+
+export function date(input) {
+  return input?input.substr(0,10):null
+}

@@ -82,13 +82,13 @@
             <div>¥ {{item.amount | amount}}</div>
           </div>
           <div class="billBox" v-if="trans_type == 'deposit'" style="font-size: 1.1rem">
-            <div>{{item.pay_date.substr(0,10)}}</div>
+            <div>{{item.pay_date | date}}</div>
             <div>{{item.secure_id}}</div>
             <div style="width: 15%;flex: none">{{item.status}}</div>
             <div>¥ {{item.amount | amount}}</div>
           </div>
           <div class="billBox" v-if="trans_type == 'withdrawal'" style="font-size: 1.1rem">
-            <div>{{item.date.substr(0,10)}}</div>
+            <div>{{item.date | date}}</div>
             <div>{{item.tx_code}}</div>
             <div style="width: 15%;flex: none">{{item.status}}</div>
             <div>¥ {{item.amount | amount}}</div>
