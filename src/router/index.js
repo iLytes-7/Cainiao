@@ -159,7 +159,7 @@ const router = new Router({
           name: 'accountList',
           component: () => import('@/components/bankAccounts/accountList'),
           meta: {
-            title: '查看银行卡'
+            title: '查看取款银行卡'
           }
         },
         {

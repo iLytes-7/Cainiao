@@ -1,48 +1,28 @@
 <template>
   <div>
-    <van-tabs v-model="active" type="card" color="#43345d" background="#230f40" title-inactive-color="#c7c7c7">
-      <van-tab title="存款银行卡">
-        <div class="accounts">
-          <p v-if="banks.length === 0" style="text-align:center;font-size: 2rem">暂无银行卡</p>
-          <div class="bank" v-for="(item,index) in banks" :key="index">
-            <div class="imgBox">
-              <img src="../../assets/image/yllogo.png" alt="">
-            </div>
-            <div class="info">
-              <p class="bankName">{{item.bankName }}</p>
-              <p class="username">{{item.bankAccountFullName}}</p>
-              <p class="accountNum">
-                {{item.bankAccountNumber | account}}
-              </p>
-            </div>
-          </div>
+    <div class="accounts">
+      <p v-if="withdrawBanks.length === 0" style="text-align:center;font-size: 2rem">暂无银行卡</p>
+      <div class="bank" v-for="(item,index) in withdrawBanks" :key="index">
+        <div class="imgBox">
+          <img src="../../assets/image/yllogo.png" alt="">
         </div>
-      </van-tab>
-      <van-tab title="取款银行卡">
-        <div class="accounts">
-          <p v-if="withdrawBanks.length === 0" style="text-align:center;font-size: 2rem">暂无银行卡</p>
-          <div class="bank" v-for="(item,index) in withdrawBanks" :key="index">
-            <div class="imgBox">
-              <img src="../../assets/image/yllogo.png" alt="">
-            </div>
-            <div class="info">
-              <p class="bankName">{{item.bankName | bankName}}</p>
-              <p class="username">{{item.bankAccountFullName}}</p>
-              <p class="accountNum">
-                {{item.bankAccountNumber | account}}
-              </p>
-            </div>
-          </div>
-          <van-button class="btn" icon="plus" @click="add">添加取款银行卡</van-button>
+        <div class="info">
+          <p class="bankName">{{item.bankName | bankName}}</p>
+          <p class="username">{{item.bankAccountFullName}}</p>
+          <p class="accountNum">
+            {{item.bankAccountNumber | account}}
+          </p>
         </div>
-      </van-tab>
-    </van-tabs>
+      </div>
+      <van-button class="btn" icon="plus" @click="add">添加取款银行卡</van-button>
+    </div>
     <loading :show="loading"></loading>
   </div>
 </template>
 <script>
-    import {getBank,getListPlayerWithdrawAccounts} from "@/api/bank";
+    import {getBank, getListPlayerWithdrawAccounts} from "@/api/bank";
     import {mapGetters} from 'vuex'
+
     export default {
         name: "accountList",
         data() {
@@ -50,7 +30,7 @@
                 active: 2,
                 loading: false,
                 banks: [],
-                withdrawBanks:[]
+                withdrawBanks: []
             }
         },
         computed: {
@@ -64,10 +44,10 @@
         },
         methods: {
             add() {
-                this.$router.push({path:'/bankAccount/addAccount'})
+                this.$router.push({path: '/bankAccount/addAccount'})
             },
             go(item) {
-                this.$router.push({path:'/bankAccount/detail',query: {backInfo: JSON.stringify(item)}})
+                this.$router.push({path: '/bankAccount/detail', query: {backInfo: JSON.stringify(item)}})
             },
             getBank() {
                 let data = {

@@ -30,18 +30,18 @@
       </div>
       <div class="transferAmount">
         <p>转账金额（元）</p>
-        <van-field v-model="amount" placeholder="" @input="change">
+        <van-field v-model="amount" type="number" placeholder="" @input="change">
           <div slot="label" style="text-align: right">￥</div>
         </van-field>
-        <div class="amountList">
+        <div class="amountList" v-if="false">
           <div v-for="(item,index) in amountData" :key="item" :class="{amountActive:item==amountcurr}"
                @click="selectAmount(item)">
             {{item}}元
           </div>
         </div>
       </div>
-<!--      <van-button  v-if="curr==4" class="btn" color="#FF6D44" @click="goTraditional">立即存款</van-button>-->
-      <van-button  class="btn" color="#FF6D44" @click="handleCharge">立即存款</van-button>
+      <!--      <van-button  v-if="curr==4" class="btn" color="#FF6D44" @click="goTraditional">立即存款</van-button>-->
+      <van-button class="btn" color="#FF6D44" @click="handleCharge">立即存款</van-button>
     </div>
     <loading :show="loading"></loading>
     <van-popup v-model="showImg">
@@ -64,30 +64,31 @@
 </template>
 
 <script>
-    import { depositPaymentCategories,thirdPartyDepositForm ,thirdPartyDepositRequest } from '@/api/recharge';
+    import {depositPaymentCategories, thirdPartyDepositForm, thirdPartyDepositRequest} from '@/api/recharge';
     import {mapGetters} from 'vuex'
     import QRCode from 'qrcodejs2'
+
     export default {
         name: "recharge",
         data() {
             return {
                 autoCurr: 0,
                 // manualCurr:0,
-                amountcurr: 500,
-                tempList:[],
-                image:'',
-                amount: 500,
-                loading:false,
+                amountcurr: null,
+                tempList: [],
+                image: '',
+                amount: 0,
+                loading: false,
                 amountData: [50, 100, 500, 1000, 5000],
                 methodRadio: 0,
-                tempArry:{},
-                showImg:false,
-                qrcodeImg:'',
+                tempArry: {},
+                showImg: false,
+                qrcodeImg: '',
                 qrcode: '',
-                showQrcode:false,
+                showQrcode: false,
                 autoMethodList: [],
-                totalMethodList:[],
-                manualMethodList:[],
+                totalMethodList: [],
+                manualMethodList: [],
                 method: [],
             }
         },
@@ -96,7 +97,7 @@
             let data = {
                 api_key: "ea443b05c7067089bd2716f47257ee73",
                 username: this.name,
-                token:this.token
+                token: this.token
             }
             this.loading = true
             depositPaymentCategories(data).then(response => {
@@ -136,7 +137,7 @@
                     this.amountcurr = -1
                 }
             },
-            bindQRCode (url) {
+            bindQRCode(url) {
                 let qrcode = new QRCode(document.getElementById("QRCodeNone"), {
                     text: url,//二维码数据
                     width: 200,
@@ -148,13 +149,13 @@
                 let img = this.convertCanvasToImage(myCanvas)
                 this.qrcodeImg = img
             },
-            convertCanvasToImage(canvas){
+            convertCanvasToImage(canvas) {
                 return canvas.toDataURL("image/png");
             },
             selectMethodRadio(item) {
                 this.methodRadio = item;
             },
-            handleThirdPartyDepositRequest(){
+            handleThirdPartyDepositRequest() {
                 this.$dialog.confirm({
                     title: '提示',
                     message: '确定以继续充值，此过程需您耐心等待几秒，请求过程中不要进行其他操作！'
@@ -162,19 +163,19 @@
                     let data = {
                         api_key: "ea443b05c7067089bd2716f47257ee73",
                         username: this.name,
-                        token:this.token,
+                        token: this.token,
                         bankTypeId: this.tempList.list[this.methodRadio].bankTypeId,
-                        deposit_from:this.tempArry.default_fields.deposit_from,
-                        minDeposit:this.tempArry.default_fields.minDeposit,
-                        maxDeposit:this.tempArry.default_fields.maxDeposit,
-                        deposit_amount:this.amount
+                        deposit_from: this.tempArry.default_fields.deposit_from,
+                        minDeposit: this.tempArry.default_fields.minDeposit,
+                        maxDeposit: this.tempArry.default_fields.maxDeposit,
+                        deposit_amount: this.amount
                     }
                     this.loading = true
                     thirdPartyDepositRequest(data).then(response => {
                         console.log(response);
                         let url = response.result.url
                         let data = response.result.params
-                        if(response.result.type_text === 'form'){
+                        if (response.result.type_text === 'form') {
                             this.axios({
                                 headers: {'Content-Type': 'multipart/form-data'},
                                 method: 'post',
@@ -182,35 +183,35 @@
                                 data: data
                             });
                         }
-                        if (response.result.type_text === 'URL'){
+                        if (response.result.type_text === 'URL') {
                             location.href = url
                         }
-                        if (response.result.type_text === 'qrcode'){
-                            if (response.result.subtype === 'base64'){
+                        if (response.result.type_text === 'qrcode') {
+                            if (response.result.subtype === 'base64') {
                                 console.log("base64");
-                                if(response.result.base64.substr(0,11) == 'data:image/'){
+                                if (response.result.base64.substr(0, 11) == 'data:image/') {
                                     this.image = response.result.base64
                                     this.showImg = true
-                                }else {
+                                } else {
                                     this.image = 'data:image/gif;base64,' + response.result.base64
                                     this.showImg = true
                                 }
                             }
-                            if (response.result.subtype === 'url'){
+                            if (response.result.subtype === 'url') {
                                 this.qrcode = url
                                 this.showQrcode = true
-                                this.$nextTick(()=>{
+                                this.$nextTick(() => {
                                     this.bindQRCode(url)
                                 })
                             }
-                            if (response.result.subtype === 'base64_url'){
+                            if (response.result.subtype === 'base64_url') {
                                 this.qrcode = response.result.base64_url
                                 this.showQrcode = true
-                                this.$nextTick(()=>{
+                                this.$nextTick(() => {
                                     this.bindQRCode(this.qrcode)
                                 })
                             }
-                            if (response.result.subtype === 'image_url'){
+                            if (response.result.subtype === 'image_url') {
                                 console.log("image_url");
                                 this.image = response.result.image_url
                                 this.showImg = true
@@ -224,18 +225,18 @@
 
                 });
             },
-            handleCharge(){
+            handleCharge() {
                 let length = this.autoMethodList.length
-                if (this.autoCurr<length){
-                    if (Number(this.amount) > this.tempList.list[this.methodRadio].maxDeposit ||Number(this.amount) <
-                        this.tempList.list[this.methodRadio].minDeposit){
+                if (this.autoCurr < length) {
+                    if (Number(this.amount) > this.tempList.list[this.methodRadio].maxDeposit || Number(this.amount) <
+                        this.tempList.list[this.methodRadio].minDeposit) {
                         this.$toast('请填写该种方式限额内的提款金额');
                         return
                     }
                     let data = {
                         api_key: "ea443b05c7067089bd2716f47257ee73",
                         username: this.name,
-                        token:this.token,
+                        token: this.token,
                         bankTypeId: this.tempList.list[this.methodRadio].bankTypeId
                     }
                     this.loading = true
@@ -246,14 +247,18 @@
                     }).catch(() => {
                         this.loading = false
                     })
-                }else{
-                    if (Number(this.amount) > this.tempList.list[this.methodRadio].maxDeposit ||Number(this.amount) < this.tempList.list[this.methodRadio].minDeposit){
+                } else {
+                    if (Number(this.amount) > this.tempList.list[this.methodRadio].maxDeposit || Number(this.amount) < this.tempList.list[this.methodRadio].minDeposit) {
                         this.$toast('请填写该种方式限额内的提款金额');
                         return
                     }
-                    this.$router.push({path: "/charge",
-                        query:{chargeAmount : this.amount,
-                                 bankTypeId : this.tempList.list[this.methodRadio].bankTypeId}})
+                    this.$router.push({
+                        path: "/charge",
+                        query: {
+                            chargeAmount: this.amount,
+                            bankTypeId: this.tempList.list[this.methodRadio].bankTypeId
+                        }
+                    })
                 }
             }
         }
@@ -262,9 +267,10 @@
 
 <style lang="scss" scoped>
   .recharge {
-    .van-popup--center{
+    .van-popup--center {
       border-radius: 0.8rem;
     }
+
     ul {
       overflow-x: auto;
       list-style: none;
@@ -299,7 +305,7 @@
       color: #FF6D44;
     }
 
-    .qrcodeBox{
+    .qrcodeBox {
       background-color: white;
       padding: 1rem;
       border-radius: 0.5rem;
@@ -310,7 +316,7 @@
     font-size: 1.2rem;
     text-align: center;
     overflow: hidden;
-    white-space:nowrap;
+    white-space: nowrap;
     text-overflow: ellipsis;
     color: #AFACB4;
   }

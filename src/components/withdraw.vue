@@ -3,8 +3,8 @@
     <div style="margin-top: 1.5rem;  margin-left:0.3rem;font-size: 1.2rem;color: #AFACB4">到账银行卡</div>
     <p v-if="banks.length === 0" style="text-align:center;font-size: 1.4rem">暂无取款银行卡，请先到银行账户添加！</p>
     <div class="content">
-      <van-swipe  :show-indicators="false" @change="onChange">
-        <van-swipe-item style="border: solid 0.1rem #43345d ; border-radius: 0.5rem" v-for="(item,index) in banks"
+      <van-swipe  :show-indicators="false" @change="onChange" :loop="false">
+        <van-swipe-item  style="border: solid 0.1rem #43345d ; border-radius: 0.5rem" v-for="(item,index) in banks"
                         :key="index">
           <div class="info" v-show="haveCard">
             <div class="bank-name">
@@ -18,7 +18,7 @@
 
       <van-button  class="btn" style="background-color: black;margin-top: 0;background-color: #230F40;
         color:#FF6D44;border-color: #FF6D44   " icon="plus"
-                  @click="add" v-show="!haveCard">添加资金账户
+                  @click="add" v-if="banks.length === 0">添加资金账户
       </van-button>
     </div>
     <div style="margin-top: 1.5rem;  margin-left:0.6rem;font-size: 1.2rem;color: #7E7B83">提现金额</div>
@@ -91,7 +91,7 @@
                 }
                 this.loading = true
                 getListPlayerWithdrawAccounts(data).then(res => {
-                    this.banks = res.result
+                    // this.banks = res.result
                     this.loading = false
                 }).catch(() => {
                     this.loading = false
