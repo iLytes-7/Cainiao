@@ -15,14 +15,14 @@
     <van-field required v-model="tel" v-show="showTel" placeholder="请输入手机号码" @focus="showTelTip" @blur="showTelError"/>
     <span v-show="telError">请输入正确的手机号码！</span>
     <span v-show="telTip" style="color:white;">请输入正确的手机号码！</span>
-    <van-field required v-model="firstName" v-show="showFirstName" placeholder="名字" @focus="showfirstNameTip"
+    <van-field required v-model="firstName" v-show="showFirstName" placeholder="姓名" @focus="showfirstNameTip"
                @blur="showfirstNameError"/>
-    <span v-show="firstNameError">请填写名</span>
-    <span v-show="firstNametip" style="color: white">请填写名</span>
-    <van-field required v-model="lastName" v-show="showLastName" placeholder="姓氏" @focus="showlastNameTip"
-               @blur="showlastNameError"/>
-    <span v-show="lastNameError">请填写姓</span>
-    <span v-show="lastNameTip" style="color:white;">请填写姓</span>
+    <span v-show="firstNameError">请填写真实姓名！</span>
+    <span v-show="firstNametip" style="color: white">请填写真实姓名！</span>
+<!--    <van-field required v-model="lastName" v-show="showLastName" placeholder="姓氏" @focus="showlastNameTip"-->
+<!--               @blur="showlastNameError"/>-->
+<!--    <span v-show="lastNameError">请填写姓</span>-->
+<!--    <span v-show="lastNameTip" style="color:white;">请填写姓</span>-->
     <van-field v-model="yqCode" placeholder="邀请码"/>
     <van-button class="btn" color="#FF6D44" @click="submit" :loading="loading">立即注册</van-button>
     <van-checkbox v-model="checked" shape="square" class="noBg">
@@ -150,12 +150,6 @@
                     return;
                 } else {
                     this.firstNameError = false
-                }
-                if (this.lastName === '') {
-                    this.lastNameError = true
-                    return;
-                } else {
-                    this.lastNameError = false
                 }
                 let termstemp = ''
                 if (this.checked == true) {

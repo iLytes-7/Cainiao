@@ -15,10 +15,10 @@
           <div class="info-status have">{{nickName}}</div>
         </div>
       </div>
-      <div class="info-row" >
+      <div class="info-row">
         <div class="info-item">姓名</div>
         <div style="display: flex;align-items: center">
-          <div class="info-status have">{{firstName}}{{lastName}}</div>
+          <div class="info-status have">{{firstName}}</div>
         </div>
       </div>
       <div class="info-row" @click="propLastName" v-if="false">
@@ -29,11 +29,11 @@
         </div>
       </div>
       <div class="info-row" @click="propTel">
-          <div class="info-item">电话号码</div>
-          <div style="display: flex;align-items: center">
-            <div class="info-status have">{{tel}}</div>
-            <van-icon name="arrow"/>
-          </div>
+        <div class="info-item">电话号码</div>
+        <div style="display: flex;align-items: center">
+          <div class="info-status have">{{tel}}</div>
+          <van-icon name="arrow"/>
+        </div>
       </div>
     </div>
     <div style="height: 0.5rem;width: 100%;background-color: #291744">
@@ -52,9 +52,10 @@
       <div class="info-row">
         <div class="info-item">性别</div>
         <div style="display: flex;align-items: center">
-          <van-radio-group v-model="sex" shape="square" icon-size="1.3rem" checked-color="#FF6D44">
-            <van-radio name="男" checked>男</van-radio>
-            <van-radio name="女">女</van-radio>
+          <van-radio-group v-model="sex" :disabled="genderDis" shape="square" icon-size="1.3rem"
+                           checked-color="#FF6D44">
+            <van-radio name="男"  checked>男</van-radio>
+            <van-radio name="女" >女</van-radio>
           </van-radio-group>
         </div>
       </div>
@@ -64,16 +65,15 @@
           <van-field
             v-model="userListForm.end_time"
             readonly="readonly"
-            @click="endTimePop = true"
+            @click="endTimePop = birthdateDis"
           />
-          <van-popup v-model="endTimePop" label="离开时间" position="bottom" :overlay="true">
+          <van-popup v-model="endTimePop"  label="离开时间" position="bottom" :overlay="true">
             <van-datetime-picker
               v-model="currentDate_end"
               type="date"
               :min-date="minDate"
               @cancel="endTimePop = false"
               @confirm="endTimeChange"
-
             />
           </van-popup>
 
@@ -123,7 +123,8 @@
     <!--        </van-uploader>-->
     <!--      </div>-->
     <!--    </van-popup>-->
-    <van-popup v-model="nameVisible" round closeable @close="handleCloseNickName" style="width: 80%;height: 40%;text-align: center">
+    <van-popup v-model="nameVisible" round closeable @close="handleCloseNickName"
+               style="width: 80%;height: 40%;text-align: center">
       <div style="position: absolute; top: 10%;transform: translateY(-50%);
         left: 50%;transform: translateX(-50%);
         width: 90%;color: black;font-size: 1.4rem">
@@ -133,7 +134,8 @@
         <div style="position: absolute; top: 30%;transform: translateY(-50%);
         left: 50%;transform: translateX(-50%);
         width: 90%">
-          <van-field v-model="editVal" :placeholder="placeholder" style="background-color: #eeeeee;width: 100%;color: black; border-radius: 6px "/>
+          <van-field v-model="editVal" :placeholder="placeholder"
+                     style="background-color: #eeeeee;width: 100%;color: black; border-radius: 6px "/>
           <div class="btn-confirm">
             <div style="background-color: #00befe" @click="confirmNickName">
               确认
@@ -152,213 +154,222 @@
 </template>
 
 <script>
-  import {Toast} from 'vant';
-  import {mapGetters} from 'vuex'
-  import {getPlayerProfile,updatePlayerProfile} from '@/api/user';
-  import editInfo from './components/editInfo'
+    import {Toast} from 'vant';
+    import {mapGetters} from 'vuex'
+    import {getPlayerProfile, updatePlayerProfile} from '@/api/user';
+    import editInfo from './components/editInfo'
 
-  export default {
-    data() {
-      return {
-        sex: '',
-        minDate: new Date(1920, 1, 1),
-        maxDate: '',
-        headVisible: false,
-        nameVisible:false,
-        tel: '',
-        filegroup: [],
-        city: '',
-        firstName:'',
-        lastName:'',
-        nickName: '',
-        qq: '',
-        wechat: '',
-        endTimePop: false,
-        loading: false,
-        copyNickName: '',
-        currentDate_end: '',
-        userListForm: {
-          end_time: '',
+    export default {
+        data() {
+            return {
+                genderDis: true,
+                birthdateDis:false,
+                sex: '',
+                minDate: new Date(1920, 1, 1),
+                maxDate: '',
+                headVisible: false,
+                nameVisible: false,
+                tel: '',
+                filegroup: [],
+                city: '',
+                firstName: '',
+                lastName: '',
+                nickName: '',
+                qq: '',
+                wechat: '',
+                endTimePop: false,
+                loading: false,
+                copyNickName: '',
+                currentDate_end: '',
+                userListForm: {
+                    end_time: '',
+                },
+                currentDate: new Date(),
+                fileList: [
+                    {url: 'https://img.yzcdn.cn/vant/leaf.jpg'}
+                ],
+                title: '',
+                show: false,
+                placeholder: '',
+                editVal: ''
+            }
         },
-        currentDate: new Date(),
-        fileList: [
-          {url: 'https://img.yzcdn.cn/vant/leaf.jpg'}
-        ],
-        title: '',
-        show: false,
-        placeholder: '',
-        editVal: ''
-      }
-    },
-    components: { editInfo },
-    computed: {
-      ...mapGetters([
-        'name',
-        'token'
-      ])
-    },
-    created() {
-      this.copyNickName = this.nickName
-      let y = new Date().getFullYear();
-      this.maxDate = new Date(y, 11)
-      let data = {
-        api_key: 'ea443b05c7067089bd2716f47257ee73',
-        username: this.name,
-        token: this.token
-      }
-      this.loading = true
-      getPlayerProfile(data).then(res => {
-        let userinfo = res.result
-        this.nickName = userinfo.username
-        this.firstName = userinfo.firstName
-        this.lastName = userinfo.lastName
-        this.tel = userinfo.contactNumber
-        this.sex = userinfo.gender
-        this.userListForm.end_time = userinfo.birthdate
-        this.city = userinfo.city
-        this.wechat = userinfo.imAccount
-        this.qq = userinfo.imAccount2
-        this.loading = false
-      }).catch(() => {
-          this.loading = false
-      })
-    },
-    methods: {
-      logout() {
-      },
-      propHead() {
-        this.headVisible = true
-      },
-      propFirstName() {
-        this.nameVisible = true
-        this.title = '修改真实姓'
-        this.placeholder = '请输入真实姓'
-        this.editVal = this.firstName
-      },
-      propLastName() {
-          this.nameVisible = true
-          this.title = '修改真实名'
-          this.placeholder = '请输入真实名'
-          this.editVal = this.lastName
-      },
-      propTel() {
-        this.nameVisible = true
-        this.title = '修改电话号码'
-        this.placeholder = '请输入电话号码'
-        this.editVal = this.tel
-      },
-      propCity() {
-        this.nameVisible = true
-        this.title = '修改城市'
-        this.placeholder = '请输入城市'
-        this.editVal = this.city
-      },
-      propWechat() {
-        this.nameVisible = true
-        this.title = '修改微信'
-        this.placeholder = '请输入微信'
-        this.editVal = this.wechat
-      },
-      propQQ() {
-        this.nameVisible = true
-        this.title = '修改QQ'
-        this.placeholder = '请输入QQ'
-        this.editVal = this.qq
-      },
-      afterRead(file) {
-        console.log(file)
-        this.fileList[0].url = file.content
-        this.filegroup = []
-      },
-      handleCloseHead() {
-        this.filegroup = []
-      },
-      handleCloseNickName() {
-        this.nameVisible = false
-      },
-      // 复制成功
-      onCopy(e) {
-        console.log(e);
-        Toast('复制成功');
-      },
-      // 复制失败
-      onError(e) {
-        alert("失败");
-        Toast('复制失败');
-      },
-      confirmNickName() {
-        if (this.editVal === '') {
-          Toast.fail('不能为空！');
-        } else {
-          if (this.title === '修改真实姓') {
-            this.firstName = this.editVal
-          } else if (this.title === '修改真实名') {
-            this.lastName = this.editVal
-          } else if (this.title === '修改电话号码') {
-            this.tel = this.editVal
-          } else if (this.title === '修改城市') {
-            this.city = this.editVal
-          } else if (this.title === '修改微信') {
-            this.wechat = this.editVal
-          } else {
-            this.qq = this.editVal
-          }
-          this.nameVisible = false
-        }
+        components: {editInfo},
+        computed: {
+            ...mapGetters([
+                'name',
+                'token'
+            ])
+        },
+        created() {
+            this.copyNickName = this.nickName
+            let y = new Date().getFullYear();
+            this.maxDate = new Date(y, 11)
+            let data = {
+                api_key: 'ea443b05c7067089bd2716f47257ee73',
+                username: this.name,
+                token: this.token
+            }
+            this.loading = true
+            getPlayerProfile(data).then(res => {
+                let userinfo = res.result
+                this.nickName = userinfo.username
+                this.firstName = userinfo.firstName
+                this.lastName = userinfo.lastName
+                this.tel = userinfo.contactNumber
+                if (userinfo.gender === null){
+                    this.genderDis = false
+                }
+                this.sex = userinfo.gender
+                if (userinfo.birthdate === null){
+                    this.birthdateDis = true
+                }
+                this.userListForm.end_time = userinfo.birthdate
+                this.city = userinfo.city
+                this.wechat = userinfo.imAccount
+                this.qq = userinfo.imAccount2
+                this.loading = false
+            }).catch(() => {
+                this.loading = false
+            })
+        },
+        methods: {
+            logout() {
+            },
+            propHead() {
+                this.headVisible = true
+            },
+            propFirstName() {
+                this.nameVisible = true
+                this.title = '修改真实姓'
+                this.placeholder = '请输入真实姓'
+                this.editVal = this.firstName
+            },
+            propLastName() {
+                this.nameVisible = true
+                this.title = '修改真实名'
+                this.placeholder = '请输入真实名'
+                this.editVal = this.lastName
+            },
+            propTel() {
+                this.nameVisible = true
+                this.title = '修改电话号码'
+                this.placeholder = '请输入电话号码'
+                this.editVal = this.tel
+            },
+            propCity() {
+                this.nameVisible = true
+                this.title = '修改城市'
+                this.placeholder = '请输入城市'
+                this.editVal = this.city
+            },
+            propWechat() {
+                this.nameVisible = true
+                this.title = '修改微信'
+                this.placeholder = '请输入微信'
+                this.editVal = this.wechat
+            },
+            propQQ() {
+                this.nameVisible = true
+                this.title = '修改QQ'
+                this.placeholder = '请输入QQ'
+                this.editVal = this.qq
+            },
+            afterRead(file) {
+                console.log(file)
+                this.fileList[0].url = file.content
+                this.filegroup = []
+            },
+            handleCloseHead() {
+                this.filegroup = []
+            },
+            handleCloseNickName() {
+                this.nameVisible = false
+            },
+            // 复制成功
+            onCopy(e) {
+                console.log(e);
+                Toast('复制成功');
+            },
+            // 复制失败
+            onError(e) {
+                alert("失败");
+                Toast('复制失败');
+            },
+            confirmNickName() {
+                if (this.editVal === '') {
+                    Toast.fail('不能为空！');
+                } else {
+                    if (this.title === '修改真实姓') {
+                        this.firstName = this.editVal
+                    } else if (this.title === '修改真实名') {
+                        this.lastName = this.editVal
+                    } else if (this.title === '修改电话号码') {
+                        this.tel = this.editVal
+                    } else if (this.title === '修改城市') {
+                        this.city = this.editVal
+                    } else if (this.title === '修改微信') {
+                        this.wechat = this.editVal
+                    } else {
+                        this.qq = this.editVal
+                    }
+                    this.nameVisible = false
+                }
 
-      },
-      saveEdit(){
-          this.$dialog.confirm({
-              title: '提示',
-              message: '是否保存修改信息？'
-          }).then(() => {
-              let fields = {
-                  firstName:this.firstName,
-                  lastName:this.lastName,
-                  contactNumber:this.tel,
-                  gender:this.sex,
-                  birthdate:this.userListForm.end_time,
-                  city:this.city,
-                  imAccount:this.wechat,
-                  imAccount2:this.qq
-              }
-              let data = {
-                  api_key: "ea443b05c7067089bd2716f47257ee73",
-                  username: this.name,
-                  token:this.token,
-                  fields: JSON.stringify(fields)
-              }
-              this.loading = true
-              updatePlayerProfile(data).then(response => {
-                  this.$toast("保存成功！")
-                  this.loading = false
-              }).catch(() => {
-                  this.loading = false
-              })
-          }).catch(() => {
-              // on cancel
-          });
-      },
-      cancelNickName() {
-        this.copyNickName = this.nickName
-        this.nameVisible = false
-      },
-      endTimeChange(value) {
-        var date = value;
-        var m = date.getMonth() + 1;
-        var d = date.getDate();
-        if (m >= 1 && m <= 9) {
-          m = "0" + m;
+            },
+            saveEdit() {
+                this.$dialog.confirm({
+                    title: '提示',
+                    message: '是否保存修改信息？'
+                }).then(() => {
+                    let fields = {
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                        contactNumber: this.tel,
+                        gender: this.sex,
+                        birthdate: this.userListForm.end_time,
+                        city: this.city,
+                        imAccount: this.wechat,
+                        imAccount2: this.qq
+                    }
+                    let data = {
+                        api_key: "ea443b05c7067089bd2716f47257ee73",
+                        username: this.name,
+                        token: this.token,
+                        fields: JSON.stringify(fields)
+                    }
+                    this.loading = true
+                    updatePlayerProfile(data).then(response => {
+                        this.loading = false
+                        this.$toast("保存成功！")
+                        this.$router.go(-1)
+                    }).catch(() => {
+                        this.loading = false
+                    })
+                }).catch(() => {
+                    // on cancel
+                });
+            },
+            cancelNickName() {
+                this.copyNickName = this.nickName
+                this.nameVisible = false
+            },
+            endTimeChange(value) {
+                var date = value;
+                var m = date.getMonth() + 1;
+                var d = date.getDate();
+                if (m >= 1 && m <= 9) {
+                    m = "0" + m;
+                }
+                if (d >= 0 && d <= 9) {
+                    d = "0" + d;
+                }
+                const timer = date.getFullYear() + "-" + m + "-" + d
+                this.userListForm.end_time = timer
+                this.endTimePop = false
+            }
         }
-        if (d >= 0 && d <= 9) {
-          d = "0" + d;
-        }
-        const timer = date.getFullYear() + "-" + m + "-" + d
-        this.userListForm.end_time = timer
-        this.endTimePop = false
-      }
     }
-  }
 </script>
 
 <style scoped>
@@ -395,13 +406,15 @@
   .van-field__control {
     color: black;
   }
-  .verification .btn{
+
+  .verification .btn {
     width: 90% !important;
     margin-top: 4rem !important;
     margin-left: auto;
     margin-right: auto;
     display: block;
   }
+
   .btn-confirm > div {
     background-color: red;
     width: 6rem;

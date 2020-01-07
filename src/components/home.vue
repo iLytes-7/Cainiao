@@ -1,10 +1,13 @@
 <template>
   <div class="home" style="height: 100%">
     <div class="top-btn-box">
-      <van-button @click="goUser" icon="user-o" style="width: 4rem; height: 100%; margin-left: 1rem"
-                  color="linear-gradient(to right, #4bb0ff, #6149f6)"></van-button>
+      <img @click="goUser" src="../assets/image/goUser.png" alt="" style="width:1.8rem;height:1.6rem;position: absolute
+          ;z-index:99999;left: 2rem;top: 1rem">
+      <div
+        style="position: absolute;top: 50%;left: 50%;transform: translateX(-50%) translateY(-50%);font-size: 1.6rem;color: white">菜鸟电竞
+      </div>
       <a href="https://chat.liveneed.net/chat/Hotline/channel.jsp?cid=5052195&cnfid=42351&j=7220487914&s=1"><img
-        src="../assets/image/kefu.png" style="width:1.9rem;height:2.1rem;position: absolute
+        src="../assets/image/homeKefu.png" style="width:1.7rem;height:1.8rem;position: absolute
           ;z-index:99999;right: 1rem;top: 1rem"></a>
     </div>
     <div class="iframeDiv">
@@ -114,6 +117,7 @@
     justify-content: space-between;
     width: 100%;
     height: 3.5rem;
+    background-color: #331a4d;
   }
   h1, h2 {
     font-weight: normal;
