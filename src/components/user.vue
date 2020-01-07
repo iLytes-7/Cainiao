@@ -194,7 +194,6 @@
                 }
                 this.loading = true
                 this.$store.dispatch('bank/queryPlayerBalance', data).then(res => {
-
                     this.loading = false
                 }).catch(() => {
                     this.loading = false

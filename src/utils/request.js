@@ -63,7 +63,6 @@ service.interceptors.response.use(
         type: 'danger',
         duration: 3 * 1000
       })
-
       if (res.code === 161) { // token过期或者另一地点登录
         // to re-login
         Dialog.alert({

@@ -185,7 +185,6 @@
                 }).catch(() => {
                     this.loading = false
                 })
-
             },
             creatUsername() {
                 var Num = "";
@@ -225,7 +224,6 @@
                 }else {
                     this.usernameTip = true
                 }
-
             },
             showPasswordTip(){
                 if (this.passwordError){

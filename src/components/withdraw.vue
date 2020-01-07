@@ -91,7 +91,7 @@
                 }
                 this.loading = true
                 getListPlayerWithdrawAccounts(data).then(res => {
-                    // this.banks = res.result
+                    this.banks = res.result
                     this.loading = false
                 }).catch(() => {
                     this.loading = false

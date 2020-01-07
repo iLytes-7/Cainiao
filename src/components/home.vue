@@ -18,9 +18,6 @@
 <script>
     import {mapGetters} from 'vuex'
     import { listGamePlatforms ,listGamesByPlatform } from '@/api/listGame';
-    // import { param } from '@/utils'
-    // const jwt = require("jsonwebtoken");
-    // const secret = '85519a02c7663398d557b68566a27ac0';
     export default {
         name: 'HelloWorld',
         data() {
@@ -58,6 +55,18 @@
                     platform_id: parseInt(this.platform_id)
                 }
                 listGamesByPlatform(post1).then(response => {
+                    let data = {
+                        api_key: "ea443b05c7067089bd2716f47257ee73",
+                        token: this.token,
+                        username: this.name,
+                        refresh: 1
+                    }
+                    if(this.name){
+                        console.log(this.name)
+                        this.$store.dispatch('bank/queryPlayerBalance', data).then(res => {
+                        }).catch(() => {
+                        })
+                    }
                     if (this.token === undefined || this.token === ''){
                         this.url =
                             'http://player.dj002.t1t.in/'+response.result.game_types.e_sports.mobile
@@ -88,7 +97,6 @@
         }
     }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
   .home{

@@ -79,7 +79,7 @@
   .bank {
     border-radius: 0.5rem;
     padding: 2rem;
-    background: url("../../assets/image/ylbkg.png") center no-repeat;
+    background: url('http://cloud.fhi365.cn:88/group1/M00/00/0D/rB8QsF4S_UuADjC_AAAw7TSoFOI571.png') center no-repeat;
     background-size: 100% 100%;
     margin-top: 2rem;
   }
