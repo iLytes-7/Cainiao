@@ -252,10 +252,7 @@
                 this.editVal = this.lastName
             },
             propTel() {
-                this.nameVisible = true
-                this.title = '修改电话号码'
-                this.placeholder = '请输入电话号码'
-                this.editVal = this.tel
+                this.$router.push({path: "/safety-setting/test-phone"})
             },
             propCity() {
                 this.nameVisible = true

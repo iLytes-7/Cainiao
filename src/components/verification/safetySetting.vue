@@ -10,21 +10,13 @@
         </router-link>
       </div>
       <div class="info-row">
-        <router-link to="/login/updateWithdrawPassword">
-          <div class="info-item">修改取款密码</div>
+        <router-link to="/safety-setting/test-phone">
+          <div class="info-item">修改绑定手机号码</div>
           <div style="display: flex;align-items: center">
             <van-icon name="arrow"/>
           </div>
         </router-link>
       </div>
-<!--      <div class="info-row">-->
-<!--        <router-link to="/safety-setting/test-phone">-->
-<!--          <div class="info-item">修改绑定手机号码</div>-->
-<!--          <div style="display: flex;align-items: center">-->
-<!--            <van-icon name="arrow"/>-->
-<!--          </div>-->
-<!--        </router-link>-->
-<!--      </div>-->
     </div>
   </div>
 </template>

@@ -30,9 +30,9 @@
             style="width: 70%;"
           />
           <span style="position: absolute;right: 3rem;top:-0.4rem" @click="goCuxiao">20%</span>
-          <p style="line-height: 0.5rem;font-size: 0.9rem" @click="goCuxiao">
-            <span>存款：30.00/0.00¥</span>
-            <span style="margin-left: 1.8rem">下注：1.75/10.00$</span>
+          <p style="line-height: 0.5rem;font-size: 0.9rem" @click="goCuxiao" >
+            <span v-if="false">存款：30.00/0.00¥</span>
+            <span style="margin-left: 0rem">下注：1.75/10.00¥</span>
           </p>
         </div>
       </div>

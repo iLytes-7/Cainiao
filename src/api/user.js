@@ -83,6 +83,29 @@ export function register(data) {
     data: param(data)
   })
 }
+export function smsRegSendSms(data) {
+  return request({
+    url: '/smsRegSendSms',
+    method: 'post',
+    data: param(data)
+  })
+}
+
+export function smsVerifySend(data) {
+  return request({
+    url: '/smsVerifySend',
+    method: 'post',
+    data: param(data)
+  })
+}
+
+export function smsRegCreatePlayer(data) {
+  return request({
+    url: '/smsRegCreatePlayer',
+    method: 'post',
+    data: param(data)
+  })
+}
 
 export function getRegSettings(data) {
   return request({

@@ -9,6 +9,14 @@ export function getBank(data) {
   })
 }
 
+export function transfer(data) {
+  return request({
+    url: '/transfer',
+    method: 'post',
+    data: param(data)
+  })
+}
+
 export function getListPlayerWithdrawAccounts(data) {
   return request({
     url: '/listPlayerWithdrawAccounts',

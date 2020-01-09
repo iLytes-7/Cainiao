@@ -1,5 +1,6 @@
-import { login, logout, getPlayerProfile, register } from '@/api/user'
+import { login, logout, getPlayerProfile, smsRegCreatePlayer, updatePlayerWithdrawalPassword } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import { transfer} from "@/api/bank"
 import Cookies from 'js-cookie'
 
 const state = {
@@ -30,7 +31,24 @@ const actions = {
         commit('SET_NAME', data.playerName)
         setToken(data.token)
         Cookies.set('userName', data.playerName)
-
+        let data1 = {
+          api_key: "ea443b05c7067089bd2716f47257ee73",
+          username: userInfo.username,
+          token: data.token,
+          new_password:userInfo.password,
+          force_reset: 1
+        }
+        updatePlayerWithdrawalPassword(data1).then(response => {
+        })
+        // let data2 = {
+        //   api_key: "ea443b05c7067089bd2716f47257ee73",
+        //   username: userInfo.username,
+        //   token: data.token,
+        //   transfer_to: 5593,
+        //   transfer_from:0
+        // }
+        // transfer(data2).then(res => {
+        // })
         resolve()
       }).catch(error => {
         reject(error)
@@ -40,7 +58,7 @@ const actions = {
 
   signUp({ commit }, userInfo) {
     return new Promise((resolve, reject) => {
-      register(userInfo).then(response => {
+      smsRegCreatePlayer(userInfo).then(response => {
         const data = response.result
         commit('SET_TOKEN', data.token)
         commit('SET_NAME', data.playerName)

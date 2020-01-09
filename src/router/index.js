@@ -96,7 +96,7 @@ const router = new Router({
           name: 'login',
           component: () => import('@/components/login/login'),
           meta: {
-            title: '登陆'
+            title: '登录'
           }
         },
         {
@@ -198,7 +198,7 @@ const router = new Router({
           name: 'test-phone',
           component: () => import('@/components/verification/testPhoneNum'),
           meta:{
-            title: '手机号码验证'
+            title: '修改绑定手机号'
           }
         },
         {

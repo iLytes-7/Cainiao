@@ -87,12 +87,14 @@
         }
         this.loading = true
         this.$store.dispatch('user/login', data).then(res => {
-          this.$toast("登录成功！")
+            console.log(res);
+            this.$toast("登录成功！")
           this.$router.push({path: "/"})
           this.loading = false
         }).catch(() => {
           this.loading = false
         })
+
         // if (this.identifyCode != this.verifycode) {
         //   this.$toast.fail('验证码输入错误');
         //   return;
@@ -119,7 +121,7 @@
   }
 
   .login img {
-    width: 5.5rem;
+    width: 15.5rem;
     margin-top: 5rem;
   }
 

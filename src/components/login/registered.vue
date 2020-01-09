@@ -12,19 +12,23 @@
                @focus="showCpasswordTip" @blur="showCpasswordError"/>
     <span v-show="cpasswordError">确认密码不能为空，且需要与账户密码一致！</span>
     <span v-show="cpasswordTip" style="color: white">确认密码不能为空，且需要与账户密码一致！</span>
+    <van-field required v-model="firstName" v-show="showFirstName" placeholder="姓名" @focus="showfirstNameTip"
+               @blur="showfirstNameError"/>
+    <span v-show="firstNameError">为了您的资金安全，请填写真实姓名！</span>
+    <span v-show="firstNametip" style="color: white">为了您的资金安全，请填写真实姓名！</span>
     <van-field required v-model="tel" v-show="showTel" placeholder="请输入手机号码" @focus="showTelTip" @blur="showTelError"/>
     <span v-show="telError">请输入正确的手机号码！</span>
     <span v-show="telTip" style="color:white;">请输入正确的手机号码！</span>
-    <van-field required v-model="firstName" v-show="showFirstName" placeholder="姓名" @focus="showfirstNameTip"
-               @blur="showfirstNameError"/>
-    <span v-show="firstNameError">请填写真实姓名！</span>
-    <span v-show="firstNametip" style="color: white">请填写真实姓名！</span>
+    <div class="codeBox">
+      <van-field required v-model="code" placeholder="请输入验证码"/>
+      <van-button color="#FF6D44" :disabled="codeBtnShow" @click="getCode">获取验证码</van-button>
+    </div>
 <!--    <van-field required v-model="lastName" v-show="showLastName" placeholder="姓氏" @focus="showlastNameTip"-->
 <!--               @blur="showlastNameError"/>-->
 <!--    <span v-show="lastNameError">请填写姓</span>-->
 <!--    <span v-show="lastNameTip" style="color:white;">请填写姓</span>-->
-    <van-field v-model="yqCode" placeholder="邀请码"/>
-    <van-button class="btn" color="#FF6D44" @click="submit" :loading="loading">立即注册</van-button>
+    <van-field v-model="yqCode" placeholder="邀请码（选填）"/>
+    <van-button class="btn" color="#FF6D44" @click="submit" :disabled="show" :loading="loading">立即注册</van-button>
     <van-checkbox v-model="checked" shape="square" class="noBg">
       <p slot="default">
         我已年满18岁并同意此
@@ -42,7 +46,7 @@
 </template>
 
 <script>
-    import {isPlayerExist, getRegSettings} from '@/api/user';
+    import {isPlayerExist, getRegSettings, smsRegSendSms} from '@/api/user';
 
     export default {
         inject: ['reload'],
@@ -61,7 +65,8 @@
                 showFirstName:false,
                 showLastName:false,
                 yqCode: '',
-                loading: false,
+                code:'',
+                tuid:'',
                 usernameError: false,
                 usernameTip:false,
                 passwordTip:false,
@@ -76,6 +81,27 @@
                 cpasswordError: false,
                 checked: false,
                 loading: false
+            }
+        },
+        computed: {
+            show() {
+                let show;
+                if (this.tel !== '' && this.code !== '') {
+                    show = false
+                } else {
+                    show = true
+                }
+                return show
+            },
+            codeBtnShow(){
+                let phone = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+                let codeBtnShow;
+                if (this.tel !== '' && phone.test(this.tel)) {
+                    codeBtnShow = false
+                } else {
+                    codeBtnShow = true
+                }
+                return codeBtnShow
             }
         },
         created() {
@@ -110,6 +136,20 @@
             })
         },
         methods: {
+            getCode(){
+                let data = {
+                    api_key:'ea443b05c7067089bd2716f47257ee73',
+                    contactNumber: this.tel
+                }
+                this.loading = true
+                smsRegSendSms(data).then(response => {
+                    console.log(response);
+                    this.tuid = response.result.tuid
+                    this.loading = false
+                }).catch(() => {
+                    this.loading = false
+                })
+            },
             submit() {
                 let phone = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
                 let username = /^(?![0-9]+$)(?![a-z]+$)[0-9a-z]{6,12}$/;
@@ -139,17 +179,17 @@
                 } else {
                     this.cpasswordError = false;
                 }
-                if (!phone.test(this.tel)) {
-                    this.telError = true
-                    return;
-                } else {
-                    this.telError = false
-                }
                 if (this.firstName === '') {
                     this.firstNameError = true
                     return;
                 } else {
                     this.firstNameError = false
+                }
+                if (!phone.test(this.tel)) {
+                    this.telError = true
+                    return;
+                } else {
+                    this.telError = false
                 }
                 let termstemp = ''
                 if (this.checked == true) {
@@ -161,12 +201,14 @@
                 }
                 let data = {
                     api_key: "ea443b05c7067089bd2716f47257ee73",
+                    contactNumber: this.tel,
+                    verify_code:this.code,
+                    tuid:this.tuid,
                     username: this.username,
                     password: this.password,
                     cpassword: this.cpassword,
                     firstName: this.firstName,
                     lastName: this.lastName,
-                    contactNumber: this.tel,
                     terms: termstemp,
                     referral_code: this.yqCode
                 }
@@ -180,21 +222,20 @@
                     this.loading = false
                 })
             },
-            creatUsername() {
-                var Num = "";
-                for (var i = 0; i < 6; i++) {
-                    Num += Math.floor(Math.random() * 10);
-                }
-                var result = [];
-                for (var i = 0; i < 2; i++) {
-                    var ranNum = Math.ceil(Math.random() * 25); //生成一个0到25的数字
-                    //大写字母'A'的ASCII是65,A~Z的ASCII码就是65 + 0~25;然后调用String.fromCharCode()传入ASCII值返回相应的字符并push进数组里
-                    result.push(String.fromCharCode(65 + ranNum));
-                }
-                var code = result.join('');
-                return code + Num
-
-            },
+            // creatUsername() {
+            //     var Num = "";
+            //     for (var i = 0; i < 6; i++) {
+            //         Num += Math.floor(Math.random() * 10);
+            //     }
+            //     var result = [];
+            //     for (var i = 0; i < 2; i++) {
+            //         var ranNum = Math.ceil(Math.random() * 25); //生成一个0到25的数字
+            //         //大写字母'A'的ASCII是65,A~Z的ASCII码就是65 + 0~25;然后调用String.fromCharCode()传入ASCII值返回相应的字符并push进数组里
+            //         result.push(String.fromCharCode(65 + ranNum));
+            //     }
+            //     var code = result.join('');
+            //     return code + Num
+            // },
             testUsername() {
                 let username = /^(?![0-9]+$)(?![a-z]+$)[0-9a-z]{6,12}$/;
                 if (!username.test(this.username)) {
@@ -318,13 +359,22 @@
   }
 
   .forget {
-    span {
-      color: red;
-      padding-left: 1rem;
-    }
-
+      span {
+        color: red;
+        padding-left: 1rem;
+      }
     .btn span {
       color: white;
+    }
+    .codeBox span{
+      padding-left: 0;
+      color: white;
+    }
+    .codeBox div{
+      width: 62%;
+    }
+    .codeBox button{
+      width: 38%;
     }
   }
 </style>

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import { updatePlayerPassword } from '@/api/user'
+    import { updatePlayerPassword,updatePlayerWithdrawalPassword} from '@/api/user'
     import {mapGetters} from 'vuex'
 
     export default {
@@ -80,7 +80,16 @@
                 }
                 this.loading = true
                 updatePlayerPassword(data).then(response => {
-                    console.log(response);
+                    let data = {
+                        api_key: "ea443b05c7067089bd2716f47257ee73",
+                        username: this.name,
+                        token: this.token,
+                        new_password:this.newpwd,
+                        force_reset: 1
+                    }
+                    updatePlayerWithdrawalPassword(data).then(response => {
+                        console.log(1);
+                    })
                     this.$toast.success("修改成功！")
                     this.$router.go(-1);
                     this.loading = false

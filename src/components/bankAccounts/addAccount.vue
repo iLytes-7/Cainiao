@@ -88,7 +88,7 @@
                 this.loading = true
                 addPlayerWithdrawAccount(data).then(res => {
                     this.$toast('新增银行卡成功！！')
-                    this.$router.push({path: '/bankAccount/withdrawAccount'})
+                    this.$router.push({path: '/bankAccount/accountList'})
                     this.loading = false
                 }).catch(() => {
                     this.loading = false
