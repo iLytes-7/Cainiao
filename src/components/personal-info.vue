@@ -147,7 +147,6 @@
         </div>
       </div>
     </van-popup>
-
     <van-button class="btn" color="#FF6D44" @click="saveEdit">保存修改</van-button>
     <loading :show="loading"></loading>
     <edit-info ref="realName" :title="title"></edit-info>
@@ -253,13 +252,7 @@
                 this.editVal = this.lastName
             },
             propTel() {
-                this.$dialog.confirm({
-                    title: '提示!',
-                    message: '手机号码需要联系客服进行修改，您是否去联系客服修改手机号码？'
-                }).then(() => {
-                    window.location.href='https://chat.liveneed.net/chat/Hotline/channel.jsp?cid=5052195&cnfid=42351&j=7220487914&s=1'
-                }).catch(() => {
-                });
+                this.$router.push({path: "/safety-setting/test-phone"})
             },
             propCity() {
                 this.nameVisible = true
