@@ -79,6 +79,13 @@ service.interceptors.response.use(
           })
         })
       }
+      if (res.code === 16) { // 玩家账号被锁，由于登陆次数过多
+        Dialog.alert({
+          title: '标题',
+          message: '密码错误次数过多，账号被锁，请您十分钟之后再次尝试！如急需登陆账号，可前往首页联系客服，解锁账号。'
+        }).then(() => {
+        })
+      }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
       return res

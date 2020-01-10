@@ -37,8 +37,8 @@
     },
     data() {
       return {
-        password: '123456',
-        username: 'test7seven',
+        password: '1234567qq',
+        username: 'tq123456',
         verifycode: '',
         identifyCode: "",
         identifyCodes: "1234567890",

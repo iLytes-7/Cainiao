@@ -9,13 +9,11 @@
           </div>
         </router-link>
       </div>
-      <div class="info-row">
-        <router-link to="/safety-setting/test-phone">
+      <div class="info-row" @click="editTel">
           <div class="info-item">修改绑定手机号码</div>
           <div style="display: flex;align-items: center">
             <van-icon name="arrow"/>
           </div>
-        </router-link>
       </div>
     </div>
   </div>
@@ -26,7 +24,17 @@
         data() {
             return {}
         },
-        methods: {}
+        methods: {
+            editTel(){
+                this.$dialog.confirm({
+                    title: '提示!',
+                    message: '手机号码需要联系客服进行修改，您是否去联系客服修改手机号码？'
+                }).then(() => {
+                    window.location.href='https://chat.liveneed.net/chat/Hotline/channel.jsp?cid=5052195&cnfid=42351&j=7220487914&s=1'
+                }).catch(() => {
+                });
+            }
+        }
     }
 </script>
 
