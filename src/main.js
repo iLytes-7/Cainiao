@@ -12,6 +12,7 @@ import store from './store'
 import './permission'
 import axios from 'axios'
 import VueQriously from 'vue-qriously'
+import VueRouter from 'vue-router'
 
 
 
@@ -34,6 +35,10 @@ Vue.use(Toast);
 
 Vue.use(VueClipboard);
 
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error=> error)
+}
 
 
 Vue.config.productionTip = false

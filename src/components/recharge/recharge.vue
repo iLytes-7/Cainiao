@@ -7,6 +7,8 @@
             :class="{liActive:index===autoCurr}">
           <img v-if="item.category_text.indexOf('支付宝') != -1" src="../../assets/image/daalipay.png" alt="">
           <img v-else-if="item.category_text.indexOf('微信') != -1" src="../../assets/image/dawepay.png" alt="">
+          <img v-else-if="item.category_text.indexOf('网银') != -1" src="../../assets/image/wy.png" alt="">
+          <img v-else-if="item.category_text.indexOf('快捷') != -1" src="../../assets/image/kj.png" alt="">
           <img v-else src="../../assets/image/daimg.png" alt="">
           <p>{{item.category_text}}</p>
         </li>
