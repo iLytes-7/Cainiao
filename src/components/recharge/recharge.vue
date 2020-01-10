@@ -17,7 +17,7 @@
             <van-cell clickable v-for="(item,index) in tempList.list" :key="index"
                       @click="selectMethodRadio(index)">
               <div slot="title" class="methodList-title">
-                <img src="../../assets/image/xiaoimg.png" alt="">
+<!--                <img src="../../assets/image/xiaoimg.png" alt="">-->
                 <span style="max-width: 37%;display:inline-block;overflow: hidden;height: 2rem;white-space:nowrap;
     text-overflow: ellipsis;">{{item.bank_name_local
                   }}</span>
@@ -370,7 +370,7 @@
   }
 
   .methodList-title span {
-    margin-left: 3rem;
+    margin-left: 0rem;
     color: #7E7B83;
   }
 
