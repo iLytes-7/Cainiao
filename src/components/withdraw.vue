@@ -7,7 +7,7 @@
         <van-swipe-item  style=""
                          v-for="(item,index) in banks"
                         :key="index">
-          <div class="info" v-show="haveCard" style="border: solid 0.1rem #43345d ; border-radius: 0.5rem;background: url('http://cloud.fhi365.cn:88/group1/M00/00/0D/rB8QsF4S_UuADjC_AAAw7TSoFOI571.png') center no-repeat;background-size: 100% 100%;">
+          <div class="info" v-show="haveCard" style="border: solid 0.1rem #43345d ; border-radius: 1rem;background: url('http://cloud.fhi365.cn:88/group1/M00/00/0D/rB8QsF4S_UuADjC_AAAw7TSoFOI571.png') center no-repeat;background-size: 100% 100%;">
             <div class="bank-name">
               <div>银行名称：<span>{{item.bankName | bankName}}</span></div>
             </div>
@@ -162,8 +162,7 @@
 <style lang="scss" scoped>
   .content {
     margin-top: 1rem;
-    background-color: #291744;
-    border-radius: 1rem;
+    /*border-radius: 1rem;*/
   }
 
   .info {

@@ -31,7 +31,7 @@
         </van-radio-group>
       </div>
       <div class="transferAmount">
-        <p>转账金额（元）</p>
+        <p>金额（元）</p>
         <van-field v-model="amount" type="number" placeholder="" @input="change">
           <div slot="label" style="text-align: right">￥</div>
         </van-field>
@@ -43,7 +43,7 @@
         </div>
       </div>
       <!--      <van-button  v-if="curr==4" class="btn" color="#FF6D44" @click="goTraditional">立即存款</van-button>-->
-      <van-button class="btn" color="#FF6D44" @click="handleCharge">立即存款</van-button>
+      <van-button class="btn" color="#FF6D44" @click="handleCharge">立即充值</van-button>
     </div>
     <loading :show="loading"></loading>
     <van-popup v-model="showImg">
@@ -104,7 +104,7 @@
             this.loading = true
             depositPaymentCategories(data).then(response => {
                 this.autoMethodList = response.result.payment_cats.auto
-                this.totalMethodList = this.autoMethodList
+                this.totalMethodList = this.autoMethodList.reverse()
                 this.manualMethodList = response.result.payment_cats.manual
                 this.totalMethodList = this.totalMethodList.concat(this.manualMethodList)
                 this.tempList = this.totalMethodList[0]

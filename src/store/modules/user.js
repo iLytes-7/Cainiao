@@ -83,6 +83,8 @@ const actions = {
         Cookies.remove('visid_incap_2130206')
         Cookies.remove('yd_cookie')
         resolve()
+      }).catch(() => {
+        reject()
       })
     })
   },

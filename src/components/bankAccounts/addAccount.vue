@@ -77,6 +77,7 @@
                 let data = {
                     api_key: "ea443b05c7067089bd2716f47257ee73",
                     username: this.name,
+                    token: this.token,
                     bankTypeId: this.form.bankTypeId,
                     bankAccNum: this.form.bankAccNum,
                     bankAccName: this.form.bankAccName,

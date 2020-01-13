@@ -183,6 +183,8 @@
                   }else{
                     this.$router.push({path: "/login"})
                   }
+                }).catch(() => {
+                  this.loading = false
                 })
             },
             getQueryPlayerBalance() {

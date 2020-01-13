@@ -2,8 +2,8 @@
   <div class="forget">
     <van-field required v-model="username" v-show="showUsername" placeholder="请输入用户名" @focus="showUsernameTip"
                @blur="testUsername"/>
-    <span v-show="usernameTip" style="color: white">用户名 长度必须为6-12之间由小写字母和数字组成！</span>
-    <span v-show="usernameError">用户名 长度必须为6-12之间由小写字母和数字组成！</span>
+    <span v-show="usernameTip" style="color: white">用户名以字母开头，长度必须为6-12之间由小写字母和数字组成！</span>
+    <span v-show="usernameError">用户名以字母开头，长度必须为6-12之间由小写字母和数字组成！</span>
     <van-field required type="password"  v-model="password" v-show="showPassword" placeholder="请输入账户密码"
                @focus="showPasswordTip" @blur="showPasswordError"/>
     <span v-show="passwordError">账户密码 长度必须为6-20之间由英文字母与数字组成！不能与您的用户名相似！</span>
@@ -152,7 +152,7 @@
             },
             submit() {
                 let phone = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
-                let username = /^(?![0-9]+$)(?![a-z]+$)[0-9a-z]{6,12}$/;
+                let username = /^[a-z][a-z0-9]{5,11}$/;
                 let password = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9a-zA-Z]{6,20}$/;
                 // this.$toast.success('成功');
                 if (!username.test(this.username)) {
@@ -237,7 +237,7 @@
             //     return code + Num
             // },
             testUsername() {
-                let username = /^(?![0-9]+$)(?![a-z]+$)[0-9a-z]{6,12}$/;
+                let username = /^[a-z][a-z0-9]{5,11}$/;
                 if (!username.test(this.username)) {
                     this.usernameError = true
                     this.usernameTip = false
