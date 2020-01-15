@@ -2,6 +2,7 @@
   <div>
     <div class="accounts">
       <p v-if="withdrawBanks.length === 0" style="text-align:center;font-size: 2rem">暂无银行卡</p>
+        <div style="margin-top: 1rem;font-size: 1.1rem;color: gainsboro">*修改或删除银行卡信息请联系在线客服</div>
       <div class="bank" v-for="(item,index) in withdrawBanks" :key="index">
         <div class="imgBox">
           <img src="../../assets/image/yllogo.png" alt="">

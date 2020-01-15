@@ -3,7 +3,7 @@
     <van-cell-group class="form">
       <van-field readonly required v-model="form.bankName" label="银行：" placeholder="请选择银行" @click="show = true"/>
       <van-field required disabled="true" v-model="form.bankAccName" label="账户名：" placeholder="请输入账户名" />
-      <van-field required v-model="form.bankAccNum" label="账号：" placeholder="请输入账号"/>
+      <van-field required type="number" v-model="form.bankAccNum" label="账号：" placeholder="请输入账号"/>
       <van-field v-model="form.province" label="开户省：" placeholder="请输入开户省"/>
       <van-field v-model="form.city" label="开户市：" placeholder="请输入开户市"/>
       <van-field v-model="form.branch" label="分行名称：" placeholder="请输入分行名称"/>
@@ -89,7 +89,7 @@
                 this.loading = true
                 addPlayerWithdrawAccount(data).then(res => {
                     this.$toast('新增银行卡成功！！')
-                    this.$router.push({path: '/bankAccount/accountList'})
+                    // this.$router.push({path: '/bankAccount/accountList'})
                     this.loading = false
                 }).catch(() => {
                     this.loading = false

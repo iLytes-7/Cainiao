@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Notify,Dialog  } from 'vant';
+import {Notify, Dialog} from 'vant';
 import store from '@/store'
 import router from '@/router'
 
@@ -29,7 +29,7 @@ service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
    * Please return  response => response
-  */
+   */
 
   /**
    * Determine the request status by custom code
@@ -42,14 +42,68 @@ service.interceptors.response.use(
       let resData = res.split('</div>')[1]
       res = JSON.parse(resData)
     }
-    if(response.config.url.indexOf('http://player.dj002.t1t.in/api/player_center/isPlayerExist') > -1){ // 用户名重复问题
+    if (response.config.url.indexOf('http://player.dj002.t1t.in/api/player_center/isPlayerExist') > -1) { // 用户名重复问题
       if (res.code === 0) {
         res.code = 4
         res.message = '用户名重复'
-      }else{
+      } else {
         res.code = 0
       }
     }
+    if (res.code === 490) {
+      res.message = '请选择银行！'
+    }
+    if (res.code === 491) {
+      res.message = '请正确填写16-19位的银行卡号！'
+    }
+    if (res.code === 5) {
+      res.message = '账户名或密码错误!'
+    }
+    if (res.code === 19) {
+      res.message = '发生其他问题造成登入失败!'
+    }
+    if (res.code === 161) {
+      res.message = '登陆信息已过期，请您重新登陆！'
+    }
+    if (res.code === 307) {
+      res.message = '依照KYC规则，限制高风险玩家取款！'
+    }
+    if (res.code === 308) {
+      res.message = '取款密码不正确！'
+    }
+    if (res.code === 309) {
+      res.message = '单比取款金额超过上限！'
+    }
+    if (res.code === 310) {
+      res.message = '单比取款金额低于下限！'
+    }
+    if (res.code === 311) {
+      res.message = '每日累计取款金额超过上限！'
+    }
+    if (res.code === 312) {
+      res.message = '每日累计取款次数超过上限！'
+    }
+    if (res.code === 313) {
+      res.message = '流水不足，不能取款！'
+    }
+    if (res.code === 314) {
+      res.message = '还没达到取款条件要求的流水，不能取款！'
+    }
+    if (res.code === 315) {
+      res.message = '受VIP群组规则限制，同时只能发起一笔取款！'
+    }
+    if (res.code === 316) {
+      res.message = '从自钱包转回主钱包失败，停止操作！'
+    }
+    if (res.code === 319) {
+      res.message = '其他原因造成取款失败！'
+    }
+    if (res.code === 318) {
+      res.message = '余额不足，取款失败！'
+    }
+
+
+
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 0) {
       if (res.code === 21 || res.code === 298) { // 数据为空时，接口不返回空数组，且报错时的处理
@@ -73,7 +127,7 @@ service.interceptors.response.use(
             const ua = navigator.userAgent.toLowerCase();
             if (ua.match(/MicroMessenger/i) != "micromessenger") {
               location.reload()
-            }else{
+            } else {
               router.push({path: "/login"})
             }
           })

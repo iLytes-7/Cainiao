@@ -1,6 +1,5 @@
-import { login, logout, getPlayerProfile, smsRegCreatePlayer, updatePlayerWithdrawalPassword } from '@/api/user'
+import { login, logout, smsRegCreatePlayer, updatePlayerWithdrawalPassword } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { transfer} from "@/api/bank"
 import Cookies from 'js-cookie'
 
 const state = {
@@ -40,15 +39,6 @@ const actions = {
         }
         updatePlayerWithdrawalPassword(data1).then(response => {
         })
-        // let data2 = {
-        //   api_key: "ea443b05c7067089bd2716f47257ee73",
-        //   username: userInfo.username,
-        //   token: data.token,
-        //   transfer_to: 5593,
-        //   transfer_from:0
-        // }
-        // transfer(data2).then(res => {
-        // })
         resolve()
       }).catch(error => {
         reject(error)
