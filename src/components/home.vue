@@ -4,7 +4,8 @@
       <img @click="goUser" src="../assets/image/goUser.png" alt="" style="width:1.8rem;height:1.6rem;position: absolute
           ;z-index:99999;left: 2rem;top: 1rem">
       <div
-        style="position: absolute;top: 50%;left: 50%;transform: translateX(-50%) translateY(-50%);font-size: 1.6rem;color: white">菜鸟电竞
+        style="position: absolute;top: 50%;text-align:center;left: 50%;transform: translateX(-50%) translateY(-50%);font-size: 1.6rem;color: white">
+        <img src="../assets/image/homeLogo.png" alt="" style="width: 60%;margin-top: 0.5rem">
       </div>
       <a href="https://chat.liveneed.net/chat/Hotline/channel.jsp?cid=5052195&cnfid=42351&j=7220487914&s=1"><img
         src="../assets/image/homeKefu.png" style="width:1.7rem;height:1.8rem;position: absolute
@@ -70,7 +71,8 @@
                         }).catch(() => {
                         })
                     }
-                    if (this.token === undefined || this.token === ''){
+                  console.log(this.token)
+                  if (this.token === undefined || !this.token){
                         this.url =
                             'http://player.dj002.t1t.in/'+response.result.game_types.e_sports.mobile
                     } else {
