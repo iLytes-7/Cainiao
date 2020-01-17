@@ -113,107 +113,108 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
-    import {Toast} from 'vant';
-    import { getPlayerVipStatus } from '@/api/user'
-    export default {
-        data() {
-            return {
-                value: 0,
-                loading: false,
-                url: '',
-                img:'',
-                data:{},
-                maxLevel:true
-            }
-        },
-        computed: {
-            ...mapGetters([
-                'name',
-                'token',
-                'mainWallet'
-            ])
-        },
-        mounted() {
-            this.getQueryPlayerBalance()
-            let data = {
-                api_key: 'ea443b05c7067089bd2716f47257ee73',
-                username: this.name,
-                token: this.token,
-                data:{}
-            }
-          getPlayerVipStatus(data).then(response => {
-            this.data =  response.result
-            this.value = parseInt(response.result.current_bet)/parseInt(response.result.required_bet)
-            this.img = 'http://player.dj002.t1t.in' + response.result.current_level_badge
-            if (response.result.is_at_max_level){
-                this.maxLevel = false
-            }
-          })
-        },
-        methods: {
-            onchange(value) {
-                this.value = parseInt(this.data.current_bet)/parseInt(this.data.required_bet);
-            },
-            recharge() {
-                this.$router.push({path: "/recharge/recharge"})
-            },
-            goPerson() {
-                this.$router.push({path: "/personal-info"})
-            },
-            goCuxiao() {
-                this.$router.push({path: "/cuxiao"})
-            },
-            transform() {
-                this.$router.push({path: "/transform"})
-            },
-            withdraw() {
-                this.$router.push({path: "/withdraw"})
-            },
-            // 复制成功
-            onCopy(e) {
-                Toast('复制成功');
-            },
-            // 复制失败
-            onError(e) {
-                alert("失败");
-                Toast('复制失败');
-            },
-            logout() {
-                let data = {
-                    api_key: 'ea443b05c7067089bd2716f47257ee73',
-                    username: this.name,
-                    token: this.token
-                }
-                this.loading = true
-                this.$store.dispatch('user/logout', data).then( res => {
-                    this.loading = false
-                  // const ua = navigator.userAgent.toLowerCase();
-                  // if (ua.match(/MicroMessenger/i) != "micromessenger") {
-                  //   location.reload()
-                  // }else{
-                  //   this.$router.push({path: "/login"})
-                  // }
-                }).catch(() => {
-                  this.loading = false
-                })
-            },
-            getQueryPlayerBalance() {
-                let data = {
-                    api_key: "ea443b05c7067089bd2716f47257ee73",
-                    username: this.name,
-                    token: this.token,
-                    refresh: 1
-                }
-                this.loading = true
-                this.$store.dispatch('bank/queryPlayerBalance', data).then(res => {
-                    this.loading = false
-                }).catch(() => {
-                    this.loading = false
-                })
-            }
+  import {mapGetters} from 'vuex'
+  import {Toast} from 'vant';
+  import {getPlayerVipStatus} from '@/api/user'
+
+  export default {
+    data() {
+      return {
+        value: 0,
+        loading: false,
+        url: '',
+        img: '',
+        data: {},
+        maxLevel: true
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'name',
+        'token',
+        'mainWallet'
+      ])
+    },
+    mounted() {
+      this.getQueryPlayerBalance()
+      let data = {
+        api_key: 'ea443b05c7067089bd2716f47257ee73',
+        username: this.name,
+        token: this.token,
+        data: {}
+      }
+      getPlayerVipStatus(data).then(response => {
+        this.data = response.result
+        this.value = parseInt(response.result.current_bet) / parseInt(response.result.required_bet)
+        this.img = 'http://player.dj002.t1t.in' + response.result.current_level_badge
+        if (response.result.is_at_max_level) {
+          this.maxLevel = false
         }
+      })
+    },
+    methods: {
+      onchange(value) {
+        this.value = parseInt(this.data.current_bet) / parseInt(this.data.required_bet);
+      },
+      recharge() {
+        this.$router.push({path: "/recharge/recharge"})
+      },
+      goPerson() {
+        this.$router.push({path: "/personal-info"})
+      },
+      goCuxiao() {
+        this.$router.push({path: "/cuxiao"})
+      },
+      transform() {
+        this.$router.push({path: "/transform"})
+      },
+      withdraw() {
+        this.$router.push({path: "/withdraw"})
+      },
+      // 复制成功
+      onCopy(e) {
+        Toast('复制成功');
+      },
+      // 复制失败
+      onError(e) {
+        alert("失败");
+        Toast('复制失败');
+      },
+      logout() {
+        let data = {
+          api_key: 'ea443b05c7067089bd2716f47257ee73',
+          username: this.name,
+          token: this.token
+        }
+        this.loading = true
+        this.$store.dispatch('user/logout', data).then(res => {
+          this.loading = false
+          const ua = navigator.userAgent.toLowerCase();
+          if (ua.match(/MicroMessenger/i) != "micromessenger") {
+            location.reload()
+          } else {
+            this.$router.push({path: "/login"})
+          }
+        }).catch(() => {
+          this.loading = false
+        })
+      },
+      getQueryPlayerBalance() {
+        let data = {
+          api_key: "ea443b05c7067089bd2716f47257ee73",
+          username: this.name,
+          token: this.token,
+          refresh: 1
+        }
+        this.loading = true
+        this.$store.dispatch('bank/queryPlayerBalance', data).then(res => {
+          this.loading = false
+        }).catch(() => {
+          this.loading = false
+        })
+      }
     }
+  }
 </script>
 
 <style scoped>
