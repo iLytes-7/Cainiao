@@ -15,7 +15,7 @@
           <img src="../assets/image/vip.png" style="width: 1.5rem;height: 1.5rem;border-radius: 1rem;z-index: 999">
           <div @click="goCuxiao" style="font-size: 1rem;background-color: #654E40;width: 4.5rem;
             text-align: center;margin-left: -1rem;z-index: 1; height: 1.5rem;line-height: 1.8rem;border-radius: 0.9rem">
-            {{level}}
+            {{data.current_level}}
           </div>
           <van-icon @click="goPerson" name="arrow" size="1.4rem"
                     style="line-height: 1.5rem; position: absolute;right: 1.5rem"/>
@@ -29,10 +29,13 @@
             inactive-color="#41305B"
             style="width: 70%;"
           />
-          <span style="position: absolute;right: 3rem;top:-0.4rem" @click="goCuxiao">20%</span>
-          <p style="line-height: 0.5rem;font-size: 0.9rem" @click="goCuxiao" >
-            <span v-if="false">存款：30.00/0.00¥</span>
-            <span style="margin-left: 0rem">下注：1.75/10.00¥</span>
+          <span style="position: absolute;right: 3rem;top:-0.4rem" @click="goCuxiao">{{value}}%</span>
+          <p style="line-height: 0.5rem;font-size: 0.9rem" @click="goCuxiao" v-if="maxLevel">
+            <span v-if="false">存款：{{data.current_deposit}}/{{data.required_deposit}}¥</span>
+            <span style="margin-left: 0rem">下注：{{data.current_bet}}/{{data.required_bet}}¥</span>
+          </p>
+          <p style="line-height: 0.5rem;font-size: 0.9rem" @click="goCuxiao" v-else>
+            <span style="margin-left: 0rem">您目前已是最高级别会员</span>
           </p>
         </div>
       </div>
@@ -112,14 +115,16 @@
 <script>
     import {mapGetters} from 'vuex'
     import {Toast} from 'vant';
-    import { getPlayerProfile } from '@/api/user'
+    import { getPlayerVipStatus } from '@/api/user'
     export default {
         data() {
             return {
-                value: 30,
+                value: 0,
                 loading: false,
-                level:'',
-                url: ''
+                url: '',
+                img:'',
+                data:{},
+                maxLevel:true
             }
         },
         computed: {
@@ -134,15 +139,21 @@
             let data = {
                 api_key: 'ea443b05c7067089bd2716f47257ee73',
                 username: this.name,
-                token: this.token
+                token: this.token,
+                data:{}
             }
-            getPlayerProfile(data).then(response => {
-                this.level = response.result.vip_level
-            })
+          getPlayerVipStatus(data).then(response => {
+            this.data =  response.result
+            this.value = parseInt(response.result.current_bet)/parseInt(response.result.required_bet)
+            this.img = 'http://player.dj002.t1t.in' + response.result.current_level_badge
+            if (response.result.is_at_max_level){
+                this.maxLevel = false
+            }
+          })
         },
         methods: {
             onchange(value) {
-                this.value = 30;
+                this.value = parseInt(this.data.current_bet)/parseInt(this.data.required_bet);
             },
             recharge() {
                 this.$router.push({path: "/recharge/recharge"})
@@ -177,12 +188,12 @@
                 this.loading = true
                 this.$store.dispatch('user/logout', data).then( res => {
                     this.loading = false
-                  const ua = navigator.userAgent.toLowerCase();
-                  if (ua.match(/MicroMessenger/i) != "micromessenger") {
-                    location.reload()
-                  }else{
-                    this.$router.push({path: "/login"})
-                  }
+                  // const ua = navigator.userAgent.toLowerCase();
+                  // if (ua.match(/MicroMessenger/i) != "micromessenger") {
+                  //   location.reload()
+                  // }else{
+                  //   this.$router.push({path: "/login"})
+                  // }
                 }).catch(() => {
                   this.loading = false
                 })
@@ -200,8 +211,6 @@
                 }).catch(() => {
                     this.loading = false
                 })
-            },
-            goConsoult() {
             }
         }
     }

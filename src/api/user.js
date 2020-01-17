@@ -53,6 +53,14 @@ export function getPlayerProfile(data) {
   })
 }
 
+export function getPlayerVipStatus(data) {
+  return request({
+    url: '/getPlayerVipStatus',
+    method: 'post',
+    data:param(data)
+  })
+}
+
 export function updatePlayerProfile(data) {
   return request({
     url: '/updatePlayerProfile',
