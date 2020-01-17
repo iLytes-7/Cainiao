@@ -74,7 +74,8 @@
                   console.log(this.token)
                   if (this.token === undefined || !this.token){
                         this.url =
-                            'http://player.dj002.t1t.in/'+response.result.game_types.e_sports.mobile
+                            // 'http://player.dj002.t1t.in/'+response.result.game_types.e_sports.mobile
+                          "https://h5.egaming1.com?payload=logout"
                     } else {
                         this.url =
                         'https://player.dj002.t1t.in/iframe/auth/login_with_token/'+this.token+'?next=/'+response.result.game_types.e_sports.mobile

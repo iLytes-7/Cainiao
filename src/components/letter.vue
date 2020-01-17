@@ -7,11 +7,11 @@
     </div>
     <div style="height: 0.3rem;width: 100%"></div>
     <div class="messageBox">
-      <div class="content" v-for="(item,index) in messageData" :key="index">
-        <div><p style="width: 90%; font-size: 1.1rem;text-align: center;font-weight: 600">{{item.subject}}</p></div>
+      <div class="content" v-for="(item,index) in messageData" :key="index" @click="goDetail(item)">
+        <div style="position:relative;"><p style="width: 90%; font-size: 1.1rem;text-align: center;font-weight: 600;overflow: hidden;text-overflow: ellipsis;white-space: nowrap">{{item.subject}}</p><span class="redDot" v-if="item.status==6"></span></div>
         <div><p
-          style="width: 80%; font-size: 1.1rem;color: #AFACB4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;"
-          class="van-multi-ellipsis--l3">{{item.detail}}</p></div>
+          style="width: 80%; font-size: 1.1rem;color: #AFACB4;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;"
+          class="van-multi-ellipsis--l3" v-html="item.detail.substr(0,10)"></p></div>
         <div><p style="width: 90%; font-size: 1.1rem;text-align: center;color: #AFACB4">{{item.date}}</p></div>
       </div>
       <p v-if="messageData.length === 0" style="text-align: center">
@@ -62,6 +62,9 @@
             goEdit() {
                 this.$router.push({path: "/editletter"})
             },
+          goDetail(item){
+                this.$router.push({path: "/letterDetail" , query:{letterId:item.messageId,letterTitle:item.subject}})
+          }
         }
     }
 </script>
@@ -94,6 +97,17 @@
     left: 50%;
     top: 50%;
     transform: translateY(-50%) translateX(-50%);
+  }
+  .redDot{
+    position: absolute;
+    top:0.8rem;
+    right: 1rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    display: inline-block;
+    border-radius: 100%;
+    background-color: red;
+
   }
 
   .head > div {

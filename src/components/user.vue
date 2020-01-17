@@ -32,7 +32,7 @@
           <span style="position: absolute;right: 3rem;top:-0.4rem" @click="goCuxiao">{{value}}%</span>
           <p style="line-height: 0.5rem;font-size: 0.9rem" @click="goCuxiao" v-if="maxLevel">
             <span v-if="false">存款：{{data.current_deposit}}/{{data.required_deposit}}¥</span>
-            <span style="margin-left: 0rem">下注：{{data.current_bet}}/{{data.required_bet}}¥</span>
+            <span style="margin-left: 0rem">投注：{{data.current_bet}}/{{data.required_bet}}¥</span>
           </p>
           <p style="line-height: 0.5rem;font-size: 0.9rem" @click="goCuxiao" v-else>
             <span style="margin-left: 0rem">您目前已是最高级别会员</span>
@@ -74,6 +74,7 @@
       <div>
         <router-link to="/letter">
           <img src="../assets/image/xxsz.png" alt=""><span>消息设置</span>
+          <span class="redDot" v-if="redDot"></span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
         </router-link>
@@ -115,6 +116,7 @@
 <script>
   import {mapGetters} from 'vuex'
   import {Toast} from 'vant';
+  import {message} from '@/api/message'
   import {getPlayerVipStatus} from '@/api/user'
 
   export default {
@@ -125,7 +127,9 @@
         url: '',
         img: '',
         data: {},
-        maxLevel: true
+        maxLevel: true,
+        messageData:[],
+        redDot: false
       }
     },
     computed: {
@@ -146,10 +150,24 @@
       getPlayerVipStatus(data).then(response => {
         this.data = response.result
         this.value = parseInt(response.result.current_bet) / parseInt(response.result.required_bet)
-        this.img = 'http://player.dj002.t1t.in' + response.result.current_level_badge
+        // this.img = 'http://player.dj002.t1t.in' + response.result.current_level_badge
         if (response.result.is_at_max_level) {
           this.maxLevel = false
         }
+      })
+      let data1 = {
+        api_key: "ea443b05c7067089bd2716f47257ee73",
+        username: this.name,
+        token: this.token
+      }
+      message(data1).then(res => {
+        console.log(res.result.messages);
+        this.messageData = res.result.messages
+        this.messageData.find(item =>{
+          if (item.status === '6'){
+            this.redDot = true
+          }
+        })
       })
     },
     methods: {
@@ -252,7 +270,17 @@
     display: flex;
     flex-direction: row;
   }
+  .redDot{
+    position: absolute;
+    top:1.5rem;
+    left: 6rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    display: inline-block;
+    border-radius: 100%;
+    background-color: red;
 
+  }
   .left-box {
     width: 30%;
   }
@@ -320,11 +348,11 @@
   /*}*/
 
   .menu {
-    margin-top: 1rem;
+    margin-top: 0rem;
   }
 
   .menu > div {
-    padding: 0.3rem 0;
+    padding:  0;
     position: relative;
     line-height: 4.5rem;
     height: 4.5rem;

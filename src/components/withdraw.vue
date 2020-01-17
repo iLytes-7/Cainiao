@@ -29,7 +29,7 @@
         <img src="../assets/image/yang.png" style="width: 1.2rem;margin-top: 0.7rem">
       </div>
       <div class="input-right">
-        <van-field v-model="money" placeholder="0.00" type="number" size="large"
+        <van-field v-model="money" type="digit" size="large"
                    style="padding: 0.2rem 0.2rem ; background-color: #230F40;
                      border-bottom: solid 1px #483465; "/>
       </div>

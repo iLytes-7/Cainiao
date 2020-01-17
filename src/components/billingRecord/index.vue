@@ -76,20 +76,24 @@
       >
         <div v-for="(item,index) in list" :key="index">
           <div class="billBox" v-if="trans_type == 'cashback'" style="font-size: 1.1rem">
-            <div>{{item.date}}</div>
+            <div><p>{{item.date}}</p></div>
             <div>{{item.game_name}}</div>
             <div>{{trans_type | billCategory}}</div>
             <div>¥ {{item.amount | amount}}</div>
           </div>
           <div class="billBox" v-if="trans_type == 'deposit'" style="font-size: 1.1rem">
-            <div>{{item.request_date | date}}</div>
-            <div>{{item.secure_id}}</div>
+            <div><p>{{item.request_date}}</p></div>
+            <div v-clipboard:copy="item.secure_id"
+                 v-clipboard:success="onCopy"
+                 v-clipboard:error="onError">{{item.secure_id}}</div>
             <div style="width: 15%;flex: none">{{item.status}}</div>
             <div>¥ {{item.amount | amount}}</div>
           </div>
           <div class="billBox" v-if="trans_type == 'withdrawal'" style="font-size: 1.1rem">
-            <div>{{item.date | date}}</div>
-            <div>{{item.tx_code}}</div>
+            <div><p>{{item.date }}</p></div>
+            <div v-clipboard:copy="item.tx_code"
+                 v-clipboard:success="onCopy"
+                 v-clipboard:error="onError">{{item.tx_code}}</div>
             <div style="width: 15%;flex: none">{{item.status}}</div>
             <div>¥ {{item.amount | amount}}</div>
           </div>
@@ -105,7 +109,7 @@
             <div>{{trans_type | billCategory}}</div>
           </div>
           <div class="billBox" v-if="trans_type == 'game'" style="font-size: 1.1rem">
-            <div>{{item.game_type}}</div>
+            <div >{{item.game_type}}</div>
             <div>¥ {{item.bet_amount | amount}}</div>
             <div>¥ {{item.bet_plus_result}}</div>
           </div>
@@ -137,6 +141,7 @@
 <script>
   import {getPlayerReports} from '@/api/bill';
   import {mapGetters} from 'vuex'
+  import {Toast} from "vant";
 
   export default {
     name: "index",
@@ -218,6 +223,16 @@
             this.curr = 3
             break
         }
+      },
+      // 复制成功
+      onCopy(e) {
+        console.log(e);
+        Toast('复制成功');
+      },
+      // 复制失败
+      onError(e) {
+        alert("失败");
+        Toast('复制失败');
       },
       getList() {
         let data = {
@@ -309,10 +324,14 @@
   .billBox {
     display: flex;
     border-bottom: 1px solid #291744;
-    height: 4.5rem;
-    line-height: 4.5rem;
+    /*height: 4.5rem;*/
+    padding: 1rem 0;
+    /*line-height: 4.5rem;*/
     font-size: 1.3rem;
     color: #AFACB4;
+    p{
+      margin:0
+    }
   }
 
   .billBox{

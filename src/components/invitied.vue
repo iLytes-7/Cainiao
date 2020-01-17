@@ -1,7 +1,7 @@
 <template>
   <div class="invitied">
     <div style="position: relative; margin-top: 5rem">
-      <img src="../assets/image/invitied.png" alt="">
+      <img src="../assets/image/yqm.png" alt="">
       <div class="invitied-num">
         <div style="color: #8C74B1;font-size: 1.4rem;line-height: 1.5rem">您的邀请码</div>
         <div style="color: #E6E2ED;font-size: 3rem;font-weight: 600;letter-spacing: 0.1rem;line-height: 4rem">
@@ -12,10 +12,11 @@
                 v-clipboard:error="onError" href="javascript:void(0); ">复制邀请码</a></div>
       </div>
       <div class="invitied-url">
+        <div style="color: #8C74B1;font-size: 1.4rem;line-height: 1.5rem; margin-bottom: 0.5rem">您的专属链接</div>
         <div style="color: #E6E2ED;font-size: 1.3rem;line-height: 1.5;">{{invitiedUrl}}</div>
         <div><a v-clipboard:copy="invitiedUrl"
                 v-clipboard:success="onCopy"
-                v-clipboard:error="onError" href="javascript:void(0);">复制口令</a></div>
+                v-clipboard:error="onError" href="javascript:void(0);">复制链接</a></div>
       </div>
     </div>
     <loading :show="loading"></loading>

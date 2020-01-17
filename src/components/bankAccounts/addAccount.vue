@@ -7,9 +7,9 @@
       <van-field v-model="form.province" label="开户省：" placeholder="请输入开户省"/>
       <van-field v-model="form.city" label="开户市：" placeholder="请输入开户市"/>
       <van-field v-model="form.branch" label="分行名称：" placeholder="请输入分行名称"/>
-      <van-field v-model="form.phone" label="分行电话：" placeholder="请输入分行电话">
+<!--      <van-field v-model="form.phone" label="分行电话：" placeholder="请输入分行电话">-->
         <!--<van-button class="codeBtn" slot="button" size="small" type="primary">发送验证码</van-button>-->
-      </van-field>
+<!--      </van-field>-->
       <!--<van-field v-model="form.phone" label="验证码：" placeholder="请输入验证码"/>-->
     </van-cell-group>
     <van-button class="btn" color="#FF6D44" @click="submit">提交卡号</van-button>

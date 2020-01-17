@@ -30,6 +30,14 @@ const router = new Router({
       }
     },
     {
+      path: '/letterDetail',
+      name: 'letterDetail',
+      component: () => import('@/components/letterDetail'),
+      meta:{
+        title: '站内信详情'
+      }
+    },
+    {
       path: '/personal-info',
       name: 'personal-info',
       component: () => import('@/components/personal-info'),
@@ -158,7 +166,7 @@ const router = new Router({
           name: 'accountList',
           component: () => import('@/components/bankAccounts/accountList'),
           meta: {
-            title: '查看取款银行卡'
+            title: '银行账户'
           }
         },
         {
@@ -230,7 +238,7 @@ const router = new Router({
       name: 'bill',
       component: () => import('@/components/billingRecord'),
       meta:{
-        title: '账户记录'
+        title: '账单记录'
       }
     }
   ]
