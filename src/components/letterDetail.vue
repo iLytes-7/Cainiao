@@ -1,7 +1,8 @@
 <template>
   <div class="letterDetail">
     <div class="letterTitle">
-      主题：{{$route.query.letterTitle}}
+      <p style="font-size: 1.1rem">主题 : {{$route.query.letterTitle}}</p>
+      <p style="font-size: 1.1rem">时间 : {{messageData.date}}</p>
     </div>
     <div class="letterContent">
       <p v-html = 'messageData.message'>
@@ -9,7 +10,6 @@
     </div>
     <loading :show="loading"></loading>
   </div>
-
 </template>
 
 <script>
@@ -56,8 +56,9 @@ export default {
       font-size: 1.2rem;
     .letterTitle{
       font-size: 1.3rem;
-      text-align: center;
-      padding: 1rem;
+      line-height: 1rem;
+      text-align: left;
+      padding: 0.1rem 1rem;
       background-color: #291744;
       border-bottom: 1px solid #3d275e;
     }
