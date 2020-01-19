@@ -32,7 +32,7 @@
       </div>
       <div class="transferAmount">
         <p>金额（元）</p>
-        <van-field v-model="amount" type="number" placeholder="" @input="change">
+        <van-field v-model="amount" type="digit" placeholder="" @input="change">
           <div slot="label" style="text-align: right">￥</div>
         </van-field>
         <div class="amountList">

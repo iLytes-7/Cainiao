@@ -73,7 +73,7 @@
       </div>
       <div>
         <router-link to="/letter">
-          <img src="../assets/image/xxsz.png" alt=""><span>消息设置</span>
+          <img src="../assets/image/xxsz.png" alt=""><span>站内信</span>
           <span class="redDot" v-if="redDot"></span>
           <van-icon name="arrow" size="1.4rem"
                     style="position: absolute;right: 1.5rem; top:50%; transform: translateY(-50%);"/>
@@ -273,7 +273,7 @@
   .redDot{
     position: absolute;
     top:1.5rem;
-    left: 6rem;
+    left: 4.5rem;
     width: 0.6rem;
     height: 0.6rem;
     display: inline-block;
