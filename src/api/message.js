@@ -9,6 +9,14 @@ export function message(data) {
   })
 }
 
+export function messageSetRead(data) {
+  return request({
+    url: '/messageSetRead',
+    method: 'post',
+    data: param(data)
+  })
+}
+
 export function addMessage(data) {
   return request({
     url: '/addMessage',

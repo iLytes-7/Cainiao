@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import {message} from '@/api/message'
+  import {message,messageSetRead} from '@/api/message'
   import {mapGetters} from 'vuex'
 export default {
   data() {
@@ -37,8 +37,9 @@ export default {
     }
     this.loading = true
     message(data).then(res => {
-      console.log(res.result.messages);
       this.messageData = res.result[0]
+      messageSetRead(data).then(res => {
+      })
       this.loading = false
     }).catch(() => {
       this.loading = false

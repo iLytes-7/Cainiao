@@ -18,7 +18,7 @@
         暂无数据
       </p>
     </div>
-    <div style="margin-top: 5rem">
+    <div style="margin-top: 4rem; margin-bottom: 4rem">
         <div class="btn-edit" @click="goEdit">
           <img src="../assets/image/editicon.png">
         </div>
