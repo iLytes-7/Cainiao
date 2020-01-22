@@ -72,6 +72,7 @@
               v-model="currentDate_end"
               type="date"
               :min-date="minDate"
+              :max-date="maxDate"
               @cancel="endTimePop = false"
               @confirm="endTimeChange"
             />
@@ -165,8 +166,8 @@
                 genderDis: true,
                 birthdateDis:false,
                 sex: '',
-                minDate: new Date(1920, 1, 1),
-                maxDate: '',
+                minDate: new Date(1940, 0, 1),
+                maxDate: new Date(),
                 headVisible: false,
                 nameVisible: false,
                 tel: '',
@@ -180,7 +181,7 @@
                 endTimePop: false,
                 loading: false,
                 copyNickName: '',
-                currentDate_end: '',
+                currentDate_end: new Date(),
                 userListForm: {
                     end_time: '',
                 },

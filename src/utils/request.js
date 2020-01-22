@@ -101,8 +101,12 @@ service.interceptors.response.use(
     if (res.code === 318) {
       res.message = '余额不足，取款失败！'
     }
-
-
+    if (res.code === 594) {
+      res.message = '该电话号码已经被使用！'
+    }
+    if (res.code === 544) {
+      res.message = '请60秒之后再次尝试发送验证码！'
+    }
 
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 0) {
