@@ -109,6 +109,9 @@
     <div class="logout" @click="logout">退出登录</div>
     <div style="height: 0.7rem;width:100%;background-color: #291744">
     </div>
+    <div style="width: 100%; text-align: center; margin-top: 1.5rem ;margin-bottom: 1.5rem ">
+      <img src="../assets/image/RGLogo.png" style="width: 40%" alt="">
+    </div>
     <loading :show="loading"></loading>
   </div>
 </template>

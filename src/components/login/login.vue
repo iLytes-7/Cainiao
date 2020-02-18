@@ -24,6 +24,9 @@
       <router-link class="zhuce" to="/login/registered">免费注册</router-link>
     </div>
     <loading :show="loading"></loading>
+    <div style="width: 100%; text-align: center; margin-top: 1.5rem ;margin-bottom: 1.5rem ">
+      <img src="../../assets/image/RGLogo.png" style="width: 40%;margin-left: 3rem;" alt="">
+    </div>
   </div>
 </template>
 
@@ -37,8 +40,8 @@
     },
     data() {
       return {
-        password: '1234567qq',
-        username: 'tq123456',
+        password: '',
+        username: '',
         verifycode: '',
         identifyCode: "",
         identifyCodes: "1234567890",

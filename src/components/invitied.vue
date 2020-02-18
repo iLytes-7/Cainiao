@@ -65,7 +65,7 @@
         this.loading = true
         getPlayerProfile(data).then(res => {
           this.invitiedNum = res.result.referral_code
-          this.invitiedUrl = 'http://applet.fhi365.cn/dist/index.html#/login/registered?referralcode=' +
+          this.invitiedUrl = 'http://player.bird10.com/player_center/iframe_register?referralcode=' +
               this.invitiedNum
           this.loading = false
         }).catch(() => {

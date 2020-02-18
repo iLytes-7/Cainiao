@@ -44,7 +44,7 @@
       }
     },
     mounted() {
-
+      document.title='Bird';
     },
     methods: {
       onClickLeft() {
