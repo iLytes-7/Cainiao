@@ -5,7 +5,7 @@ import router from '@/router'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'http://player.dj002.t1t.in/api/player_center', // url = base url + request url
+  baseURL: 'https://player.dj002.t1t.in/api/player_center', // url = base url + request url
   //withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
@@ -42,7 +42,7 @@ service.interceptors.response.use(
       let resData = res.split('</div>')[1]
       res = JSON.parse(resData)
     }
-    if (response.config.url.indexOf('http://player.dj002.t1t.in/api/player_center/isPlayerExist') > -1) { // 用户名重复问题
+    if (response.config.url.indexOf('/player_center/isPlayerExist') > -1) { // 用户名重复问题
       if (res.code === 0) {
         res.code = 4
         res.message = '用户名重复'

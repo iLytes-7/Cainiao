@@ -167,6 +167,9 @@
     .verification .info-row .van-field__control {
       text-align: right;
     }
+    .user .van-slider--disabled{
+      opacity: 1;
+    }
 
     .charge-page .van-ellipsis {
       color: white;

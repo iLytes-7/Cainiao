@@ -73,8 +73,8 @@
                     }
                   console.log(this.token)
                   if (this.token === undefined || !this.token){
-                        this.url =
-                            'http://player.dj002.t1t.in/'+response.result.game_types.e_sports.mobile
+                        this.url = "https://h5.egaming1.com/?payload=logout"
+                          //   'https://player.dj002.t1t.in/'+response.result.game_types.e_sports.mobile
                           // "https://h5.egaming1.com?payload=logout"
                     } else {
                         this.url =

@@ -35,12 +35,12 @@
         <van-field v-model="amount" type="digit" placeholder="" @input="change">
           <div slot="label" style="text-align: right">￥</div>
         </van-field>
-        <div class="amountList">
-          <div v-for="(item,index) in amountData" :key="item" :class="{amountActive:item==amountcurr}"
-               @click="selectAmount(item)">
-            {{item}}元
-          </div>
-        </div>
+<!--        <div class="amountList">-->
+<!--          <div v-for="(item,index) in amountData" :key="item" :class="{amountActive:item==amountcurr}"-->
+<!--               @click="selectAmount(item)">-->
+<!--            {{item}}元-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
       <!--      <van-button  v-if="curr==4" class="btn" color="#FF6D44" @click="goTraditional">立即存款</van-button>-->
       <van-button class="btn" color="#FF6D44" @click="handleCharge">立即充值</van-button>

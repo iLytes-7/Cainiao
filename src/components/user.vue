@@ -26,6 +26,7 @@
             v-model="value"
             bar-height="0.4rem"
             active-color="#FF6D44"
+            disabled
             inactive-color="#41305B"
             style="width: 70%;"
           />
@@ -152,7 +153,7 @@
       }
       getPlayerVipStatus(data).then(response => {
         this.data = response.result
-        this.value = parseInt(response.result.current_bet) / parseInt(response.result.required_bet)
+        this.value = Math.round(parseInt(response.result.current_bet) / parseInt(response.result.required_bet))
         // this.img = 'http://player.dj002.t1t.in' + response.result.current_level_badge
         if (response.result.is_at_max_level) {
           this.maxLevel = false
@@ -175,7 +176,7 @@
     },
     methods: {
       onchange(value) {
-        this.value = parseInt(this.data.current_bet) / parseInt(this.data.required_bet);
+        this.value = Math.round(parseInt(response.result.current_bet) / parseInt(response.result.required_bet));
       },
       recharge() {
         this.$router.push({path: "/recharge/recharge"})
