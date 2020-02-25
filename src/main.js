@@ -18,6 +18,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueQriously)
 
+
 Vue.prototype.axios = axios
 
 import * as filters from './filters' // global filters
