@@ -78,7 +78,7 @@
                           // "https://h5.egaming1.com?payload=logout"
                     } else {
                         this.url =
-                        'https://player.dj002.t1t.in/iframe/auth/login_with_token/'+this.token+'?next=/'+response.result.game_types.e_sports.mobile
+                        'https://bird10.com/iframe/auth/login_with_token/'+this.token+'?next=/'+response.result.game_types.e_sports.mobile
                     }
                     console.log(this.url);
                     // alert(this.url)
