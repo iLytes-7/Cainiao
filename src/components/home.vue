@@ -66,12 +66,10 @@
                         refresh: 1
                     }
                     if(this.name){
-                        console.log(this.name)
                         this.$store.dispatch('bank/queryPlayerBalance', data).then(res => {
                         }).catch(() => {
                         })
                     }
-                  console.log(this.token)
                   if (this.token === undefined || !this.token){
                         this.url = "https://h5.egaming1.com/?payload=logout"
                           //   'https://player.dj002.t1t.in/'+response.result.game_types.e_sports.mobile
