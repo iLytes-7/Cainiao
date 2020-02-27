@@ -90,8 +90,8 @@
         }
         this.loading = true
         this.$store.dispatch('user/login', data).then(res => {
-            console.log(res);
             this.$toast("登录成功！")
+          sessionStorage.setItem("loginKey", 'has')
           this.$router.push({path: "/"})
           this.loading = false
         }).catch(() => {

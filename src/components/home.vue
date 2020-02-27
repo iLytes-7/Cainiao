@@ -20,111 +20,117 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
-    import { listGamePlatforms ,listGamesByPlatform } from '@/api/listGame';
-    export default {
-        name: 'HelloWorld',
-        data() {
-            return {
-                show: false,
-                value: 30,
-                mainWallet: 543012.00,
-                gameWallet: 2294.03,
-                platform_id: 0,
-                url: ''
-            }
-        },
-        computed: {
-            ...mapGetters([
-                'name',
-                'token'
-            ])
-        },
-        created() {
-            const data = {
-                ocss: 'http://www.fhi365.cn/css/app.cb458893d670b9e7ece80f5cbde06d57.css'
-            }
-            let post = {
-                api_key: "ea443b05c7067089bd2716f47257ee73",
-                username: this.name,
-                token:this.token
-            }
-            this.loading = true
-            listGamePlatforms(post).then(response => {
-                this.platform_id = response.result[0].id
-                let post1 = {
-                    api_key: "ea443b05c7067089bd2716f47257ee73",
-                    username: this.name,
-                    token:this.token,
-                    platform_id: parseInt(this.platform_id)
-                }
-                listGamesByPlatform(post1).then(response => {
-                    let data = {
-                        api_key: "ea443b05c7067089bd2716f47257ee73",
-                        token: this.token,
-                        username: this.name,
-                        refresh: 1
-                    }
-                    if(this.name){
-                        this.$store.dispatch('bank/queryPlayerBalance', data).then(res => {
-                        }).catch(() => {
-                        })
-                    }
-                  if (this.token === undefined || !this.token){
-                        this.url = "https://h5.egaming1.com/?payload=logout"
-                          //   'https://player.dj002.t1t.in/'+response.result.game_types.e_sports.mobile
-                          // "https://h5.egaming1.com?payload=logout"
-                    } else {
-                        this.url =
-                        'https://bird10.com/iframe/auth/login_with_token/'+this.token+'?next=/'+response.result.game_types.e_sports.mobile
-                    }
-                    console.log(this.url);
-                    // alert(this.url)
-                    this.loading = false
-                }).catch(() => {
-                    this.loading = false
-                })
-            }).catch(() => {
-                this.loading = false
-            })
-        },
-        mounted() {
-        },
+  import {mapGetters} from 'vuex'
+  import {listGamePlatforms, listGamesByPlatform} from '@/api/listGame';
 
-        methods: {
-            goUser() {
-                this.$router.push({path: "/user"})
-            },
-            loadFrame(obj){
-                  var url = obj.contentWindow.location.href;
-                 console.log(url);
-            }
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        show: false,
+        value: 30,
+        mainWallet: 543012.00,
+        gameWallet: 2294.03,
+        platform_id: 0,
+        url: ''
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'name',
+        'token'
+      ])
+    },
+    created() {
+      const data = {
+        ocss: 'http://www.fhi365.cn/css/app.cb458893d670b9e7ece80f5cbde06d57.css'
+      }
+      let post = {
+        api_key: "ea443b05c7067089bd2716f47257ee73",
+        username: this.name,
+        token: this.token
+      }
+      this.loading = true
+      listGamePlatforms(post).then(response => {
+        this.platform_id = response.result[0].id
+        let post1 = {
+          api_key: "ea443b05c7067089bd2716f47257ee73",
+          username: this.name,
+          token: this.token,
+          platform_id: parseInt(this.platform_id)
         }
+        listGamesByPlatform(post1).then(response => {
+          let data = {
+            api_key: "ea443b05c7067089bd2716f47257ee73",
+            token: this.token,
+            username: this.name,
+            refresh: 1
+          }
+          if (this.name) {
+            this.$store.dispatch('bank/queryPlayerBalance', data).then(res => {
+            }).catch(() => {
+            })
+          }
+          if (this.token === undefined || !this.token) {
+            if (sessionStorage.getItem("loginKey")) {
+              this.url = "https://h5.egaming1.com/?payload=logout"
+            } else {
+              this.url = 'https://player.dj002.t1t.in/' + response.result.game_types.e_sports.mobile
+            }
+          } else {
+            this.url =
+              'https://bird10.com/iframe/auth/login_with_token/' + this.token + '?next=/' + response.result.game_types.e_sports.mobile
+          }
+          console.log(this.url);
+          // alert(this.url)
+          this.loading = false
+        }).catch(() => {
+          this.loading = false
+        })
+      }).catch(() => {
+        this.loading = false
+      })
+    },
+    mounted() {
+    },
+
+    methods: {
+      goUser() {
+        this.$router.push({path: "/user"})
+      },
+      loadFrame(obj) {
+        var url = obj.contentWindow.location.href;
+        console.log(url);
+      }
     }
+  }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  .home{
+  .home {
   }
+
   .home .menu a {
     display: inline-block;
     width: 100%;
     color: white !important;
   }
 
-  .top-btn-box{
+  .top-btn-box {
     position: fixed;
-    top:0;
+    top: 0;
     display: flex;
     justify-content: space-between;
     width: 100%;
     height: 3.5rem;
     background-color: #331a4d;
   }
+
   h1, h2 {
     font-weight: normal;
   }
-  .home-btn{
+
+  .home-btn {
     margin-left: 1rem;
     margin-top: 1rem;
   }
@@ -147,11 +153,12 @@
   .left-box {
     width: 30%;
   }
+
   .iframeDiv {
     /*overflow-scrolling: touch;*/
     /*overflow: scroll;*/
     position: fixed;
-    top:3.5rem;
+    top: 3.5rem;
     padding-bottom: 4rem;
     height: 100%;
     width: 100%;
