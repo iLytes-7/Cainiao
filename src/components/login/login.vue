@@ -52,6 +52,12 @@
       }
     },
     mounted() {
+      if (sessionStorage.getItem("username")){
+        this.username = sessionStorage.getItem("username")
+      }
+      if (sessionStorage.getItem("password")){
+        this.password = sessionStorage.getItem("password")
+      }
       this.contentHeight = document.getElementById('code').getBoundingClientRect().height
       this.contentWidth = document.getElementById('code').getBoundingClientRect().width / 2 * 0.7
       this.$nextTick(() => {
@@ -92,6 +98,8 @@
         this.$store.dispatch('user/login', data).then(res => {
             this.$toast("登录成功！")
           sessionStorage.setItem("loginKey", 'has')
+          sessionStorage.setItem("username", this.username)
+          sessionStorage.setItem("password", this.password)
           this.$router.push({path: "/"})
           this.loading = false
         }).catch(() => {

@@ -132,7 +132,7 @@
         img: '',
         data: {},
         maxLevel: true,
-        messageData:[],
+        messageData: [],
         redDot: false
       }
     },
@@ -153,7 +153,18 @@
       }
       getPlayerVipStatus(data).then(response => {
         this.data = response.result
-        this.value = Math.round(parseInt(response.result.current_bet) / parseInt(response.result.required_bet))
+        const bottomArr = response.result.required_bet.split(',')
+        const topArr = response.result.current_bet.split(',')
+        let bot = ''
+        let top = ''
+        bottomArr.forEach(item => {
+          bot = bot + item
+        })
+        topArr.forEach(item => {
+          top = top + item
+        })
+        this.value = Math.round(parseFloat(top) / parseFloat(bot) * 100 )
+
         // this.img = 'http://player.dj002.t1t.in' + response.result.current_level_badge
         if (response.result.is_at_max_level) {
           this.maxLevel = false
@@ -167,8 +178,8 @@
       message(data1).then(res => {
         console.log(res.result.messages);
         this.messageData = res.result.messages
-        this.messageData.find(item =>{
-          if (item.status === '6'){
+        this.messageData.find(item => {
+          if (item.status === '6') {
             this.redDot = true
           }
         })
@@ -176,7 +187,6 @@
     },
     methods: {
       onchange(value) {
-        this.value = Math.round(parseInt(response.result.current_bet) / parseInt(response.result.required_bet));
       },
       recharge() {
         this.$router.push({path: "/recharge/recharge"})
@@ -274,9 +284,10 @@
     display: flex;
     flex-direction: row;
   }
-  .redDot{
+
+  .redDot {
     position: absolute;
-    top:1.5rem;
+    top: 1.5rem;
     left: 4.5rem;
     width: 0.6rem;
     height: 0.6rem;
@@ -285,6 +296,7 @@
     background-color: red;
 
   }
+
   .left-box {
     width: 30%;
   }
@@ -356,7 +368,7 @@
   }
 
   .menu > div {
-    padding:  0;
+    padding: 0;
     position: relative;
     line-height: 4.5rem;
     height: 4.5rem;
